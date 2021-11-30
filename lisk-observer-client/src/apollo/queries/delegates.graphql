@@ -1,0 +1,36 @@
+query delegatesList {
+  delegates {
+    promises {
+      username
+      address
+      averageShared
+      promisedShare
+    }
+    supply
+    locked
+    delegates {
+      delegates {
+        address
+        username
+        dpos {
+          delegate {
+            username
+            pomHeights
+            consecutiveMissedBlocks
+            producedBlocks
+            lastForgedHeight
+            isBanned
+            totalVotesReceived
+            consensusWeight
+            rank
+            rankAdjusted
+            isConsensusParticipant
+            nextForgingTime
+            selfVotesAmount
+          }
+        }
+      }
+      total
+    }
+  }
+}

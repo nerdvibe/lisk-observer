@@ -1,0 +1,31 @@
+.row-cell-main-item {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: white;
+}
+
+.row-cell-sub-item {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.w-20 {
+  max-width: 50px;
+  min-width: 40px;
+  width: 20%;
+}
+
+.mw-200 {
+  min-width: 200px;
+}
+
+.mw-60 {
+  min-width: 60px;
+}
+
+.rank-column {
+  padding-left: 20px !important;
+  text-align: left;
+}

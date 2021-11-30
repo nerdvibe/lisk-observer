@@ -1,0 +1,157 @@
+.chart-background {
+  background: radial-gradient(
+    113.91% 113.91% at -11% -34.1%,
+    rgba(119, 126, 179, 0.76) 0%,
+    rgba(0, 0, 0, 0.7372) 100%
+  );
+  box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.25);
+  border-radius: 0px 5px 5px 0px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0 !important;
+}
+
+.chart-background canvas {
+  padding: 0px;
+}
+
+.card-img-overlay {
+  padding: 0 15px 0px 0 !important;
+  left: 14px !important;
+}
+
+.full-height {
+  height: 100%;
+  max-height: 300px;
+}
+
+.presentation-background {
+  background: radial-gradient(
+    113.91% 113.91% at -11% -34.1%,
+    #777eb3 0%,
+    rgba(61, 65, 101, 0.97) 100%
+  );
+  box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.25);
+  border-radius: 5px 0px 0px 5px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-height: 300px;
+}
+
+.presentation-content {
+  height: fit-content;
+  width: 80%;
+  /* align-items: center; */
+}
+
+.note-icon {
+  float: right;
+  font-size: xx-large;
+  position: relative;
+  width: 50px;
+  top: -20px;
+  opacity: 0.8;
+}
+
+.presentation-text {
+  overflow-y: scroll;
+  height: 130px;
+}
+
+.presentation-text::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+.presentation-content h3,
+.presentation-content p {
+  color: white !important;
+}
+
+#line-chart {
+  max-height: 300px;
+}
+
+.header-image {
+  min-height: 300px;
+  max-height: 300px;
+}
+
+.header-card {
+  height: 300px;
+  max-height: 300px;
+  background: url("../assets/galaxy_big.jpg") center center !important;
+  background-repeat: space;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.votes-col {
+  background: #03be9a;
+  padding: 15px;
+}
+
+.unvotes-col {
+  background: #03be9a;
+  padding: 15px;
+}
+
+.searchbox-list-group {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.left-block {
+  display: inline-block;
+}
+
+.stats-card-value {
+  font-size: x-large;
+  color: white;
+  padding: 0;
+  z-index: 10;
+}
+
+.homepage-price-block {
+  top: 20px;
+  left: 10px;
+  width: 250px !important;
+}
+
+.force-white-text {
+  color: white !important;
+}
+
+@media screen and (max-width: 590px) {
+  .note-icon {
+    top: -10;
+  }
+
+  .chart-background {
+    display: none;
+  }
+
+  .presentation-content {
+    border-radius: 10px;
+    padding-top: 40px;
+  }
+
+  .presentation-background {
+    border-radius: 10px;
+  }
+
+  .banner-container {
+    padding: 0px 10px;
+  }
+
+  .card-img-overlay {
+    padding: 0 !important;
+    left: 0px !important;
+  }
+}

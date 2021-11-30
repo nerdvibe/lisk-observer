@@ -1,0 +1,21 @@
+query richList($page: Int!) {
+  richList(page: $page) {
+    supply
+    accounts {
+      data {
+        username
+        address
+        balance
+        unlocked
+      }
+      pagination {
+        total
+        lastPage
+        currentPage
+        perPage
+        from
+        to
+      }
+    }
+  }
+}

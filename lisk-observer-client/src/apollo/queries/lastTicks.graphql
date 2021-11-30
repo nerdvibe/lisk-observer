@@ -1,0 +1,12 @@
+query lastTicks {
+  lastTicks {
+    LSKUSD
+    LSKBTC
+    LSKEUR
+    LSKKRW
+    LSKPLN
+    LSKJPY
+    LSKCNY
+    LSKAED
+  }
+}

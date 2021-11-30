@@ -1,0 +1,10 @@
+export enum SUPPORTED_CURRENCIES {
+  "LSKUSD" = "LSKUSD",
+  "LSKBTC" = "LSKBTC",
+  "LSKEUR" = "LSKEUR",
+  "LSKKRW" = "LSKKRW",
+  "LSKPLN" = "LSKPLN",
+  "LSKJPY" = "LSKJPY",
+  "LSKCNY" = "LSKCNY",
+  "LSKAED" = "LSKAED",
+}

@@ -1,0 +1,9 @@
+export enum TX_TYPES {
+  TRANSACTION = "2:0",
+  MULTISIG_REG = "4:0",
+  REGISTER_DELEGATE = "5:0",
+  VOTE = "5:1",
+  TOKEN_UNLOCK = "5:2",
+  POM_REPORT = "5:3",
+  LEGACY_ADDRESS_CLAIM = "1000:0",
+}

@@ -1,0 +1,11 @@
+query knownAddresses {
+  knownAddresses {
+    address
+    isExchange
+    isLiskHq
+    isScam
+    tag
+    identifier
+    balance
+  }
+}

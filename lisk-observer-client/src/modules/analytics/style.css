@@ -1,0 +1,130 @@
+.stats-card-container {
+  display: inline-block !important;
+  margin: 0px 10px;
+  min-height: 165px;
+}
+
+.stats-card-variation {
+  color: white;
+  padding-top: 5px;
+  text-shadow: 1px 1px 6px rgb(0, 0, 0, 0.5);
+}
+
+.variation-green {
+  color: rgb(0, 165, 0);
+  font-weight: bolder;
+}
+
+.variation-red {
+  color: #ff1d00;
+  font-weight: bolder;
+}
+
+.stats-card {
+  padding: 0px 0px !important;
+  height: 80px;
+  display: inline-block;
+  width: 100%;
+}
+
+.big-stats-card {
+  height: 180px;
+}
+
+.stats-card:focus:parent(div):after {
+  max-width: 350px;
+}
+
+.stats-card-data-block {
+  position: absolute;
+  z-index: 10;
+  padding: 0px 15px;
+  width: 100%;
+  display: inline-block;
+}
+
+.stats-card-chart {
+  bottom: -32px;
+  max-height: 100px;
+  position: relative;
+  margin-right: 0px !important;
+}
+
+.big-stats-card .stats-card-chart {
+  max-height: 170px;
+}
+
+.big-card {
+  max-height: 250px;
+}
+
+.stats-card-value {
+  font-size: x-large;
+  color: white;
+  padding: 0;
+  z-index: 10;
+}
+
+.stats-card-variation-label {
+  color: white;
+}
+
+.stats-card-sub-value {
+  font-size: medium;
+  color: white;
+  padding: 0;
+  z-index: 10;
+}
+
+.days-dropdown {
+  float: right;
+}
+
+.days-dropdown > button {
+  width: 120px;
+  padding: 0px 0px 5px 0px;
+}
+
+.left-block {
+  display: inline-block;
+}
+
+.right-block {
+  margin-top: 4%;
+  float: right;
+  display: inline-block;
+}
+
+.right-block-shifted {
+  position: relative;
+  bottom: 10px;
+}
+
+h3 {
+  margin-bottom: 0 !important;
+}
+
+.floating-card-dropdown {
+  position: absolute;
+  right: 10px;
+  top: 20px;
+}
+
+.floating-card-icon {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+
+.stats-card-icon {
+  font-size: 75px;
+  opacity: 0.2;
+  text-align: right;
+}
+
+.tx-volume-card-symbol {
+  font-size: 75px;
+  opacity: 0.2;
+  top: 20px;
+  position: relative;
+}

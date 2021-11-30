@@ -1,0 +1,22 @@
+.networkPeersContainer > .table-responsive {
+  max-height: 20vw;
+}
+
+.stickyTh {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #1e1e2b;
+}
+
+@media screen and (max-width: 1800px) {
+  .networkPeersContainer > .table-responsive {
+    max-height: 40vw;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .networkPeersContainer > .table-responsive {
+    max-height: 80vh;
+  }
+}

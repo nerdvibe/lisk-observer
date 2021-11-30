@@ -1,0 +1,128 @@
+query accountInfo($addressContext: String!) {
+  account(address: $addressContext) {
+    username
+    address
+    isDelegate
+    token {
+      balance
+      locked
+    }
+    sequence {
+      nonce
+    }
+    keys {
+      optionalKeys
+      mandatoryKeys
+      numberOfSignatures
+    }
+    dpos {
+      delegate {
+        username
+        pomHeights
+        consecutiveMissedBlocks
+        lastForgedHeight
+        isBanned
+        totalVotesReceived
+        selfVotesAmount
+        rankAdjusted
+        isConsensusParticipant
+        minActiveHeight
+        nextForgingTime
+        producedBlocks
+        rank
+      }
+      sentVotes {
+        delegateAddress
+        delegateUsername
+        amount
+      }
+      receivedVotes {
+        sender
+        senderUsername
+        amount
+      }
+      unlocking {
+        delegateAddress
+        amount
+        unvoteHeight
+        delegateUsername
+      }
+    }
+    hexAddress
+    publicKey
+  }
+}
+
+query accountTransactions($address: String!, $page: Int!) {
+  transactionsByAddress(address: $address, page: $page) {
+    ... on PaginatedTransaction {
+      pagination {
+        total
+        perPage
+        lastPage
+        to
+      }
+      data {
+        id
+        senderUsername
+        recipientUsername
+        recipientId
+        amount
+        fee
+        data
+        height
+        senderId
+        moduleAssetId
+        minFee
+        size
+        blockId
+        nonce
+        timestamp
+        voteAmount
+        votes {
+          delegateAddress
+          delegateUsername
+          amount
+        }
+      }
+    }
+  }
+}
+
+query legacyAccountInfo($address: String!) {
+  accountLegacy(address: $address) {
+    username
+    address
+    balance
+    publicKey
+  }
+}
+
+query legacyAccountTransactions($address: String!, $page: Int!) {
+  transactionsByAddress(address: $address, page: $page) {
+    ... on PaginatedTransactionLegacy {
+      pagination {
+        total
+        perPage
+        lastPage
+        to
+      }
+      data {
+        id
+        senderUsername
+        recipientUsername
+        type
+        timestamp
+        senderId
+        recipientId
+        isLegacy
+        amount
+        fee
+        data
+        recipientId
+        senderId
+        asset
+      }
+    }
+  }
+}

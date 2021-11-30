@@ -1,0 +1,52 @@
+query lastTenTransactions {
+  transactions(page: 1) {
+    data {
+      amount
+      senderPublicKey
+      recipientId
+      id
+      moduleAssetId
+      timestamp
+      senderId
+      senderUsername
+      recipientId
+      recipientUsername
+      data
+      height
+      fee
+      voteAmount
+    }
+  }
+}
+
+query lastDayTx {
+  txStats {
+    lastDay
+  }
+}
+
+query paginatedTransactions($page: Int, $TXType: String) {
+  transactions(page: $page, TXType: $TXType) {
+    data {
+      amount
+      senderPublicKey
+      senderId
+      recipientId
+      id
+      moduleAssetId
+      timestamp
+      senderUsername
+      recipientUsername
+      data
+      height
+      fee
+      voteAmount
+    }
+    pagination {
+      total
+      currentPage
+      from
+      to
+    }
+  }
+}

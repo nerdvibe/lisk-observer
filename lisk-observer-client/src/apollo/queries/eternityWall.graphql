@@ -1,0 +1,13 @@
+query eternityWall($page: Int) {
+  eternityWall(page: $page) {
+    data {
+      id
+      moduleAssetId
+      timestamp
+      senderId
+      amount
+      data
+      senderUsername
+    }
+  }
+}

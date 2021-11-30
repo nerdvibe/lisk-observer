@@ -1,0 +1,52 @@
+query getAnalytics {
+  stats {
+    last24TXs
+    blocks
+    staked
+    supply
+    totalTransactions
+    totalTransactions30
+    lastDay {
+      historicalTXs {
+        date
+        count
+        volume
+      }
+      totalCount
+      totalVolume
+      txKinds {
+        transfers
+        votes
+        poms
+      }
+    }
+    lastMonth {
+      historicalTXs {
+        date
+        count
+        volume
+      }
+      totalCount
+      totalVolume
+      txKinds {
+        transfers
+        votes
+        poms
+      }
+    }
+    lastYear {
+      historicalTXs {
+        date
+        count
+        volume
+      }
+      totalCount
+      totalVolume
+      txKinds {
+        transfers
+        votes
+        poms
+      }
+    }
+  }
+}

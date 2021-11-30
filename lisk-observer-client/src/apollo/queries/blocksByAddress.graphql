@@ -1,0 +1,17 @@
+query blocksByAddress($address: String!, $page: Int) {
+  blocksByAddress(address: $address, page: $page) {
+    data {
+      id
+      height
+      timestamp
+      reward
+      isFinal
+    }
+    pagination {
+      total
+      currentPage
+      from
+      to
+    }
+  }
+}

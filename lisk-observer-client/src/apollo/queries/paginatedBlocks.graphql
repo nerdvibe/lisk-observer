@@ -1,0 +1,16 @@
+query paginatedBlocks($page: Int) {
+  lastBlocks(page: $page) {
+    data {
+      id
+      height
+      username
+      generatorPublicKey
+    }
+    pagination {
+      total
+      currentPage
+      from
+      to
+    }
+  }
+}

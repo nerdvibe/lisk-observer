@@ -1,0 +1,12 @@
+query lastTenBlocks {
+  lastBlocks(page: 1) {
+    data {
+      id
+      timestamp
+      height
+      username
+      address
+      reward
+    }
+  }
+}

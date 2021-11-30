@@ -1,0 +1,21 @@
+query votes($page: Int!) {
+  votes(page: $page) {
+    pagination {
+      total
+      lastPage
+      currentPage
+      perPage
+      from
+      to
+    }
+    data {
+      id
+      amount
+      sentAddress
+      receivedAddress
+      timestamp
+      senderUsername
+      recipientUsername
+    }
+  }
+}

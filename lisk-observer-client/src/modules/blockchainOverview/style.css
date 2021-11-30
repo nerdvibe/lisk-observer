@@ -1,0 +1,11 @@
+.last-ten-row {
+  padding: 10px;
+  border-top: #ffffff1f 1px solid;
+}
+
+.last-ten-list-container {
+  padding-left: 15px;
+  padding-right: 15px;
+  max-height: 25rem;
+  overflow-y: auto;
+}

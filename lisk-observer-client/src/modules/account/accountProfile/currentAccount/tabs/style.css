@@ -1,0 +1,39 @@
+span.account-data-value {
+  float: right;
+}
+
+.account-data-value > p,
+.account-data-value > p > p {
+  font-weight: bold;
+  font-size: large;
+}
+
+.account-data-label {
+  color: white;
+}
+
+.right-side-data-block {
+  border-left: 1px rgba(255, 255, 255, 0.137) solid;
+  padding-left: 10px;
+}
+
+hr {
+  border-top: 1px rgba(255, 255, 255, 0.137) solid !important;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.unlocking-elements-container {
+  margin-top: -50px;
+}
+
+@media (max-width: 1199.98px) {
+  .right-side-data-block {
+    border-top: 1px rgba(255, 255, 255, 0.137) solid;
+    border-left: 0px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}

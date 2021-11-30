@@ -1,0 +1,26 @@
+query networkInfo {
+  networkInfo {
+    stats {
+      totalPeers
+      connectedPeers
+      disconnectedPeers
+      networkVersion {
+        version
+        peers
+      }
+      networkVersionDominant
+    }
+    peers {
+      connected
+      ipAddress
+      peerId
+      networkVersion
+      height
+      country
+    }
+    countries {
+      country
+      count
+    }
+  }
+}

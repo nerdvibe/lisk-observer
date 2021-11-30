@@ -1,0 +1,7 @@
+query getHistoricalPrices($currency: String!) {
+  getHistoricalPrices(currency: $currency) {
+    currency
+    value
+    date
+  }
+}

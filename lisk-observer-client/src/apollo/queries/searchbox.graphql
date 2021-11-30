@@ -1,0 +1,15 @@
+query searchbox($term: String!) {
+  search(term: $term) {
+    transactions {
+      id
+    }
+    blocks {
+      height
+      id
+    }
+    accounts {
+      username
+      address
+    }
+  }
+}

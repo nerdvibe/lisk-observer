@@ -1,0 +1,186 @@
+.searchbox-list-group-item,
+.white-content .themed-searchbox-list-group-item {
+  color: #000 !important;
+  background: white !important;
+  border: 0.0625rem solid #e9ecef !important;
+  transition: 0.2s;
+}
+
+.searchbox-list-group-text {
+  font-size: 1rem !important;
+}
+
+.searchbox-list-group-item:hover,
+.white-content .themed-searchbox-list-group-item:hover {
+  transition: 0.2s;
+  background-color: rgb(221, 219, 219) !important;
+  color: white;
+  cursor: pointer;
+}
+
+.searchbox-list-group-text,
+.themed-searchbox-list-group-text {
+  display: inline-block;
+  padding-left: 20px;
+  width: 90%;
+}
+
+.searchbox-list-group-text > div {
+  color: #000;
+}
+
+.searchbox-list-group-text,
+.searchbox-list-group-text:hover,
+.white-content .themed-searchbox-list-group-text,
+.white-content .themed-searchbox-list-group-text:hover,
+.white-content .themed-searchbox-list-group-text:focus,
+.white-content .themed-searchbox-list-group-text:active,
+.white-content
+  .themed-searchbox-list-group-text
+  > div
+  > .inline-strong-element {
+  color: #000;
+}
+
+.themed-searchbox-list-group-text,
+.themed-searchbox-list-group-text:hover,
+.themed-searchbox-list-group-text:focus,
+.themed-searchbox-list-group-text:active,
+.themed-searchbox-list-group-text > div > .inline-strong-element {
+  color: white;
+}
+
+.empty-tile {
+  width: 100%;
+  text-align: center;
+}
+
+.themed-searchbox-list-group-item {
+  border: 0.0625rem solid #2a3552 !important;
+  color: white !important;
+  background: rgba(0, 0, 0, 0) !important;
+  transition: 0.2s;
+}
+
+.themed-searchbox-list-group-item:hover {
+  transition: 0.2s;
+  color: white;
+  cursor: pointer;
+  border-color: #e14eca !important;
+  z-index: 3 !important;
+}
+
+.inline-strong-element {
+  display: inline-block;
+  color: #000;
+  font-weight: bold;
+  font-size: medium;
+}
+
+.spin-animation {
+  position: absolute;
+  right: 10%;
+  display: inline-block;
+  margin-top: 10px;
+  animation-name: spin;
+  animation-duration: 1000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.spin-animation-left {
+  position: absolute;
+  left: 35px;
+  display: inline-block;
+  margin-top: 10px;
+  animation-name: spin;
+  animation-duration: 1000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.tile-icon {
+  max-width: 50px;
+  font-size: x-large !important;
+  display: inline-block;
+  color: #363636;
+}
+
+svg.tile-icon {
+  vertical-align: top;
+  margin-top: 0.7rem;
+}
+
+img.tile-icon {
+  vertical-align: top !important;
+}
+
+.pt-10 {
+  padding-top: 10px;
+}
+
+.white-content .themed-icon {
+  color: black;
+}
+
+.themed-icon {
+  color: white;
+}
+
+.sticky-navbar {
+  position: fixed !important;
+  top: 0;
+  width: 100% !important;
+  background: #1c1c2baa !important;
+}
+
+.navbar-logo {
+  width: 100px;
+  height: 30px;
+  top: 5px !important;
+  z-index: -1;
+}
+
+.navbar-lisk-price {
+  font-weight: 400;
+  display: inline;
+  padding: 8px 10px !important;
+  width: 110%;
+}
+
+.search-list-group {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.dot-status {
+  width: 10px;
+  height: 10px;
+  border-radius: 26px;
+  margin-top: 6;
+}
+
+.red-status {
+  background-color: #fc78a3;
+}
+
+.green-status {
+  background-color: rgb(0 191 76);
+  box-shadow: 0 0 0 0 rgba(0, 191, 76, 1);
+  transform: scale(1);
+  animation: pulse 3s infinite;
+}
+
+.unknown-status {
+  border-color: rgb(191, 115, 0);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

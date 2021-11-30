@@ -1,0 +1,6 @@
+# Ignore artifacts:
+build
+coverage
+*.scss
+*.yml
+generated/graphql.tsx
