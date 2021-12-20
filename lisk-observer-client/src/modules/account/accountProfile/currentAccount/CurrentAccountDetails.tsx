@@ -17,6 +17,7 @@ import QRCode from "react-qr-code";
 import { Copy } from "../../../../UI/copy/Copy";
 import { MIN_SELF_VOTE_PERCENT } from "../../../utils/const";
 import { SentVotes } from "../../../../generated/graphql";
+import FavoriteButton from "../../../../UI/components/favoriteButton/FavoriteButton";
 
 interface Props {
   address: string;
@@ -79,6 +80,9 @@ export const CurrentAccountDetails: React.FC<Props> = ({
     <Card className="card-user">
       <CardBody>
         <CardText />
+        <div className="fav-button">
+          <FavoriteButton address={address} username={username} />
+        </div>
         <div className="author">
           <div className="block block-one" />
           <div className="block block-two" />

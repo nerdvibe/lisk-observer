@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import FavoriteButton from "../../UI/components/favoriteButton/FavoriteButton";
 import RowCell from "../delegates/RowCell";
 import { AvatarSize, DelegateLogo } from "../utils/logos/DelegateLogo";
 import { ExchangeLogo } from "../utils/logos/ExchangeLogo";
@@ -40,6 +41,9 @@ const AccountRow = ({
       <th scope="row-rank">
         <p className="pl-2">{rank}</p>
       </th>
+      <td className="w-30px">
+        <FavoriteButton alt address={address} username={username} />
+      </td>
       <td className={isTopTier ? "shimmer" : ""}>
         {identifier ? (
           <ExchangeLogo

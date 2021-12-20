@@ -279,6 +279,7 @@ export const DelegatesList: React.FC = () => {
                       >
                         Rank
                       </SortableTh>
+                      <th></th>
                       <SortableTh
                         activeHeader={sortedColumn}
                         column={TableColumns.DELEGATE_NAME}

@@ -18,3 +18,4 @@ export enum TX_TYPE_NAMES {
 }
 export const MIN_SELF_VOTE_PERCENT = 10;
 export const MIN_WEIGHT_STANDBY = 1000;
+export const FAVORITE = "FAVORITE";

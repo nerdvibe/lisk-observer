@@ -31,7 +31,10 @@ import {
   faUsers,
   faUserSlash,
   faUserCheck,
+  faBookmark,
+  faHeart,
 } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 
 library.add(
   faCube,
@@ -66,5 +69,8 @@ library.add(
   faUsers,
   faUserSlash,
   faUserCheck,
-  faServer
+  faServer,
+  faBookmark,
+  faHeart,
+  farHeart
 );

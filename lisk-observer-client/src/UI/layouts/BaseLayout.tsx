@@ -16,6 +16,7 @@ import { BLOCK_HEIGHT_QUERY } from "../../apollo/queries";
 import { CURRENCY_PAIRS } from "../components/chartBanner/const";
 import { TransactionDetailContainer } from "../../modules/transaction/TransactionDetailContainer";
 import { LastVotes } from "../../modules/network/LastVotes";
+import { FavoritePlugin } from "../favouritePlugin/FavouritePlugin";
 
 export const BlockHeightContext = React.createContext({
   data: {},
@@ -123,6 +124,7 @@ export const BaseLayout: React.FC<any> = ({ location }) => {
             <Footer />
           </div>
           <FixedPlugin setTicker={setTicker} />
+          <FavoritePlugin />
         </div>
       </TickerContext.Provider>
     </BlockHeightContext.Provider>

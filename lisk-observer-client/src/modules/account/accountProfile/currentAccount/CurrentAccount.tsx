@@ -121,12 +121,16 @@ export const CurrentAccount: React.FC = () => {
   });
 
   useEffect(() => {
-    setPagination(page ? +page : 1);
-    setAddressContextReact(addressContextReact);
-    accountRefetch({
-      addressContext: addressContextReact,
-    });
-  }, [addressContextReact, accountRefetch, page]);
+    if (page && +page !== +pagination) {
+      setPagination(page ? +page : 1);
+    }
+    if (addressContextReact !== addressContextParam) {
+      setAddressContextReact(addressContextParam);
+      accountRefetch({
+        addressContext: addressContextParam,
+      });
+    }
+  });
 
   if (
     transactionsLoading ||

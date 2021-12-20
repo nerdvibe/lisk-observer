@@ -130,6 +130,7 @@ export const RichList = () => {
                     <tr>
                       <th></th>
                       <th>Rank</th>
+                      <th></th>
                       <th>Account</th>
                       <SortableTh
                         className="balance-column"
