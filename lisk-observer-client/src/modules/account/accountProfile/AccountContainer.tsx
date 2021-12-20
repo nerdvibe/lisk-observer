@@ -7,6 +7,7 @@ import { isLegacyAddress } from "../utils/account";
 export interface AccountContainerParams {
   addressContext: string;
   page?: string;
+  tab?: string;
 }
 
 export const AccountContainer: React.FC = () => {
