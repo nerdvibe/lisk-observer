@@ -27,7 +27,7 @@ import { gql } from "graphql.macro";
 import { useQuery } from "@apollo/client";
 import { AccountContainerParams } from "../AccountContainer";
 import { TXElement } from "../TXElement";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 import { CurrentAccountDetails } from "./CurrentAccountDetails";
 import { AccountAlert } from "../AccountAlert";
 import { BlockHeightContext } from "../../../../UI/layouts/BaseLayout";
@@ -84,13 +84,20 @@ const ACCOUNT_TX = gql`
   }
 `;
 
+function useQueryParams() {
+  const { search } = useLocation();
+
+  return React.useMemo(() => new URLSearchParams(search), [search]);
+}
+
 export const CurrentAccount: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<AccountTabs>(
-    AccountTabs.TRANSACTIONS
-  );
+  const query = useQueryParams();
   let { addressContext: addressContextParam, page } = useParams<
     AccountContainerParams
   >();
+  const [activeTab, setActiveTab] = useState<AccountTabs>(
+    AccountTabs.TRANSACTIONS
+  );
   const [addressContextReact, setAddressContextReact] = useState<string>(
     addressContextParam?.toLocaleLowerCase() || ""
   );
@@ -121,12 +128,53 @@ export const CurrentAccount: React.FC = () => {
   });
 
   useEffect(() => {
-    setPagination(page ? +page : 1);
-    setAddressContextReact(addressContextReact);
-    accountRefetch({
-      addressContext: addressContextReact,
-    });
-  }, [addressContextReact, accountRefetch, page]);
+    if (page && +page !== +pagination) {
+      setPagination(page ? +page : 1);
+    }
+    if (addressContextReact !== addressContextParam) {
+      setAddressContextReact(addressContextParam);
+      accountRefetch({
+        addressContext: addressContextParam,
+      });
+    }
+    checkUrlTab();
+  });
+
+  const isAccountTab = (text: string) =>
+    Object.values(AccountTabs).reduce(
+      (prev, current) => prev || text === current,
+      false
+    );
+
+  const checkUrlTab = () => {
+    const urlTab = query.get("tab");
+    if (urlTab && urlTab?.toLocaleLowerCase() !== activeTab) {
+      if (isAccountTab(urlTab.toLowerCase())) {
+        window.scrollTo(0, 0);
+        setActiveTab(urlTab.toLowerCase() as AccountTabs);
+      } else {
+        query.delete("tab");
+        query.delete("section");
+        history.replace({
+          search: query.toString(),
+        });
+        setActiveTab(AccountTabs.TRANSACTIONS);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const section = query.get("section");
+    const hasLoaded = !loadingAccountData && !transactionsLoading;
+    if (hasLoaded && section?.toLocaleLowerCase() === "received") {
+      const element = document.getElementById("votes-received");
+      element?.scrollIntoView({ behavior: "smooth" });
+    }
+    if (hasLoaded && section?.toLocaleLowerCase() === "sent") {
+      const element = document.getElementById("votes-sent");
+      element?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [accountData, transactionsLoading, loadingAccountData, activeTab]);
 
   if (
     transactionsLoading ||
@@ -163,6 +211,15 @@ export const CurrentAccount: React.FC = () => {
       </div>
     );
   }
+
+  const changeTab = (tab: AccountTabs) => {
+    setActiveTab(tab);
+    query.set("tab", tab);
+    query.delete("section");
+    history.replace({
+      search: query.toString(),
+    });
+  };
 
   if (!addressContextReact) {
     return (
@@ -225,7 +282,7 @@ export const CurrentAccount: React.FC = () => {
         </Col>
       </Row>
       <Row>
-        <Col md="9">
+        <Col md="9" id="test">
           <Card>
             <CardHeader>
               <Nav tabs>
@@ -237,7 +294,7 @@ export const CurrentAccount: React.FC = () => {
                           ? "active-tab"
                           : ""
                       }`}
-                      onClick={() => setActiveTab(AccountTabs.TRANSACTIONS)}
+                      onClick={() => changeTab(AccountTabs.TRANSACTIONS)}
                     >
                       <FontAwesomeIcon icon={"exchange-alt"} className="mr-2" />
                       <br className="show-laptop" />
@@ -249,7 +306,7 @@ export const CurrentAccount: React.FC = () => {
                       className={`custom-tab ${
                         activeTab === AccountTabs.BLOCKS ? "active-tab" : ""
                       }`}
-                      onClick={() => setActiveTab(AccountTabs.BLOCKS)}
+                      onClick={() => changeTab(AccountTabs.BLOCKS)}
                     >
                       <FontAwesomeIcon icon={"cube"} className="mr-2" />
                       <br className="show-laptop" />
@@ -261,7 +318,7 @@ export const CurrentAccount: React.FC = () => {
                       className={`custom-tab ${
                         activeTab === AccountTabs.DETAILS ? "active-tab" : ""
                       }`}
-                      onClick={() => setActiveTab(AccountTabs.DETAILS)}
+                      onClick={() => changeTab(AccountTabs.DETAILS)}
                     >
                       <FontAwesomeIcon icon={"comment-dots"} className="mr-2" />
                       <br className="show-laptop" />
@@ -417,16 +474,22 @@ export const CurrentAccount: React.FC = () => {
               accountInfo.dpos?.delegate?.totalVotesReceived || "0"
             }
           />
-          <AccountVotes
-            votes={(accountInfo.dpos?.sentVotes as SentVotes[]) || []}
-            setAddressContextReact={setAddressContextReact}
-            kind={VOTE_KIND.SENT}
-          />
-          <AccountVotes
-            votes={(accountInfo.dpos?.receivedVotes as ReceivedVotes[]) || []}
-            setAddressContextReact={setAddressContextReact}
-            kind={VOTE_KIND.RECEIVED}
-          />
+          <div id="votes-sent">
+            <AccountVotes
+              votes={(accountInfo.dpos?.sentVotes as SentVotes[]) || []}
+              setAddressContextReact={setAddressContextReact}
+              kind={VOTE_KIND.SENT}
+              account={accountData.account.address}
+            />
+          </div>
+          <div id="votes-received">
+            <AccountVotes
+              votes={(accountInfo.dpos?.receivedVotes as ReceivedVotes[]) || []}
+              setAddressContextReact={setAddressContextReact}
+              kind={VOTE_KIND.RECEIVED}
+              account={accountData.account.address}
+            />
+          </div>
         </Col>
       </Row>
       <Row className={"d-md-none"}>
@@ -435,12 +498,14 @@ export const CurrentAccount: React.FC = () => {
             votes={(accountInfo.dpos?.sentVotes as SentVotes[]) || []}
             setAddressContextReact={setAddressContextReact}
             kind={VOTE_KIND.SENT}
+            account={accountData.account.address}
           />
 
           <AccountVotes
             votes={(accountInfo.dpos?.receivedVotes as ReceivedVotes[]) || []}
             setAddressContextReact={setAddressContextReact}
             kind={VOTE_KIND.RECEIVED}
+            account={accountData.account.address}
           />
         </Col>
       </Row>
