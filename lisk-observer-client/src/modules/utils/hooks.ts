@@ -36,3 +36,8 @@ export const useScrollToTop = () => {
     window.scrollTo(0, 0);
   }, []);
 };
+
+export interface FavoriteAccount {
+  address: string;
+  username?: string;
+}

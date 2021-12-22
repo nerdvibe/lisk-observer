@@ -58,6 +58,12 @@
   white-space: revert;
 }
 
+.fav-button {
+  top: 0px;
+  left: 0px;
+  position: absolute;
+}
+
 @media screen and (max-width: 1280px) {
   .show-laptop {
     display: inline-block;

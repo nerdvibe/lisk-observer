@@ -81,7 +81,7 @@ export const FixedPlugin: React.FC<Props> = ({ setTicker }) => {
   useOutsideAlerter(menuRef);
 
   return (
-    <div className="fixed-plugin" ref={menuRef}>
+    <div className="fixed-plugin border-radius-10" ref={menuRef}>
       <div className={classes}>
         <div onClick={handleClick}>
           <FontAwesomeIcon className="fixed-plugin-icon" icon={"cog"} />

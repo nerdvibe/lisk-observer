@@ -10,6 +10,7 @@ import {
   calculateTargetDate,
   OFFSET_KIND,
 } from "../utils/lisk/blockOffsets/calculateDate";
+import FavoriteButton from "../../UI/components/favoriteButton/FavoriteButton";
 
 interface Props {
   rank: string;
@@ -93,6 +94,9 @@ export const DelegatesRow: React.FC<Props> = ({
   return (
     <tr className={`delegate-row ${isBanned ? " is-banned" : ""}`}>
       <RowCell mainItem={`${rankAdjusted}`} extraClass="rank-column" />
+      <RowCell
+        mainItem={<FavoriteButton alt address={address} username={username} />}
+      />
       <RowCell
         mainItem={
           <>
