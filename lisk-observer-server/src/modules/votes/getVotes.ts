@@ -2,10 +2,9 @@ import { coreDb } from "../../db";
 import { accountsByAddressCacheGet } from "@modules/accounts/cache/currentCache";
 
 export const getVotes = async (page: number) => {
-  const votes = await coreDb("votes_aggregate")
+  const votes = await coreDb("votes")
     .select("id", "amount", "sentAddress", "receivedAddress", "timestamp")
     .orderBy("timestamp", "DESC")
-
     .paginate({
       perPage: 100,
       currentPage: page,
