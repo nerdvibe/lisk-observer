@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-import { useFavoriteList } from "../../../modules/utils/hooks";
+import { useFavoriteList } from "../../../modules/utils/hooks/favorites";
 import "./style.css";
 
 interface Props {

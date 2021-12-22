@@ -3,7 +3,8 @@ import "./style.css";
 
 // reactstrap components
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FavoriteAccount, useFavoriteList } from "../../modules/utils/hooks";
+import { FavoriteAccount } from "../../modules/utils/hooks";
+import { useFavoriteList } from "../../modules/utils/hooks/favorites";
 import { truncateMidString } from "../../modules/utils/strings/strings";
 import { Link } from "react-router-dom";
 import {
