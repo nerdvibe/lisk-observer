@@ -153,5 +153,6 @@ export const schema = buildSchema(`
     transactions(page: Int, TXType: String): PaginatedTransaction
     eternityWall(page: Int): PaginatedEthernityWallMessage
     txStats: TXStats
+    whaleTransactions(page: Int!): PaginatedTransaction
   }
 `);
