@@ -5,10 +5,8 @@ import { graphqlHTTP } from "express-graphql";
 import { logger } from "@modules/log";
 import { liskRocket } from "./lib/liskRocket";
 import cors from "cors";
-import { buildDelegatesCacheFromCore } from "@modules/delegates/cache/buildCache";
 import { initCron } from "@modules/cron";
 import { buildCaches } from "@modules/caches";
-import { fetchNetworkInfo } from "@modules/network/network";
 
 const log = logger("SERVER");
 const port = process.env.SERVER_PORT;
