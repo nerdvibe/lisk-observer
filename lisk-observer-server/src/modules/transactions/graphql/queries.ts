@@ -11,6 +11,7 @@ import { TX_TYPES } from "@modules/transactions/const";
 import { getTransactionLegacy } from "@modules/transactions/getTransactionLegacy";
 import { isLegacyAddress } from "@modules/utils/lisk/addresses";
 import { getTransactionsByAddressLegacy } from "@modules/transactions/getTransactionsByAddressLegacy";
+import { whaleTransactions } from "../whaleTransactions";
 
 const log = logger("TRANSACTION_QUERIES");
 
@@ -116,5 +117,9 @@ export const queries = {
       log.error(e);
       sendGraphqlError(new Error("Error fetching the transactions data"));
     }
+  },
+
+  whaleTransactions: async ({ page }) => {
+    return whaleTransactions(page);
   },
 };
