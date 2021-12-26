@@ -17,9 +17,16 @@ import { CURRENCY_PAIRS } from "../components/chartBanner/const";
 import { TransactionDetailContainer } from "../../modules/transaction/TransactionDetailContainer";
 import { LastVotes } from "../../modules/network/LastVotes";
 import { FavoritePlugin } from "../favouritePlugin/FavouritePlugin";
+import { useLastTicksQuery } from "../../generated/graphql";
 
 export const BlockHeightContext = React.createContext({
   data: {},
+  loading: true,
+  error: false,
+} as any);
+
+export const TickerValueContext = React.createContext({
+  value: 0,
   loading: true,
   error: false,
 } as any);
@@ -38,6 +45,9 @@ export const BaseLayout: React.FC<any> = ({ location }) => {
     pollInterval: 5000,
   });
 
+  const tickerValue = useLastTicksQuery({
+    pollInterval: 60000,
+  });
   // this function opens and closes the sidebar on small devices
   const toggleSidebar = () => {
     document.documentElement.classList.toggle("nav-open");
@@ -68,64 +78,66 @@ export const BaseLayout: React.FC<any> = ({ location }) => {
   return (
     <BlockHeightContext.Provider value={blockHeight}>
       <TickerContext.Provider value={ticker}>
-        <div className="wrapper">
-          <Sidebar
-            routes={routes}
-            bgColor={backgroundColor}
-            logo={{
-              innerLink: "/",
-              text: `Lisk ${process.env.REACT_APP_NETWORK}`,
-              imgSrc: logo,
-            }}
-            toggleSidebar={toggleSidebar}
-            location={location}
-          />
-          <div className="main-panel" data={backgroundColor}>
-            <Navbar
-              brandText={getBrandText(location.pathname)}
+        <TickerValueContext.Provider value={tickerValue}>
+          <div className="wrapper">
+            <Sidebar
+              routes={routes}
+              bgColor={backgroundColor}
+              logo={{
+                innerLink: "/",
+                text: `Lisk ${process.env.REACT_APP_NETWORK}`,
+                imgSrc: logo,
+              }}
               toggleSidebar={toggleSidebar}
-              sidebarOpened={sidebarOpened}
+              location={location}
             />
-            <Switch>
-              {getRoutes(routes)}
-              <Route
-                path="/"
-                component={BlockchainOverview}
-                key={"home"}
-                exact={true}
+            <div className="main-panel" data={backgroundColor}>
+              <Navbar
+                brandText={getBrandText(location.pathname)}
+                toggleSidebar={toggleSidebar}
+                sidebarOpened={sidebarOpened}
               />
-              <Route
-                path="/account/:addressContext/:page?"
-                component={AccountContainer}
-                key={"account"}
-              />
-              <Route
-                path="/transaction/:txId"
-                component={TransactionDetailContainer}
-                key={"transaction"}
-              />
-              <Route
-                path="/block/:blockId"
-                component={BlockDetailContainer}
-                key={"block"}
-              />
-              <Route
-                path="/last-messages"
-                component={LastMessages}
-                key={"last-messages"}
-              />
-              <Route
-                path="/known-addresses"
-                component={KnownAddresses}
-                key={"known-addresses"}
-              />
-              <Route path="/votes" component={LastVotes} key={"votes"} />
-            </Switch>
-            <Footer />
+              <Switch>
+                {getRoutes(routes)}
+                <Route
+                  path="/"
+                  component={BlockchainOverview}
+                  key={"home"}
+                  exact={true}
+                />
+                <Route
+                  path="/account/:addressContext/:page?"
+                  component={AccountContainer}
+                  key={"account"}
+                />
+                <Route
+                  path="/transaction/:txId"
+                  component={TransactionDetailContainer}
+                  key={"transaction"}
+                />
+                <Route
+                  path="/block/:blockId"
+                  component={BlockDetailContainer}
+                  key={"block"}
+                />
+                <Route
+                  path="/last-messages"
+                  component={LastMessages}
+                  key={"last-messages"}
+                />
+                <Route
+                  path="/known-addresses"
+                  component={KnownAddresses}
+                  key={"known-addresses"}
+                />
+                <Route path="/votes" component={LastVotes} key={"votes"} />
+              </Switch>
+              <Footer />
+            </div>
+            <FixedPlugin setTicker={setTicker} />
+            <FavoritePlugin />
           </div>
-          <FixedPlugin setTicker={setTicker} />
-          <FavoritePlugin />
-        </div>
+        </TickerValueContext.Provider>
       </TickerContext.Provider>
     </BlockHeightContext.Provider>
   );
