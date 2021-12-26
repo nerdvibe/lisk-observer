@@ -31,7 +31,7 @@ export const FavoritePlugin: React.FC = () => {
     useEffect(() => {
       function handleClickOutside(event: any) {
         if (ref.current && !ref.current.contains(event.target)) {
-          document.getElementsByClassName("show-dropdown")[0].className =
+          document.getElementsByClassName("show-dropdown")[1].className =
             "dropdown show-dropdown";
           setClasses("dropdown show-dropdown");
         }
