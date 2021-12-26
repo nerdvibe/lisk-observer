@@ -113,7 +113,7 @@ const WhalesRow = ({
           />
         }
       />
-      <td className="text-center" style={{ width: "150px" }}>
+      <td className="text-center arrow-column">
         <strong>{` → `}</strong>
       </td>
       <RowCell

@@ -21,6 +21,10 @@
   top: -0.5px;
 }
 
+.arrow-column {
+  width: 150px;
+}
+
 @media screen and (min-width: 1920px) {
   .max-w-350 {
     max-width: none;
