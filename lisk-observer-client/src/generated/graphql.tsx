@@ -1343,7 +1343,9 @@ export type VotesQuery = { __typename?: "Query" } & {
   >;
 };
 
-export type WhaleTransactionsQueryVariables = Exact<{ [key: string]: never }>;
+export type WhaleTransactionsQueryVariables = Exact<{
+  page: Scalars["Int"];
+}>;
 
 export type WhaleTransactionsQuery = { __typename?: "Query" } & {
   whaleTransactions?: Maybe<
@@ -2940,8 +2942,8 @@ export type VotesQueryResult = Apollo.QueryResult<
   VotesQueryVariables
 >;
 export const WhaleTransactionsDocument = gql`
-  query whaleTransactions {
-    whaleTransactions(page: 1) {
+  query whaleTransactions($page: Int!) {
+    whaleTransactions(page: $page) {
       data {
         id
         timestamp
@@ -2975,11 +2977,12 @@ export const WhaleTransactionsDocument = gql`
  * @example
  * const { data, loading, error } = useWhaleTransactionsQuery({
  *   variables: {
+ *      page: // value for 'page'
  *   },
  * });
  */
 export function useWhaleTransactionsQuery(
-  baseOptions?: Apollo.QueryHookOptions<
+  baseOptions: Apollo.QueryHookOptions<
     WhaleTransactionsQuery,
     WhaleTransactionsQueryVariables
   >

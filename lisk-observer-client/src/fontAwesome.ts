@@ -33,6 +33,7 @@ import {
   faUserCheck,
   faBookmark,
   faHeart,
+  faMoneyBillWave,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 
@@ -72,5 +73,6 @@ library.add(
   faServer,
   faBookmark,
   faHeart,
-  farHeart
+  farHeart,
+  faMoneyBillWave
 );
