@@ -12,10 +12,6 @@ query whaleTransactions($page: Int!) {
     pagination {
       total
       lastPage
-      currentPage
-      perPage
-      from
-      to
     }
   }
 }
