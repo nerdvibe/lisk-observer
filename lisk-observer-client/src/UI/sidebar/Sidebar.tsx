@@ -67,7 +67,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 key={key}
               >
                 <NavLink
-                  to={prop.path}
+                  to={prop.link || prop.path}
                   className="nav-link"
                   activeClassName="active"
                   onClick={toggleSidebar}
