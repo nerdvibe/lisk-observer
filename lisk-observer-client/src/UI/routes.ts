@@ -39,7 +39,7 @@ export const routes: Routes[] = [
     layout: "",
   },
   {
-    path: "/blocks",
+    path: "/blocks/:page?",
     name: "Blocks",
     icon: "cube",
     component: Blocks,

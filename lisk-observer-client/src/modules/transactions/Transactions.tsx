@@ -16,7 +16,9 @@ import { AccountContainerParams } from "../account/accountProfile/AccountContain
 export const Transactions: React.FC = () => {
   useScrollToTop();
   let { page: pageParam } = useParams<AccountContainerParams>();
-  const [page, setPage] = useState(pageParam ? +pageParam : 1);
+  const [page, setPage] = useState(
+    pageParam && !isNaN(+pageParam) ? +pageParam : 1
+  );
   const [showFilters, setShowFilters] = useState(false);
   const [TXType, setTXType] = useState<TX_TYPES>();
   const { data, loading, error } = usePaginatedTransactionsQuery({
