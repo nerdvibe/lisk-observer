@@ -1,0 +1,17 @@
+query whaleTransactions($page: Int!) {
+  whaleTransactions(page: $page) {
+    data {
+      id
+      timestamp
+      recipientId
+      senderId
+      amount
+      senderUsername
+      recipientUsername
+    }
+    pagination {
+      total
+      lastPage
+    }
+  }
+}

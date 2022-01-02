@@ -1,5 +1,4 @@
 import React from "react";
-
 import { BlockchainOverview } from "../modules/blockchainOverview/BlockchainOverview";
 import { Transactions } from "../modules/transactions/Transactions";
 import { Blocks } from "../modules/blocks/Blocks";
@@ -10,6 +9,7 @@ import { KnownAddresses } from "../modules/knownAddresses/KnownAddresses";
 import { Analytics } from "../modules/analytics/Analytics";
 import { RichList } from "../modules/richList/RichList";
 import { NetworkOverview } from "../modules/network-overview/NetworkOverview";
+import { WhalesList } from "../modules/whalesList/WhalesList";
 
 export interface Routes {
   path: string;
@@ -19,6 +19,7 @@ export interface Routes {
   layout: string;
   home?: boolean;
   exact?: boolean;
+  link?: string;
 }
 
 export const routes: Routes[] = [
@@ -92,6 +93,14 @@ export const routes: Routes[] = [
     name: "Rich list",
     icon: "gem",
     component: RichList,
+    layout: "",
+  },
+  {
+    path: "/whale-transactions/:page?",
+    link: "/whale-transactions",
+    name: "Whale transactions",
+    icon: "money-bill-wave",
+    component: WhalesList,
     layout: "",
   },
 ];
