@@ -34,6 +34,7 @@ export const routes: Routes[] = [
   },
   {
     path: "/transactions/:page?",
+    link: "/transactions",
     name: "Transactions",
     icon: "exchange-alt",
     component: Transactions,
@@ -41,6 +42,7 @@ export const routes: Routes[] = [
   },
   {
     path: "/blocks/:page?",
+    link: "/blocks",
     name: "Blocks",
     icon: "cube",
     component: Blocks,
@@ -89,7 +91,8 @@ export const routes: Routes[] = [
     layout: "",
   },
   {
-    path: "/rich-list",
+    path: "/rich-list/:page?",
+    link: "/rich-list",
     name: "Rich list",
     icon: "gem",
     component: RichList,

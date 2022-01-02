@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TransactionsFilters from "./TransactionsFilters";
 import ReactTooltip from "react-tooltip";
 import { Row, Col, Card, CardBody, CardHeader, Table } from "reactstrap";
@@ -10,10 +10,17 @@ import { Pagination } from "../../UI/pagination/Pagination";
 import { TX_TYPES } from "../utils/const";
 import { usePaginatedTransactionsQuery } from "../../generated/graphql";
 import { useScrollToTop } from "../utils/hooks";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 import { AccountContainerParams } from "../account/accountProfile/AccountContainer";
 
+function useQueryParams() {
+  const { search } = useLocation();
+
+  return React.useMemo(() => new URLSearchParams(search), [search]);
+}
+
 export const Transactions: React.FC = () => {
+  const query = useQueryParams();
   useScrollToTop();
   let { page: pageParam } = useParams<AccountContainerParams>();
   const [page, setPage] = useState(
@@ -34,6 +41,40 @@ export const Transactions: React.FC = () => {
   const changePage = (selectedPage: number) => {
     setPage(selectedPage);
     history.replace(`/transactions/${selectedPage}`);
+  };
+
+  useEffect(() => {
+    checkUrlFilter();
+  });
+
+  const isTxType = (text: string) =>
+    Object.values(TX_TYPES).reduce(
+      (prev, current) => prev || text === current,
+      false
+    );
+
+  const checkUrlFilter = () => {
+    const urlType = query.get("type");
+    if (urlType && urlType?.toLocaleLowerCase() !== TXType) {
+      if (isTxType(urlType.toLowerCase())) {
+        window.scrollTo(0, 0);
+        setTXType(urlType.toLowerCase() as TX_TYPES);
+      } else {
+        query.delete("type");
+        history.replace({
+          search: query.toString(),
+        });
+        setTXType(undefined);
+      }
+    }
+  };
+
+  const changeTXType = (type: TX_TYPES) => {
+    setTXType(type);
+    query.set("type", type);
+    history.replace({
+      search: query.toString(),
+    });
   };
 
   if (error || loading) {
@@ -69,7 +110,7 @@ export const Transactions: React.FC = () => {
                 <TransactionsFilters
                   isOpen={showFilters}
                   TXType={TXType}
-                  setTXType={setTXType}
+                  setTXType={changeTXType}
                 />
                 <Table className="tablesorter" responsive>
                   <thead className="text-primary">

@@ -62,7 +62,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
             return (
               <li
                 className={
-                  isActiveRoute(prop.path) + (prop.pro ? " active-pro" : "")
+                  isActiveRoute(prop.link || prop.path) +
+                  (prop.pro ? " active-pro" : "")
                 }
                 key={key}
               >
