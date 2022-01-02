@@ -32,7 +32,7 @@ export const routes: Routes[] = [
     exact: true,
   },
   {
-    path: "/transactions",
+    path: "/transactions/:page?",
     name: "Transactions",
     icon: "exchange-alt",
     component: Transactions,

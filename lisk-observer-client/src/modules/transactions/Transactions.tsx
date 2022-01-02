@@ -10,10 +10,13 @@ import { Pagination } from "../../UI/pagination/Pagination";
 import { TX_TYPES } from "../utils/const";
 import { usePaginatedTransactionsQuery } from "../../generated/graphql";
 import { useScrollToTop } from "../utils/hooks";
+import { useHistory, useParams } from "react-router-dom";
+import { AccountContainerParams } from "../account/accountProfile/AccountContainer";
 
 export const Transactions: React.FC = () => {
   useScrollToTop();
-  const [page, setPage] = useState(1);
+  let { page: pageParam } = useParams<AccountContainerParams>();
+  const [page, setPage] = useState(pageParam ? +pageParam : 1);
   const [showFilters, setShowFilters] = useState(false);
   const [TXType, setTXType] = useState<TX_TYPES>();
   const { data, loading, error } = usePaginatedTransactionsQuery({
@@ -24,6 +27,12 @@ export const Transactions: React.FC = () => {
   });
   const totalDocs = data?.transactions?.pagination?.total!;
   const totalPages = Math.ceil(totalDocs / 50);
+  const history = useHistory();
+
+  const changePage = (selectedPage: number) => {
+    setPage(selectedPage);
+    history.replace(`/transactions/${selectedPage}`);
+  };
 
   if (error || loading) {
     return (
@@ -82,7 +91,7 @@ export const Transactions: React.FC = () => {
                     <Pagination
                       page={page}
                       totalPages={totalPages}
-                      setPage={setPage}
+                      setPage={changePage}
                     />
                   </Col>
                 </Row>
