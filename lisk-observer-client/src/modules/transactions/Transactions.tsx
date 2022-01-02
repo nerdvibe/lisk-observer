@@ -4,7 +4,6 @@ import ReactTooltip from "react-tooltip";
 import { Row, Col, Card, CardBody, CardHeader, Table } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TransactionsRow } from "./TransactionRow";
-import { Stars } from "../../UI/Stars";
 import { IsErrorOrLoading } from "../utils/IsErrorOrLoading";
 import { Pagination } from "../../UI/pagination/Pagination";
 import { TX_TYPES } from "../utils/const";
@@ -35,7 +34,6 @@ export const Transactions: React.FC = () => {
 
   return (
     <>
-      <Stars />
       <div className="content">
         <Row>
           <Col md="12">

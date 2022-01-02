@@ -7,7 +7,6 @@ import { TotalSupplyCard } from "./totalSupplyCard/TotalSupplyCard";
 import { TxLastDayCard } from "./txLastDayCard/TxLastDayCard";
 import { LastTenTransactionsTable } from "./lastTenTransactionsTable/LastTenTransactionsTable";
 import { LastTenBlocksTable } from "./lastTenBlocks/LastTenBlocks";
-import { Stars } from "../../UI/Stars";
 import { BlockHeightFinalizedCard } from "./blockHeightCard/BlockHeightFinalizedCard";
 import { useScrollToTop } from "../utils/hooks";
 import "./style.css";
@@ -16,7 +15,6 @@ export const BlockchainOverview: React.FC = () => {
   useScrollToTop();
   return (
     <>
-      <Stars />
       <div className="content">
         <Row>
           <Col xs="12">

@@ -2,7 +2,6 @@ import React from "react";
 import KnownScam from "./KnownScam";
 import KnownLiskHQ from "./KnownLiskHQ";
 import KnownExhanges from "./KnownExchange";
-import { Stars } from "../../UI/Stars";
 import { Row, Col } from "reactstrap";
 import { IsErrorOrLoading } from "../utils/IsErrorOrLoading";
 import { useKnownAddressesQuery } from "../../generated/graphql";
@@ -33,7 +32,6 @@ export const KnownAddresses: React.FC = () => {
 
   return (
     <div className="content">
-      <Stars />
       <div className="react-notification-alert-container"></div>
       <Row>
         <Col xs={12} xl={6}>

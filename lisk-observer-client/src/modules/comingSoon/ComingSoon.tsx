@@ -2,7 +2,6 @@ import React from "react";
 import { ReactComponent as AstronautSVG } from "./assets/astronaut.svg";
 import { ReactComponent as PlanetSVG } from "./assets/planet.svg";
 import { Card, CardBody, CardHeader, CardTitle } from "reactstrap";
-import { Stars } from "../../UI/Stars";
 import "./style.css";
 
 interface Props {
@@ -12,9 +11,7 @@ interface Props {
 export const ComingSoon: React.FC<Props> = ({ title }) => {
   return (
     <div className="content">
-      <Stars />
       <Card className="card-chart">
-        <Stars />
         <CardHeader>
           <CardTitle tag="h4">{title}</CardTitle>
           <CardBody className="text-center pb-0">

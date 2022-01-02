@@ -3,7 +3,6 @@ import { Row, Col, Card, CardBody, CardHeader, CardTitle } from "reactstrap";
 import { Spinner } from "../../UI/spinner/Spinner";
 import ReactTooltip from "react-tooltip";
 import { BlockRow } from "./BlockRow";
-import { Stars } from "../../UI/Stars";
 import { Pagination } from "../../UI/pagination/Pagination";
 import { usePaginatedBlocksQuery } from "../../generated/graphql";
 import { useScrollToTop } from "../utils/hooks";
@@ -64,7 +63,6 @@ export const Blocks: React.FC = () => {
 
   return (
     <>
-      <Stars />
       <div className="content">
         <Row>
           <Col md="12">

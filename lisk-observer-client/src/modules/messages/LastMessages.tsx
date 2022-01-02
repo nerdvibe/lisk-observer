@@ -11,7 +11,6 @@ import {
   Spinner,
 } from "reactstrap";
 import { IsErrorOrLoading } from "../utils/IsErrorOrLoading";
-import { Stars } from "../../UI/Stars";
 import { LastMessageElement } from "./LastMessageElement";
 import { isBad, sanitizeString } from "../utils/strings/censor";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -170,7 +169,6 @@ export const LastMessages: React.FC = () => {
 
   return (
     <div className="content">
-      <Stars />
       <div className="react-notification-alert-container"></div>
       <Row>
         <Col md={12}>
