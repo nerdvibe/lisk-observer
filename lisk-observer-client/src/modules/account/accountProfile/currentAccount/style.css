@@ -64,6 +64,10 @@
   position: absolute;
 }
 
+.min-w-880 {
+  min-width: 980px;
+}
+
 @media screen and (max-width: 1280px) {
   .show-laptop {
     display: inline-block;

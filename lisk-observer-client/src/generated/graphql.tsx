@@ -341,6 +341,7 @@ export type Query = {
   transactions?: Maybe<PaginatedTransaction>;
   eternityWall?: Maybe<PaginatedEthernityWallMessage>;
   txStats?: Maybe<TxStats>;
+  whaleTransactions?: Maybe<PaginatedTransaction>;
   delegates?: Maybe<DelegatesWithStats>;
   liskVoteStats?: Maybe<DelegatesWithStats>;
   nodeInfo?: Maybe<NodeInfo>;
@@ -394,6 +395,10 @@ export type QueryTransactionsArgs = {
 
 export type QueryEternityWallArgs = {
   page?: Maybe<Scalars["Int"]>;
+};
+
+export type QueryWhaleTransactionsArgs = {
+  page: Scalars["Int"];
 };
 
 export type QuerySearchArgs = {
@@ -1332,6 +1337,39 @@ export type VotesQuery = { __typename?: "Query" } & {
               | "recipientUsername"
             >
           >
+        >
+      >;
+    }
+  >;
+};
+
+export type WhaleTransactionsQueryVariables = Exact<{
+  page: Scalars["Int"];
+}>;
+
+export type WhaleTransactionsQuery = { __typename?: "Query" } & {
+  whaleTransactions?: Maybe<
+    { __typename?: "PaginatedTransaction" } & {
+      data?: Maybe<
+        Array<
+          Maybe<
+            { __typename?: "Transaction" } & Pick<
+              Transaction,
+              | "id"
+              | "timestamp"
+              | "recipientId"
+              | "senderId"
+              | "amount"
+              | "senderUsername"
+              | "recipientUsername"
+            >
+          >
+        >
+      >;
+      pagination?: Maybe<
+        { __typename?: "Pagination" } & Pick<
+          Pagination,
+          "total" | "lastPage" | "currentPage" | "perPage" | "from" | "to"
         >
       >;
     }
@@ -2903,6 +2941,80 @@ export type VotesQueryResult = Apollo.QueryResult<
   VotesQuery,
   VotesQueryVariables
 >;
+export const WhaleTransactionsDocument = gql`
+  query whaleTransactions($page: Int!) {
+    whaleTransactions(page: $page) {
+      data {
+        id
+        timestamp
+        recipientId
+        senderId
+        amount
+        senderUsername
+        recipientUsername
+      }
+      pagination {
+        total
+        lastPage
+        currentPage
+        perPage
+        from
+        to
+      }
+    }
+  }
+`;
+
+/**
+ * __useWhaleTransactionsQuery__
+ *
+ * To run a query within a React component, call `useWhaleTransactionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useWhaleTransactionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useWhaleTransactionsQuery({
+ *   variables: {
+ *      page: // value for 'page'
+ *   },
+ * });
+ */
+export function useWhaleTransactionsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    WhaleTransactionsQuery,
+    WhaleTransactionsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    WhaleTransactionsQuery,
+    WhaleTransactionsQueryVariables
+  >(WhaleTransactionsDocument, options);
+}
+export function useWhaleTransactionsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    WhaleTransactionsQuery,
+    WhaleTransactionsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    WhaleTransactionsQuery,
+    WhaleTransactionsQueryVariables
+  >(WhaleTransactionsDocument, options);
+}
+export type WhaleTransactionsQueryHookResult = ReturnType<
+  typeof useWhaleTransactionsQuery
+>;
+export type WhaleTransactionsLazyQueryHookResult = ReturnType<
+  typeof useWhaleTransactionsLazyQuery
+>;
+export type WhaleTransactionsQueryResult = Apollo.QueryResult<
+  WhaleTransactionsQuery,
+  WhaleTransactionsQueryVariables
+>;
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
@@ -3929,6 +4041,12 @@ export type QueryResolvers<
     RequireFields<QueryEternityWallArgs, never>
   >;
   txStats?: Resolver<Maybe<ResolversTypes["TXStats"]>, ParentType, ContextType>;
+  whaleTransactions?: Resolver<
+    Maybe<ResolversTypes["PaginatedTransaction"]>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryWhaleTransactionsArgs, "page">
+  >;
   delegates?: Resolver<
     Maybe<ResolversTypes["DelegatesWithStats"]>,
     ParentType,

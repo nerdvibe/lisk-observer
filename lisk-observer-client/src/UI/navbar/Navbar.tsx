@@ -16,7 +16,11 @@ import {
 } from "reactstrap";
 import logo from "../assets/lisk-logo.png";
 import { SearchModal } from "./SearchModal";
-import { BlockHeightContext, TickerContext } from "../layouts/BaseLayout";
+import {
+  BlockHeightContext,
+  TickerContext,
+  TickerValueContext,
+} from "../layouts/BaseLayout";
 import { useLastTicksQuery } from "../../generated/graphql";
 import { CURRENCY_PAIRS, CURRENCY_BASE } from "../components/chartBanner/const";
 import "./style.css";
@@ -32,9 +36,7 @@ export const Navbar: React.FC<any> = ({ toggleSidebar, sidebarOpened }) => {
     data: pricesData,
     loading: pricesLoading,
     error: pricesError,
-  } = useLastTicksQuery({
-    pollInterval: 60000,
-  });
+  }: any = React.useContext(TickerValueContext);
   const { data, loading, error }: any = React.useContext(BlockHeightContext);
   const ticker = React.useContext(TickerContext);
   const [currency, setCurrency] = useState<CURRENCY_PAIRS>(

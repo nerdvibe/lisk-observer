@@ -7,15 +7,26 @@ import { Pagination } from "../../UI/pagination/Pagination";
 import { usePaginatedBlocksQuery } from "../../generated/graphql";
 import { useScrollToTop } from "../utils/hooks";
 import "./style.css";
+import { useHistory, useParams } from "react-router-dom";
+import { AccountContainerParams } from "../account/accountProfile/AccountContainer";
 
 export const Blocks: React.FC = () => {
-  const [page, setPage] = useState(1);
+  let { page: pageParam } = useParams<AccountContainerParams>();
+  const history = useHistory();
+  const [page, setPage] = useState(
+    pageParam && !isNaN(+pageParam) ? +pageParam : 1
+  );
   useScrollToTop();
   const { data, loading, error } = usePaginatedBlocksQuery({
     variables: {
       page,
     },
   });
+
+  const changePage = (selectedPage: number) => {
+    setPage(selectedPage);
+    history.replace(`/blocks/${selectedPage}`);
+  };
 
   if (error) {
     return (
@@ -77,7 +88,7 @@ export const Blocks: React.FC = () => {
                     <Pagination
                       page={page}
                       totalPages={totalPages}
-                      setPage={setPage}
+                      setPage={changePage}
                     />
                   </Col>
                 </Row>

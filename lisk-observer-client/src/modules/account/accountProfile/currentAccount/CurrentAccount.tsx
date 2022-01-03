@@ -339,7 +339,7 @@ export const CurrentAccount: React.FC = () => {
                         {transactionsData?.transactionsByAddress?.pagination
                           ?.total || 0}
                       </div>
-                      <Table responsive>
+                      <Table responsive className="min-w-880">
                         <thead>
                           <tr>
                             <th>TXID</th>

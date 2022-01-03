@@ -1,6 +1,6 @@
 import React from "react";
 import { generateAffiliationLabel } from "../../utils/delegateAffiliation";
-import { beddowsToDecimal } from "../../utils/lisk/utils/lisk/beddowsToDecimal";
+import { displayBigNumber } from "../../utils/lisk/utils/lisk/beddowsToDecimal";
 import { Badge } from "reactstrap";
 import moment from "moment";
 import { Link } from "react-router-dom";
@@ -142,10 +142,10 @@ export const TXElement: React.FC<Props> = ({
       </td>
       <td>
         <Badge className={`badge-${txDirectionsDict[txDirection]} fs-medium`}>
-          {+beddowsToDecimal(!!amount ? amount : 0).toLocaleString()} Ⱡ
+          {displayBigNumber(amount || 0)} Ⱡ
         </Badge>
       </td>
-      <td>{(+beddowsToDecimal(!!fee ? fee : 0)).toLocaleString()} Ⱡ</td>
+      <td>{displayBigNumber(fee || 0)} Ⱡ</td>
       <td>{confirmations}</td>
     </tr>
   );
