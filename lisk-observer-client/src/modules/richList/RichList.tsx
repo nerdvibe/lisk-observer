@@ -27,7 +27,7 @@ import { IsErrorOrLoading } from "../utils/IsErrorOrLoading";
 import { beddowsToDecimal } from "../utils/lisk/utils/lisk/beddowsToDecimal";
 import AccountRow from "./AccountRow";
 
-export const RichList = () => {
+const RichList = () => {
   let { page } = useParams<AccountContainerParams>();
   const [sortedList, setSortedList] = useState<any[]>([]);
   const [sortingType, setSortingType] = useState(SortingTypes.DESC);
@@ -187,3 +187,5 @@ export const RichList = () => {
     </>
   );
 };
+
+export default RichList;

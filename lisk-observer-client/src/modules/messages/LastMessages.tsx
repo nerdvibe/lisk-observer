@@ -58,7 +58,7 @@ const sanitize = (tx: any, filterPayouts: boolean) => {
   return sanitized;
 };
 
-export const LastMessages: React.FC = () => {
+const LastMessages: React.FC = () => {
   const [page] = useState(0);
   const [disableFiltersLabel, setDisableFiltersLabel] = useState("Load more");
   const [loadingLabel, setLoadingLabel] = useState("Loading");
@@ -250,3 +250,5 @@ export const LastMessages: React.FC = () => {
     </div>
   );
 };
+
+export default LastMessages;

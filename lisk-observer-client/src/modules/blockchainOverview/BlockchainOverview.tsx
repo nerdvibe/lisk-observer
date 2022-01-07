@@ -11,7 +11,7 @@ import { BlockHeightFinalizedCard } from "./blockHeightCard/BlockHeightFinalized
 import { useScrollToTop } from "../utils/hooks";
 import "./style.css";
 
-export const BlockchainOverview: React.FC = () => {
+const BlockchainOverview: React.FC = () => {
   useScrollToTop();
   return (
     <>
@@ -52,3 +52,5 @@ export const BlockchainOverview: React.FC = () => {
     </>
   );
 };
+
+export default BlockchainOverview;

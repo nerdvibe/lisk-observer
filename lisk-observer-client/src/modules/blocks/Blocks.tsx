@@ -10,7 +10,7 @@ import "./style.css";
 import { useHistory, useParams } from "react-router-dom";
 import { AccountContainerParams } from "../account/accountProfile/AccountContainer";
 
-export const Blocks: React.FC = () => {
+const Blocks: React.FC = () => {
   let { page: pageParam } = useParams<AccountContainerParams>();
   const history = useHistory();
   const [page, setPage] = useState(
@@ -101,3 +101,5 @@ export const Blocks: React.FC = () => {
     </>
   );
 };
+
+export default Blocks;

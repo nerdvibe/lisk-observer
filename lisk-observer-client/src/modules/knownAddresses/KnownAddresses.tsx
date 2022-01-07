@@ -7,7 +7,7 @@ import { IsErrorOrLoading } from "../utils/IsErrorOrLoading";
 import { useKnownAddressesQuery } from "../../generated/graphql";
 import { useScrollToTop } from "../utils/hooks";
 
-export const KnownAddresses: React.FC = () => {
+const KnownAddresses: React.FC = () => {
   const {
     data: knownAddressesData,
     loading: knownAddressesLoading,
@@ -45,3 +45,5 @@ export const KnownAddresses: React.FC = () => {
     </div>
   );
 };
+
+export default KnownAddresses;

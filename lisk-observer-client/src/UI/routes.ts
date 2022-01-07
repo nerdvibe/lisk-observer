@@ -1,15 +1,27 @@
 import React from "react";
-import { BlockchainOverview } from "../modules/blockchainOverview/BlockchainOverview";
-import { Transactions } from "../modules/transactions/Transactions";
-import { Blocks } from "../modules/blocks/Blocks";
-import { LastVotes } from "../modules/network/LastVotes";
-import { DelegatesList } from "../modules/delegates/DelegatesList";
-import { LastMessages } from "../modules/messages/LastMessages";
-import { KnownAddresses } from "../modules/knownAddresses/KnownAddresses";
-import { Analytics } from "../modules/analytics/Analytics";
-import { RichList } from "../modules/richList/RichList";
-import { NetworkOverview } from "../modules/network-overview/NetworkOverview";
-import { WhalesList } from "../modules/whalesList/WhalesList";
+const BlockchainOverview = React.lazy(() =>
+  import("../modules/blockchainOverview/BlockchainOverview")
+);
+const Transactions = React.lazy(() =>
+  import("../modules/transactions/Transactions")
+);
+const Blocks = React.lazy(() => import("../modules/blocks/Blocks"));
+const LastVotes = React.lazy(() => import("../modules/network/LastVotes"));
+const DelegatesList = React.lazy(() =>
+  import("../modules/delegates/DelegatesList")
+);
+const LastMessages = React.lazy(() =>
+  import("../modules/messages/LastMessages")
+);
+const KnownAddresses = React.lazy(() =>
+  import("../modules/knownAddresses/KnownAddresses")
+);
+const Analytics = React.lazy(() => import("../modules/analytics/Analytics"));
+const RichList = React.lazy(() => import("../modules/richList/RichList"));
+const NetworkOverview = React.lazy(() =>
+  import("../modules/network-overview/NetworkOverview")
+);
+const WhalesList = React.lazy(() => import("../modules/whalesList/WhalesList"));
 
 export interface Routes {
   path: string;

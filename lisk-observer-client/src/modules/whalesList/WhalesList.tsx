@@ -21,7 +21,7 @@ import {
 } from "reactstrap";
 import { isUndefined } from "lodash";
 
-export const WhalesList = () => {
+const WhalesList = () => {
   useScrollToTop();
   const history = useHistory();
   let { page } = useParams<AccountContainerParams>();
@@ -167,3 +167,5 @@ export const WhalesList = () => {
     </>
   );
 };
+
+export default WhalesList;

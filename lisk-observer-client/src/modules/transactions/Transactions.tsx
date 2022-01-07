@@ -18,7 +18,7 @@ function useQueryParams() {
   return React.useMemo(() => new URLSearchParams(search), [search]);
 }
 
-export const Transactions: React.FC = () => {
+const Transactions: React.FC = () => {
   const query = useQueryParams();
   useScrollToTop();
   let { page: pageParam } = useParams<AccountContainerParams>();
@@ -145,3 +145,5 @@ export const Transactions: React.FC = () => {
     </>
   );
 };
+
+export default Transactions;

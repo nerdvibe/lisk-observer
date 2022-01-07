@@ -9,7 +9,7 @@ import { useVotesQuery } from "../../generated/graphql";
 import "./style.css";
 import { useScrollToTop } from "../utils/hooks";
 
-export const LastVotes: React.FC = () => {
+const LastVotes: React.FC = () => {
   useScrollToTop();
   const { data: lastVotesData, error: lastVotesError } = useVotesQuery({
     variables: {
@@ -113,3 +113,5 @@ export const LastVotes: React.FC = () => {
     </div>
   );
 };
+
+export default LastVotes;

@@ -9,7 +9,7 @@ import TransactionsVolumeCard from "./TransactionsVolumeCard";
 import TXKindsCard from "./TXKindsCard";
 import { useScrollToTop } from "../utils/hooks";
 
-export const Analytics = React.memo(
+const Analytics = React.memo(
   () => {
     const { data, loading } = useGetAnalyticsQuery();
     useScrollToTop();
@@ -130,3 +130,5 @@ export const Analytics = React.memo(
   },
   () => true
 );
+
+export default Analytics;

@@ -31,7 +31,7 @@ export interface Delegates {
   username: string;
 }
 
-export const DelegatesList: React.FC = () => {
+const DelegatesList: React.FC = () => {
   const [dataFetched, setDataFetched] = useState(false);
   const [sortingType, setSortingType] = useState(SortingTypes.ASC);
   const [sortedColumn, setSortedColumn] = useState(TableColumns.RANK);
@@ -412,3 +412,5 @@ export const DelegatesList: React.FC = () => {
     </>
   );
 };
+
+export default DelegatesList;
