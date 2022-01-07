@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { beddowsToDecimal } from "../utils/lisk/utils/lisk/beddowsToDecimal";
 import { generateAffiliationLabel } from "../utils/delegateAffiliation";
 import { AvatarSize, DelegateLogo } from "../utils/logos/DelegateLogo";
@@ -91,76 +91,84 @@ export const DelegatesRow: React.FC<Props> = ({
   const missedBlocksLabel =
     +missedBlocks > 0 ? `${missedBlocks} missed blocks` : "";
 
-  return (
-    <tr className={`delegate-row ${isBanned ? " is-banned" : ""}`}>
-      <RowCell mainItem={`${rankAdjusted}`} extraClass="rank-column" />
-      <RowCell
-        mainItem={<FavoriteButton alt address={address} username={username} />}
-      />
-      <RowCell
-        mainItem={
-          <>
-            <Link className="delegate-username" to={`/account/${address}`}>
-              <strong>{username}</strong>
-            </Link>{" "}
-          </>
-        }
-        dataTip={missedBlocksLabel}
-        image={
-          <DelegateLogo
-            delegateName={username}
-            address={address}
-            className="delegate-image"
-            generateRandom={true}
-            size={AvatarSize.MEDIUM}
-          />
-        }
-        extraClass="mw-200"
-      />
-      <RowCell mainItem={`${affiliationLabels}`} />
-      <RowCell
-        mainItem={
-          <>
-            {delegateStatusColor(
-              rank,
-              isBanned,
-              !!+missedBlocks,
-              willForge,
-              isActivePoMs,
-              isMinimumWeightForStandby,
-              missedBlocksLabel
-            )}
-            {forgingInLabel}
-          </>
-        }
-        dataTip={missedBlocksLabel}
-      />
-      <RowCell
-        mainItem={promisedShare ? `${promisedShare}%` : "-"}
-        subItem={realShare ? `${realShare}%` : "-"}
-        dataTip={`Declared share / Real share`}
-      />
-      <RowCell
-        mainItemBold={true}
-        mainItem={`${(+beddowsToDecimal(consensusWeight)).toLocaleString()} Ⱡ`}
-        subItem={`${(+beddowsToDecimal(selfVote)).toLocaleString()} Ⱡ selfvote`}
-      />
-      <RowCell
-        mainItem={`${(+beddowsToDecimal(vote)).toLocaleString()} Ⱡ`}
-        subItem={`${percentOfSupply}% of supply`}
-        dataTip={missedBlocksLabel}
-      />
-      <RowCell mainItem={`${producedBlocks} Blocks`} />
-      <RowCell mainItem={`${PoM.length} PoMs`} />
-      <RowCell
-        extraClass={"text-right"}
-        mainItem={`${
-          isNaN(+usedCapacity) || +usedCapacity < 0 ? "0" : usedCapacity
-        } %`}
-        dataTip={`${(+beddowsToDecimal(
-          available
-        )).toLocaleString()} LSK in voting capacity remaining`}
-      />
-    </tr>
-  );
+  return useMemo(() => {
+    return (
+      <tr className={`delegate-row ${isBanned ? " is-banned" : ""}`}>
+        <RowCell mainItem={`${rankAdjusted}`} extraClass="rank-column" />
+        <RowCell
+          mainItem={
+            <FavoriteButton alt address={address} username={username} />
+          }
+        />
+        <RowCell
+          mainItem={
+            <>
+              <Link className="delegate-username" to={`/account/${address}`}>
+                <strong>{username}</strong>
+              </Link>{" "}
+            </>
+          }
+          dataTip={missedBlocksLabel}
+          image={
+            <DelegateLogo
+              delegateName={username}
+              address={address}
+              className="delegate-image"
+              generateRandom={true}
+              size={AvatarSize.MEDIUM}
+            />
+          }
+          extraClass="mw-200"
+        />
+        <RowCell mainItem={`${affiliationLabels}`} />
+        <RowCell
+          mainItem={
+            <>
+              {delegateStatusColor(
+                rank,
+                isBanned,
+                !!+missedBlocks,
+                willForge,
+                isActivePoMs,
+                isMinimumWeightForStandby,
+                missedBlocksLabel
+              )}
+              {forgingInLabel}
+            </>
+          }
+          dataTip={missedBlocksLabel}
+        />
+        <RowCell
+          mainItem={promisedShare ? `${promisedShare}%` : "-"}
+          subItem={realShare ? `${realShare}%` : "-"}
+          dataTip={`Declared share / Real share`}
+        />
+        <RowCell
+          mainItemBold={true}
+          mainItem={`${(+beddowsToDecimal(
+            consensusWeight
+          )).toLocaleString()} Ⱡ`}
+          subItem={`${(+beddowsToDecimal(
+            selfVote
+          )).toLocaleString()} Ⱡ selfvote`}
+        />
+        <RowCell
+          mainItem={`${(+beddowsToDecimal(vote)).toLocaleString()} Ⱡ`}
+          subItem={`${percentOfSupply}% of supply`}
+          dataTip={missedBlocksLabel}
+        />
+        <RowCell mainItem={`${producedBlocks} Blocks`} />
+        <RowCell mainItem={`${PoM.length} PoMs`} />
+        <RowCell
+          extraClass={"text-right"}
+          mainItem={`${
+            isNaN(+usedCapacity) || +usedCapacity < 0 ? "0" : usedCapacity
+          } %`}
+          dataTip={`${(+beddowsToDecimal(
+            available
+          )).toLocaleString()} LSK in voting capacity remaining`}
+        />
+      </tr>
+    );
+  }, [forgingInLabel, username, address]);
 };
