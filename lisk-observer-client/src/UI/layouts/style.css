@@ -20,6 +20,11 @@
   animation-duration: 0.25s;
 }
 
+.empty-container {
+  width: 100%;
+  min-height: 93vh;
+}
+
 @keyframes fadeInOpacity {
   0% {
     opacity: 0;

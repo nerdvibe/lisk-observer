@@ -14,7 +14,7 @@ import { CURRENCY_PAIRS } from "../components/chartBanner/const";
 import { TransactionDetailContainer } from "../../modules/transaction/TransactionDetailContainer";
 import { FavoritePlugin } from "../favouritePlugin/FavouritePlugin";
 import { useLastTicksQuery } from "../../generated/graphql";
-import { IsErrorOrLoading } from "../../modules/utils/IsErrorOrLoading";
+import "./style.css";
 
 const BlockchainOverview = React.lazy(() =>
   import("../../modules/blockchainOverview/BlockchainOverview")
@@ -105,13 +105,7 @@ export const BaseLayout: React.FC<any> = ({ location }) => {
                 toggleSidebar={toggleSidebar}
                 sidebarOpened={sidebarOpened}
               />
-              <Suspense
-                fallback={
-                  <div className="content super-fast-fade-in">
-                    <IsErrorOrLoading error={false} title="" />
-                  </div>
-                }
-              >
+              <Suspense fallback={<div className="empty-container" />}>
                 <div className="content super-fast-fade-in">
                   <Switch>
                     {getRoutes(routes)}
