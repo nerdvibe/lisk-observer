@@ -135,10 +135,33 @@ img.tile-icon {
 }
 
 .navbar-logo {
-  width: 100px;
+  width: 50px;
   height: 30px;
+  position: relative;
   top: 5px !important;
   z-index: -1;
+}
+
+.loader-logo {
+  width: 100px;
+  height: 100px;
+  top: 5px !important;
+  z-index: -1;
+}
+
+.loader-logo-text {
+  font-size: large;
+  text-align: center;
+}
+
+img.loader-logo-text {
+  width: 200px;
+}
+
+div.loader-logo-text {
+  display: flex;
+  justify-content: center;
+  max-width: 400px;
 }
 
 .navbar-lisk-price {

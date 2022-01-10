@@ -108,7 +108,7 @@ export const LegacyAccount: React.FC = () => {
       <div className="content">
         <IsErrorOrLoading
           error={!!accountTransactionsError || !!accountDataError}
-          title={"transactions"}
+          title={"account"}
         />
         ;
       </div>

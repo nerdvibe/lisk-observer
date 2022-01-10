@@ -14,6 +14,8 @@ import { CURRENCY_PAIRS } from "../components/chartBanner/const";
 import { TransactionDetailContainer } from "../../modules/transaction/TransactionDetailContainer";
 import { FavoritePlugin } from "../favouritePlugin/FavouritePlugin";
 import { useLastTicksQuery } from "../../generated/graphql";
+import { IsErrorOrLoading } from "../../modules/utils/IsErrorOrLoading";
+
 const BlockchainOverview = React.lazy(() =>
   import("../../modules/blockchainOverview/BlockchainOverview")
 );
@@ -103,42 +105,50 @@ export const BaseLayout: React.FC<any> = ({ location }) => {
                 toggleSidebar={toggleSidebar}
                 sidebarOpened={sidebarOpened}
               />
-              <Suspense fallback={<div>Loading...</div>}>
-                <Switch>
-                  {getRoutes(routes)}
-                  <Route
-                    path="/"
-                    component={BlockchainOverview}
-                    key={"home"}
-                    exact={true}
-                  />
-                  <Route
-                    path="/account/:addressContext/:page?"
-                    component={AccountContainer}
-                    key={"account"}
-                  />
-                  <Route
-                    path="/transaction/:txId"
-                    component={TransactionDetailContainer}
-                    key={"transaction"}
-                  />
-                  <Route
-                    path="/block/:blockId"
-                    component={BlockDetailContainer}
-                    key={"block"}
-                  />
-                  <Route
-                    path="/last-messages"
-                    component={LastMessages}
-                    key={"last-messages"}
-                  />
-                  <Route
-                    path="/known-addresses"
-                    component={KnownAddresses}
-                    key={"known-addresses"}
-                  />
-                  <Route path="/votes" component={LastVotes} key={"votes"} />
-                </Switch>
+              <Suspense
+                fallback={
+                  <div className="content super-fast-fade-in">
+                    <IsErrorOrLoading error={false} title="" />
+                  </div>
+                }
+              >
+                <div className="content super-fast-fade-in">
+                  <Switch>
+                    {getRoutes(routes)}
+                    <Route
+                      path="/"
+                      component={BlockchainOverview}
+                      key={"home"}
+                      exact={true}
+                    />
+                    <Route
+                      path="/account/:addressContext/:page?"
+                      component={AccountContainer}
+                      key={"account"}
+                    />
+                    <Route
+                      path="/transaction/:txId"
+                      component={TransactionDetailContainer}
+                      key={"transaction"}
+                    />
+                    <Route
+                      path="/block/:blockId"
+                      component={BlockDetailContainer}
+                      key={"block"}
+                    />
+                    <Route
+                      path="/last-messages"
+                      component={LastMessages}
+                      key={"last-messages"}
+                    />
+                    <Route
+                      path="/known-addresses"
+                      component={KnownAddresses}
+                      key={"known-addresses"}
+                    />
+                    <Route path="/votes" component={LastVotes} key={"votes"} />
+                  </Switch>
+                </div>
               </Suspense>
               <Footer />
             </div>

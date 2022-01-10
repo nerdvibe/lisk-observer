@@ -14,7 +14,7 @@ const Analytics = React.memo(
     const { data, loading } = useGetAnalyticsQuery();
     useScrollToTop();
     return !loading ? (
-      <div className="content">
+      <div>
         <div className="react-notification-alert-container"></div>
         <h1>Analytics</h1>
         <PriceCard />

@@ -67,12 +67,12 @@ export const LastTenTransactionsTable: React.FC = () => {
 
   if (error || loading || heightLoading || heightLoading) {
     return (
-      <div className="content">
+      <>
         <IsErrorOrLoading
           error={!!error || !!heightError}
           title={"transactions"}
         />
-      </div>
+      </>
     );
   }
 

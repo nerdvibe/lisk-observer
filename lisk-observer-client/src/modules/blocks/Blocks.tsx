@@ -9,6 +9,7 @@ import { useScrollToTop } from "../utils/hooks";
 import "./style.css";
 import { useHistory, useParams } from "react-router-dom";
 import { AccountContainerParams } from "../account/accountProfile/AccountContainer";
+import { IsErrorOrLoading } from "../utils/IsErrorOrLoading";
 
 const Blocks: React.FC = () => {
   let { page: pageParam } = useParams<AccountContainerParams>();
@@ -28,44 +29,11 @@ const Blocks: React.FC = () => {
     history.replace(`/blocks/${selectedPage}`);
   };
 
-  if (error) {
+  if (error || loading) {
     return (
-      <>
-        <div className="content">
-          <Row>
-            <Col md="12">
-              <Card>
-                <CardHeader>
-                  <CardTitle tag="h4">Blocks</CardTitle>
-                </CardHeader>
-                <CardBody>Error while fetching the blocks</CardBody>
-              </Card>
-            </Col>
-          </Row>
-        </div>
-      </>
-    );
-  }
-  if (loading) {
-    return (
-      <>
-        <div className="content">
-          <Row>
-            <Col md="12">
-              <Card>
-                <CardHeader>
-                  <CardTitle tag="h4">Blocks</CardTitle>
-                  <CardBody>
-                    <CardTitle tag="h4">
-                      <Spinner /> Loading the last blocks
-                    </CardTitle>
-                  </CardBody>
-                </CardHeader>
-              </Card>
-            </Col>
-          </Row>
-        </div>
-      </>
+      <div>
+        <IsErrorOrLoading error={!!error} title={" the last blocks"} />
+      </div>
     );
   }
 

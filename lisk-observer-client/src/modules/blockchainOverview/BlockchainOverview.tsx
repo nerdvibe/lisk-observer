@@ -15,7 +15,7 @@ const BlockchainOverview: React.FC = () => {
   useScrollToTop();
   return (
     <>
-      <div className="content">
+      <div>
         <Row>
           <Col xs="12">
             <HeaderCard />
