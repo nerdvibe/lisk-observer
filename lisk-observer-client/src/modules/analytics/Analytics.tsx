@@ -8,11 +8,20 @@ import { beddowsToDecimal } from "../utils/lisk/utils/lisk/beddowsToDecimal";
 import TransactionsVolumeCard from "./TransactionsVolumeCard";
 import TXKindsCard from "./TXKindsCard";
 import { useScrollToTop } from "../utils/hooks";
+import { IsErrorOrLoading } from "../utils/IsErrorOrLoading";
 
 const Analytics = React.memo(
   () => {
-    const { data, loading } = useGetAnalyticsQuery();
+    const { data, loading, error } = useGetAnalyticsQuery();
     useScrollToTop();
+
+    if (error || loading) {
+      return (
+        <div>
+          <IsErrorOrLoading error={!!error} title={" analytics"} />
+        </div>
+      );
+    }
     return !loading ? (
       <div>
         <div className="react-notification-alert-container"></div>
