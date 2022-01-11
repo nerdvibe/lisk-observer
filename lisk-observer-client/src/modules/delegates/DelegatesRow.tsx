@@ -118,7 +118,7 @@ export const DelegatesRow: React.FC<Props> = ({
               size={AvatarSize.MEDIUM}
             />
           }
-          extraClass="mw-200"
+          extraClass="delegate-image-wrapper mw-200"
         />
         <RowCell mainItem={`${affiliationLabels}`} />
         <RowCell

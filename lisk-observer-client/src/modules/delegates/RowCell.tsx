@@ -12,6 +12,7 @@ interface Props {
   dataTip?: string;
   subDataTip?: string;
   image?: any;
+  imageClass?: string;
 }
 
 const RowCell = ({
@@ -25,12 +26,17 @@ const RowCell = ({
   dataTip,
   subDataTip,
   image,
+  imageClass,
 }: Props) => {
   const isMainItemBold = mainItemBold ? "bold" : null;
   const isSubItemBold = subItemBold ? "bold" : null;
   return (
     <td className={extraClass} data-tip={!subDataTip ? dataTip : undefined}>
-      {image && <div className="inline-element w-20">{image}</div>}
+      {image && (
+        <div className={`inline-element w-20 ${imageClass ? imageClass : ""}`}>
+          {image}
+        </div>
+      )}
       <div className={`inline-element ${image && "w-auto"}`}>
         <div
           className={`row-cell-main-item white-text ${mainItemClass} ${isMainItemBold}`}

@@ -35,6 +35,13 @@
   margin-right: 10px;
 }
 
+.delegate-image-wrapper {
+  display: flex;
+  align-items: center;
+  height: 75px;
+  flex-direction: row;
+}
+
 .delegate-username {
   line-height: 35px;
 }
