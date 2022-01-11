@@ -4,6 +4,7 @@ import { Card, CardBody } from "reactstrap";
 import { Spinner } from "../../UI/spinner/Spinner";
 import ObserverLogo from "../../UI/navbar/lisk-observer.svg";
 import TelescopeAnimation from "../../UI/assets/telescope.svg";
+import { useScrollToTop } from "./hooks";
 
 interface Props {
   error: boolean;
@@ -18,6 +19,7 @@ export const IsErrorOrLoading: React.FC<Props> = ({
   loadingMsg,
   title,
 }) => {
+  useScrollToTop();
   return (
     <div className="super-fast-fade-in">
       <Card>
