@@ -33,7 +33,7 @@ export const LastTenBlocksTable: React.FC = () => {
 
   if (error || loading) {
     return (
-      <div className="content">
+      <div>
         <IsErrorOrLoading error={!!error} title={"blocks"} />
       </div>
     );

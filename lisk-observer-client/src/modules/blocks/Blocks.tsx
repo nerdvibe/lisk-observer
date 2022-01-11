@@ -3,15 +3,15 @@ import { Row, Col, Card, CardBody, CardHeader, CardTitle } from "reactstrap";
 import { Spinner } from "../../UI/spinner/Spinner";
 import ReactTooltip from "react-tooltip";
 import { BlockRow } from "./BlockRow";
-import { Stars } from "../../UI/Stars";
 import { Pagination } from "../../UI/pagination/Pagination";
 import { usePaginatedBlocksQuery } from "../../generated/graphql";
 import { useScrollToTop } from "../utils/hooks";
 import "./style.css";
 import { useHistory, useParams } from "react-router-dom";
 import { AccountContainerParams } from "../account/accountProfile/AccountContainer";
+import { IsErrorOrLoading } from "../utils/IsErrorOrLoading";
 
-export const Blocks: React.FC = () => {
+const Blocks: React.FC = () => {
   let { page: pageParam } = useParams<AccountContainerParams>();
   const history = useHistory();
   const [page, setPage] = useState(
@@ -29,44 +29,11 @@ export const Blocks: React.FC = () => {
     history.replace(`/blocks/${selectedPage}`);
   };
 
-  if (error) {
+  if (error || loading) {
     return (
-      <>
-        <div className="content">
-          <Row>
-            <Col md="12">
-              <Card>
-                <CardHeader>
-                  <CardTitle tag="h4">Blocks</CardTitle>
-                </CardHeader>
-                <CardBody>Error while fetching the blocks</CardBody>
-              </Card>
-            </Col>
-          </Row>
-        </div>
-      </>
-    );
-  }
-  if (loading) {
-    return (
-      <>
-        <div className="content">
-          <Row>
-            <Col md="12">
-              <Card>
-                <CardHeader>
-                  <CardTitle tag="h4">Blocks</CardTitle>
-                  <CardBody>
-                    <CardTitle tag="h4">
-                      <Spinner /> Loading the last blocks
-                    </CardTitle>
-                  </CardBody>
-                </CardHeader>
-              </Card>
-            </Col>
-          </Row>
-        </div>
-      </>
+      <div>
+        <IsErrorOrLoading error={!!error} title={" the last blocks"} />
+      </div>
     );
   }
 
@@ -75,7 +42,6 @@ export const Blocks: React.FC = () => {
 
   return (
     <>
-      <Stars />
       <div className="content">
         <Row>
           <Col md="12">
@@ -103,3 +69,5 @@ export const Blocks: React.FC = () => {
     </>
   );
 };
+
+export default Blocks;

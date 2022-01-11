@@ -192,7 +192,7 @@ export const StatsCardChart = ({
   return useMemo(() => {
     return (
       <Card className={`stats-card-container ${bigCard ? "big-card" : ""}`}>
-        <CardHeader>
+        <CardHeader className="pb-0">
           {dropdownOptions ? (
             <Row>
               <Col xs={8}>

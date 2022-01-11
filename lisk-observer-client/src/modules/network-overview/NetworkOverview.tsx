@@ -11,7 +11,7 @@ import { useNetworkInfoQuery } from "../../generated/graphql";
 const OFFSET = 127397;
 const CC_REGEX = /^[a-z]{2}$/i;
 
-export const NetworkOverview = () => {
+const NetworkOverview = () => {
   useScrollToTop();
   // Missing in this Typescript version
   // @ts-ignore
@@ -165,3 +165,5 @@ export const NetworkOverview = () => {
     </div>
   );
 };
+
+export default NetworkOverview;

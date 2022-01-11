@@ -5,12 +5,11 @@ import { AvatarSize, DelegateLogo } from "../utils/logos/DelegateLogo";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { beddowsToDecimal } from "../utils/lisk/utils/lisk/beddowsToDecimal";
-import { Stars } from "../../UI/Stars";
 import { useVotesQuery } from "../../generated/graphql";
 import "./style.css";
 import { useScrollToTop } from "../utils/hooks";
 
-export const LastVotes: React.FC = () => {
+const LastVotes: React.FC = () => {
   useScrollToTop();
   const { data: lastVotesData, error: lastVotesError } = useVotesQuery({
     variables: {
@@ -28,7 +27,6 @@ export const LastVotes: React.FC = () => {
 
   return (
     <div className="content">
-      <Stars />
       <div className="react-notification-alert-container"></div>
       <Row>
         <Col md="12">
@@ -115,3 +113,5 @@ export const LastVotes: React.FC = () => {
     </div>
   );
 };
+
+export default LastVotes;

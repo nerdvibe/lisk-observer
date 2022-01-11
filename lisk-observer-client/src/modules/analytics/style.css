@@ -1,7 +1,7 @@
 .stats-card-container {
   display: inline-block !important;
-  margin: 0px 10px;
   min-height: 165px;
+  margin-bottom: 20px;
 }
 
 .stats-card-variation {

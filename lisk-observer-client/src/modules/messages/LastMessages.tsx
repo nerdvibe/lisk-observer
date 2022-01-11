@@ -11,7 +11,6 @@ import {
   Spinner,
 } from "reactstrap";
 import { IsErrorOrLoading } from "../utils/IsErrorOrLoading";
-import { Stars } from "../../UI/Stars";
 import { LastMessageElement } from "./LastMessageElement";
 import { isBad, sanitizeString } from "../utils/strings/censor";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -59,7 +58,7 @@ const sanitize = (tx: any, filterPayouts: boolean) => {
   return sanitized;
 };
 
-export const LastMessages: React.FC = () => {
+const LastMessages: React.FC = () => {
   const [page] = useState(0);
   const [disableFiltersLabel, setDisableFiltersLabel] = useState("Load more");
   const [loadingLabel, setLoadingLabel] = useState("Loading");
@@ -170,7 +169,6 @@ export const LastMessages: React.FC = () => {
 
   return (
     <div className="content">
-      <Stars />
       <div className="react-notification-alert-container"></div>
       <Row>
         <Col md={12}>
@@ -252,3 +250,5 @@ export const LastMessages: React.FC = () => {
     </div>
   );
 };
+
+export default LastMessages;

@@ -1,6 +1,10 @@
+import "./style.css";
 import React from "react";
-import { Card, CardBody, CardHeader, CardTitle } from "reactstrap";
+import { Card, CardBody } from "reactstrap";
 import { Spinner } from "../../UI/spinner/Spinner";
+import ObserverLogo from "../../UI/navbar/lisk-observer.svg";
+import TelescopeAnimation from "../../UI/assets/telescope.svg";
+import { useScrollToTop } from "./hooks";
 
 interface Props {
   error: boolean;
@@ -15,31 +19,48 @@ export const IsErrorOrLoading: React.FC<Props> = ({
   loadingMsg,
   title,
 }) => {
+  useScrollToTop();
   return (
-    <Card className="card-chart">
-      <CardHeader>
-        <CardTitle tag="h4">
-          {title.charAt(0).toUpperCase() + title.slice(1)}
-        </CardTitle>
-        <CardBody>
-          <CardTitle tag="h4">
-            {error ? (
-                !errorMsg ?(
+    <div className="super-fast-fade-in">
+      <Card>
+        <CardBody className="loader-container">
+          <div>
+            <object
+              className="telescope-icon loader-logo"
+              data={TelescopeAnimation}
+              type="image/svg+xml"
+              aria-label="lisk.observer logo"
+            />
+          </div>
+          <div>
+            <img
+              src={ObserverLogo}
+              alt="Lisk.observer"
+              className="loader-logo-text inline-element"
+            />
+          </div>
+          {error ? (
+            !errorMsg ? (
               `Error while fetching the ${
                 title.charAt(0).toLowerCase() + title.slice(1)
               }`
-            ) : errorMsg)
-                : (
-              <>
-                <Spinner />{" "}
-                {loadingMsg ||
-                  `Loading ${title.charAt(0).toLowerCase() + title.slice(1)}`}
-                ...
-              </>
-            )}
-          </CardTitle>
+            ) : (
+              errorMsg
+            )
+          ) : (
+            <div>
+              <div className="inline-element spinner-loader">
+                <Spinner />
+              </div>
+              <h5 className=" loader-logo-text mb-0 inline-element">
+                {loadingMsg
+                  ? loadingMsg
+                  : `Loading ${title.charAt(0).toUpperCase() + title.slice(1)}`}
+              </h5>
+            </div>
+          )}
         </CardBody>
-      </CardHeader>
-    </Card>
+      </Card>
+    </div>
   );
 };

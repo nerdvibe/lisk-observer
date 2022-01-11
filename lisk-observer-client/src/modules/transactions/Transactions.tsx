@@ -4,7 +4,6 @@ import ReactTooltip from "react-tooltip";
 import { Row, Col, Card, CardBody, CardHeader, Table } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TransactionsRow } from "./TransactionRow";
-import { Stars } from "../../UI/Stars";
 import { IsErrorOrLoading } from "../utils/IsErrorOrLoading";
 import { Pagination } from "../../UI/pagination/Pagination";
 import { TX_TYPES } from "../utils/const";
@@ -19,7 +18,7 @@ function useQueryParams() {
   return React.useMemo(() => new URLSearchParams(search), [search]);
 }
 
-export const Transactions: React.FC = () => {
+const Transactions: React.FC = () => {
   const query = useQueryParams();
   useScrollToTop();
   let { page: pageParam } = useParams<AccountContainerParams>();
@@ -87,7 +86,6 @@ export const Transactions: React.FC = () => {
 
   return (
     <>
-      <Stars />
       <div className="content">
         <Row>
           <Col md="12">
@@ -147,3 +145,5 @@ export const Transactions: React.FC = () => {
     </>
   );
 };
+
+export default Transactions;

@@ -186,7 +186,7 @@ export const CurrentAccount: React.FC = () => {
       <div className="content">
         <IsErrorOrLoading
           error={!!errorAccountData || !!transactionsError}
-          title={"transactions"}
+          title={"account"}
         />
       </div>
     );

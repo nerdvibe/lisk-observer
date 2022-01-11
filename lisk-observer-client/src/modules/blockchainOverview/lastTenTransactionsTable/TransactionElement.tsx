@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Badge, Col, Row, Collapse } from "reactstrap";
 import moment from "moment";
 import { ReactComponent as TransactionIcon } from "./icons/transaction.svg";
@@ -93,81 +93,9 @@ export const TransactionElement: React.FC<Props> = ({
 
   const toggle = () => setIsOpen(!isOpen);
 
-  return !mobile ? (
-    <Row className={`last-ten-row ${shouldFade ? "fade-in" : ""}`}>
-      <Col xs={1} sm={1} md={1}>
-        <Row>
-          <Col md={12} className="pl-0">
-            {iconType()}
-          </Col>
-        </Row>
-      </Col>
-      <Col xs={3} sm={3} md={3}>
-        <Row>
-          <Col md={12}>
-            <p>
-              <Link to={`/transaction/${id}`}>{truncateMidString(id, 10)}</Link>
-            </p>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={12}>
-            <p>{when}</p>
-          </Col>
-        </Row>
-      </Col>
-      <Col xs={5} sm={5} md={5}>
-        <Row>
-          <Col md={12}>
-            from{" "}
-            <Link to={`/account/${senderAddress}`}>
-              {truncateMidString(sender)}
-            </Link>
-            {!!transferData ? (
-              <FontAwesomeIcon
-                data-tip={sanitizeString(transferData)}
-                className="fa font-s ml-1"
-                icon={["fas", "comment"]}
-              />
-            ) : null}
-          </Col>
-        </Row>
-        <Row>
-          <Col md={12}>
-            {type === "2:0" ? (
-              <>
-                to{" "}
-                <Link to={`/account/${recipientAddress}`}>
-                  {truncateMidString(recipient)}
-                </Link>
-              </>
-            ) : (
-              recipient
-            )}
-          </Col>
-        </Row>
-      </Col>
-      <Col xs={3} sm={3} md={3} className={"text-right"}>
-        <Row>
-          <Col md={12}>
-            <Badge className={"badge-dark font-m"}>
-              {+beddowsToDecimal(!!amount ? amount : 0).toLocaleString()} Ⱡ
-            </Badge>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={12}>
-            fee: {+beddowsToDecimal(!!fee ? fee : 0).toLocaleString()} Ⱡ
-          </Col>
-        </Row>
-      </Col>
-    </Row>
-  ) : (
-    <div>
-      <Row
-        className={`last-ten-row ${shouldFade ? "fade-in" : ""}`}
-        onClick={toggle}
-      >
+  return useMemo(() => {
+    return !mobile ? (
+      <Row className={`last-ten-row ${shouldFade ? "fade-in" : ""}`}>
         <Col xs={1} sm={1} md={1}>
           <Row>
             <Col md={12} className="pl-0">
@@ -175,8 +103,23 @@ export const TransactionElement: React.FC<Props> = ({
             </Col>
           </Row>
         </Col>
-        <Col xs={2} sm={1} md={1}></Col>
-        <Col xs={8} sm={5} md={5}>
+        <Col xs={3} sm={3} md={3}>
+          <Row>
+            <Col md={12}>
+              <p>
+                <Link to={`/transaction/${id}`}>
+                  {truncateMidString(id, 10)}
+                </Link>
+              </p>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={12}>
+              <p>{when}</p>
+            </Col>
+          </Row>
+        </Col>
+        <Col xs={5} sm={5} md={5}>
           <Row>
             <Col md={12}>
               from{" "}
@@ -185,7 +128,7 @@ export const TransactionElement: React.FC<Props> = ({
               </Link>
               {!!transferData ? (
                 <FontAwesomeIcon
-                  data-tip={transferData}
+                  data-tip={sanitizeString(transferData)}
                   className="fa font-s ml-1"
                   icon={["fas", "comment"]}
                 />
@@ -207,37 +150,99 @@ export const TransactionElement: React.FC<Props> = ({
             </Col>
           </Row>
         </Col>
+        <Col xs={3} sm={3} md={3} className={"text-right"}>
+          <Row>
+            <Col md={12}>
+              <Badge className={"badge-dark font-m"}>
+                {+beddowsToDecimal(!!amount ? amount : 0).toLocaleString()} Ⱡ
+              </Badge>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={12}>
+              fee: {+beddowsToDecimal(!!fee ? fee : 0).toLocaleString()} Ⱡ
+            </Col>
+          </Row>
+        </Col>
       </Row>
-      <Collapse isOpen={isOpen}>
-        <Row>
-          <Col xs={6} sm={3} md={3}>
+    ) : (
+      <div>
+        <Row
+          className={`last-ten-row ${shouldFade ? "fade-in" : ""}`}
+          onClick={toggle}
+        >
+          <Col xs={1} sm={1} md={1}>
             <Row>
-              <Col md={12}>
-                <p>{truncateMidString(id, 10)}</p>
-              </Col>
-            </Row>
-            <Row>
-              <Col md={12}>
-                <p>{when}</p>
+              <Col md={12} className="pl-0">
+                {iconType()}
               </Col>
             </Row>
           </Col>
-          <Col xs={5} sm={3} md={3} className={"text-right"}>
+          <Col xs={2} sm={1} md={1}></Col>
+          <Col xs={8} sm={5} md={5}>
             <Row>
               <Col md={12}>
-                <Badge className={"badge-dark font-m"}>
-                  {+beddowsToDecimal(!!amount ? amount : 0).toLocaleString()} Ⱡ
-                </Badge>
+                from{" "}
+                <Link to={`/account/${senderAddress}`}>
+                  {truncateMidString(sender)}
+                </Link>
+                {!!transferData ? (
+                  <FontAwesomeIcon
+                    data-tip={transferData}
+                    className="fa font-s ml-1"
+                    icon={["fas", "comment"]}
+                  />
+                ) : null}
               </Col>
             </Row>
             <Row>
               <Col md={12}>
-                fee: {+beddowsToDecimal(!!fee ? fee : 0).toLocaleString()} Ⱡ
+                {type === "2:0" ? (
+                  <>
+                    to{" "}
+                    <Link to={`/account/${recipientAddress}`}>
+                      {truncateMidString(recipient)}
+                    </Link>
+                  </>
+                ) : (
+                  recipient
+                )}
               </Col>
             </Row>
           </Col>
         </Row>
-      </Collapse>
-    </div>
-  );
+        <Collapse isOpen={isOpen}>
+          <Row>
+            <Col xs={6} sm={3} md={3}>
+              <Row>
+                <Col md={12}>
+                  <p>{truncateMidString(id, 10)}</p>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={12}>
+                  <p>{when}</p>
+                </Col>
+              </Row>
+            </Col>
+            <Col xs={5} sm={3} md={3} className={"text-right"}>
+              <Row>
+                <Col md={12}>
+                  <Badge className={"badge-dark font-m"}>
+                    {+beddowsToDecimal(!!amount ? amount : 0).toLocaleString()}{" "}
+                    Ⱡ
+                  </Badge>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={12}>
+                  fee: {+beddowsToDecimal(!!fee ? fee : 0).toLocaleString()} Ⱡ
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Collapse>
+      </div>
+    );
+  }, [when]);
 };
