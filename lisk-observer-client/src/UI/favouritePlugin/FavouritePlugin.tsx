@@ -1,5 +1,6 @@
 import React, { RefObject, useEffect, useRef, useState } from "react";
 import "./style.css";
+import Notepad from "./notepad.svg";
 
 // reactstrap components
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -70,25 +71,39 @@ export const FavoritePlugin: React.FC = () => {
           />
         </div>
         <div className="dropdown-menu show">
-          <p className="header-title favorite-title">Favorite accounts</p>
+          <p className="header-title favorite-title bold">Favorite accounts</p>
           <ul className="favorite-list">
-            {favorites.map(({ address, username }: FavoriteAccount) => {
-              return (
-                <li className="adjustments-line color-change currencies-line color-initial">
-                  <Link to={`/account/${address}`}>
-                    <span className="circle">
-                      <DelegateLogo
-                        delegateName={username || address}
-                        address={address}
-                        size={AvatarSize.SMALL}
-                        className="mr-2 small-icon circle"
-                      />
-                    </span>
-                    {truncateMidString(username || address, 20)}
-                  </Link>
-                </li>
-              );
-            })}
+            {favorites.length === 0 ? (
+              <div className="no-results">
+                <object
+                  className="telescope-icon loader-logo"
+                  data={Notepad}
+                  type="image/svg+xml"
+                  aria-label="lisk.observer logo"
+                />
+                <p className="mt-4">
+                  Click on the ❤️ icon relative to the account to save it here.
+                </p>
+              </div>
+            ) : (
+              favorites.map(({ address, username }: FavoriteAccount) => {
+                return (
+                  <li className="adjustments-line color-change currencies-line color-initial">
+                    <Link to={`/account/${address}`}>
+                      <span className="circle">
+                        <DelegateLogo
+                          delegateName={username || address}
+                          address={address}
+                          size={AvatarSize.SMALL}
+                          className="mr-2 small-icon circle"
+                        />
+                      </span>
+                      {truncateMidString(username || address, 20)}
+                    </Link>
+                  </li>
+                );
+              })
+            )}
           </ul>
         </div>
       </div>
