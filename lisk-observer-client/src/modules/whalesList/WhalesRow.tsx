@@ -116,27 +116,31 @@ const WhalesRow = ({
       <td className="text-center arrow-column">
         <strong>{` → `}</strong>
       </td>
-      <RowCell
-        mainItem={receiverName || ""}
-        mainItemBold={true}
-        subItem={
-          <Link to={`/account/${receiver}`}>
-            {truncateMidString(receiver || "", truncateSize)}
-          </Link>
-        }
-        mainItemClass={"white-text font-l"}
-        subItemClass={"white-text font-s"}
-        extraClass="flex-center h-75px max-w-350"
-        image={
-          <DelegateLogo
-            delegateName={receiverName || receiver}
-            address={receiver}
-            className="delegate-image"
-            generateRandom={true}
-            size={AvatarSize.MEDIUM}
-          />
-        }
-      />
+      {receiver ? (
+        <RowCell
+          mainItem={receiverName || ""}
+          mainItemBold={true}
+          subItem={
+            <Link to={`/account/${receiver}`}>
+              {truncateMidString(receiver || "", truncateSize)}
+            </Link>
+          }
+          mainItemClass={"white-text font-l"}
+          subItemClass={"white-text font-s"}
+          extraClass="flex-center h-75px max-w-350"
+          image={
+            <DelegateLogo
+              delegateName={receiverName || receiver}
+              address={receiver}
+              className="delegate-image"
+              generateRandom={true}
+              size={AvatarSize.MEDIUM}
+            />
+          }
+        />
+      ) : (
+        <td>Legacy claim transaction</td>
+      )}
       <RowCell
         mainItem={date}
         mainItemBold={true}
