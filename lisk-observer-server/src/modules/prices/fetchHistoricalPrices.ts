@@ -52,44 +52,76 @@ export const fetchHistoricalPrices = async (): Promise<Prices[]> => {
   return [
     {
       currency: SUPPORTED_CURRENCIES.LSKUSD,
-      date: lskUsd.prices.map((p) => formatDate(p[0])).pop(),
-      value: lskUsd.prices.map((p) => p[1].toFixed(2)).pop(),
+      date: lskUsd.prices
+        .slice(0, lskUsd.prices.length - 2)
+        .map((p) => formatDate(p[0])),
+      value: lskUsd.prices
+        .slice(0, lskUsd.prices.length - 2)
+        .map((p) => p[1].toFixed(2)),
     },
     {
       currency: SUPPORTED_CURRENCIES.LSKBTC,
-      date: lskBtc.prices.map((p) => formatDate(p[0])).pop(),
-      value: lskBtc.prices.map((p) => p[1].toFixed(8)).pop(),
+      date: lskBtc.prices
+        .slice(0, lskBtc.prices.length - 2)
+        .map((p) => formatDate(p[0])),
+      value: lskBtc.prices
+        .slice(0, lskBtc.prices.length - 2)
+        .map((p) => p[1].toFixed(8)),
     },
     {
       currency: SUPPORTED_CURRENCIES.LSKEUR,
-      date: lskEur.prices.map((p) => formatDate(p[0])).pop(),
-      value: lskEur.prices.map((p) => p[1].toFixed(2)).pop(),
+      date: lskEur.prices
+        .slice(0, lskEur.prices.length - 2)
+        .map((p) => formatDate(p[0])),
+      value: lskEur.prices
+        .slice(0, lskEur.prices.length - 2)
+        .map((p) => p[1].toFixed(2)),
     },
     {
       currency: SUPPORTED_CURRENCIES.LSKKRW,
-      date: lskKrw.prices.map((p) => formatDate(p[0])).pop(),
-      value: lskKrw.prices.map((p) => p[1].toFixed(2)).pop(),
+      date: lskKrw.prices
+        .slice(0, lskKrw.prices.length - 2)
+        .map((p) => formatDate(p[0])),
+      value: lskKrw.prices
+        .slice(0, lskKrw.prices.length - 2)
+        .map((p) => p[1].toFixed(2)),
     },
     {
       currency: SUPPORTED_CURRENCIES.LSKPLN,
-      date: lskUsd.prices.map((p) => formatDate(p[0])).pop(),
+      date: lskUsd.prices
+        .slice(0, lskUsd.prices.length - 2)
+        .map((p) => formatDate(p[0])),
       // PLN Chart is not available, defaulting to USDPLN
-      value: lskUsd.prices.map((p) => (p[1] * USDPLN).toFixed(2)).pop(),
+      value: lskUsd.prices
+        .slice(0, lskUsd.prices.length - 2)
+        .map((p) => (p[1] * USDPLN).toFixed(2)),
     },
     {
       currency: SUPPORTED_CURRENCIES.LSKJPY,
-      date: lskUsd.prices.map((p) => formatDate(p[0])).pop(),
-      value: lskUsd.prices.map((p) => (p[1] * USDJPY).toFixed(2)).pop(),
+      date: lskUsd.prices
+        .slice(0, lskUsd.prices.length - 2)
+        .map((p) => formatDate(p[0])),
+      value: lskUsd.prices
+        .slice(0, lskUsd.prices.length - 2)
+        .map((p) => (p[1] * USDJPY).toFixed(2)),
     },
     {
       currency: SUPPORTED_CURRENCIES.LSKCNY,
-      date: lskUsd.prices.map((p) => formatDate(p[0])).pop(),
-      value: lskUsd.prices.map((p) => (p[1] * USDCNY).toFixed(2)).pop(),
+      date: lskUsd.prices
+        .slice(0, lskUsd.prices.length - 2)
+        .map((p) => formatDate(p[0])),
+      value: lskUsd.prices
+        .slice(0, lskUsd.prices.length - 2)
+        .map((p) => (p[1] * USDCNY).toFixed(2)),
     },
     {
       currency: SUPPORTED_CURRENCIES.LSKAED,
-      date: lskUsd.prices.map((p) => formatDate(p[0])).pop(),
-      value: lskUsd.prices.map((p) => (p[1] * USDAED).toFixed(2)).pop(),
+      date: lskUsd.prices
+        .slice(0, lskUsd.prices.length - 2)
+        .map((p) => formatDate(p[0])),
+      value: lskUsd.prices
+        .slice(0, lskUsd.prices.length - 2)
+        .map((p) => (p[1] * USDAED).toFixed(2)),
     },
   ];
 };
