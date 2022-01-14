@@ -3,12 +3,18 @@ import { Line } from "react-chartjs-2";
 import { chartData, chartOptions, color } from "./data";
 import { useGetHistoricalPricesQuery } from "../../../generated/graphql";
 import { CURRENCY_PAIRS, CURRENCY_SYMBOLS } from "./const";
-import { TickerContext } from "../../layouts/BaseLayout";
-let render = 0;
+import { TickerContext, TickerValueContext } from "../../layouts/BaseLayout";
+import moment from "moment";
 
 export const Chart = () => {
   const ref = useRef();
   const ticker = useContext(TickerContext);
+  const {
+    data: pricesData,
+    loading: pricesLoading,
+    error: pricesError,
+  }: any = React.useContext(TickerValueContext);
+  const nowDate = moment(new Date()).format("DD-MMM-YYYY");
   const options = chartOptions(ticker as CURRENCY_PAIRS);
   const { data, error, loading } = useGetHistoricalPricesQuery({
     variables: {
@@ -30,18 +36,12 @@ export const Chart = () => {
 
   return useMemo(() => {
     const prices: any = data && data.getHistoricalPrices;
-    const lastIndex =
-      (data?.getHistoricalPrices?.value &&
-        data?.getHistoricalPrices?.value?.length - 1) ||
-      0;
-    const latestValue =
-      (data?.getHistoricalPrices?.value &&
-        data.getHistoricalPrices.value[lastIndex]) ||
-      0;
 
-    if (error || loading || !data) {
+    if (error || loading || !data || pricesLoading || pricesError) {
       return <>Loading</>;
     }
+    const chartLabels = [...prices.value!, pricesData.lastTicks[ticker]] || [];
+    const chartValues = [...prices.date!, nowDate] || [];
 
     return (
       <>
@@ -50,7 +50,7 @@ export const Chart = () => {
             <div className="stats-card-value font-xl force-white-text">
               Price{"  "}
               <span className="font-l">
-                {latestValue.toLocaleString("en-US", {
+                {pricesData.lastTicks[ticker].toLocaleString("en-US", {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 8,
                 })}{" "}
@@ -63,7 +63,7 @@ export const Chart = () => {
           ref={ref}
           id="line-chart"
           type="line"
-          data={chartData(prices.date! || [], prices.value! || [])}
+          data={chartData(chartValues, chartLabels)}
           options={options}
         />
       </>
