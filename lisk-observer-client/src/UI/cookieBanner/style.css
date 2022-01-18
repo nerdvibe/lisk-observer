@@ -1,0 +1,31 @@
+.thought {
+  display: flex;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 30px;
+  min-width: 40px;
+  max-width: 315px;
+  min-height: 40px;
+  margin: 20px;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.thought:before,
+.thought:after {
+  content: "";
+  background-color: #fff;
+  border-radius: 50%;
+  display: block;
+  position: absolute;
+  z-index: -1;
+}
+
+.thought:after {
+  bottom: 0px;
+  right: 26px;
+  width: 30px;
+  height: 30px;
+  box-shadow: 40px -24px 0 0 #fff, 65px -5px 0 -5px #fff, 85px 10px 0 -10px #fff;
+}
