@@ -7,6 +7,9 @@ export const schema = buildSchema(`
   } 
 
   type Query {
+    """
+    This query returns the info from the Lisk Observer node.
+    """
     nodeInfo: NodeInfo
   }
 `);

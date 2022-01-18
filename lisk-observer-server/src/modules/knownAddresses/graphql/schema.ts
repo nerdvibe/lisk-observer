@@ -12,6 +12,9 @@ export const schema = buildSchema(`
   }
 
   type Query {
+    """
+    This query returns the list of known addresses from Lisk Observer.
+    """
     knownAddresses: [KnownAddresses]
   }
 `);

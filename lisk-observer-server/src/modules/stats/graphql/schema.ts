@@ -35,6 +35,9 @@ export const schema = buildSchema(`
   }
   
   type Query {
+    """
+    Stats about the Lisk blockchain
+    """
     stats: Stats
   }
 `);
