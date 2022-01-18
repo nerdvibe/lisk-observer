@@ -1,4 +1,4 @@
-query getHistoricalPrices($currency: String!) {
+query getHistoricalPrices($currency: Currencies!) {
   getHistoricalPrices(currency: $currency) {
     currency
     value

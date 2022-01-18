@@ -1,5 +1,8 @@
 import React, { useContext } from "react";
-import { useGetHistoricalPricesQuery } from "../../generated/graphql";
+import {
+  Currencies,
+  useGetHistoricalPricesQuery,
+} from "../../generated/graphql";
 import { CURRENCY_SYMBOLS } from "../../UI/components/chartBanner/const";
 import { TickerContext } from "../../UI/layouts/BaseLayout";
 import { IsErrorOrLoading } from "../utils/IsErrorOrLoading";
@@ -10,7 +13,7 @@ const PriceCard = () => {
   const currency = CURRENCY_SYMBOLS[ticker];
   const { data, error, loading } = useGetHistoricalPricesQuery({
     variables: {
-      currency: ticker,
+      currency: (ticker as unknown) as Currencies,
     },
   });
 

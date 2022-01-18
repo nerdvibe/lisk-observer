@@ -1,7 +1,10 @@
 import React, { useContext, useEffect, useMemo, useRef } from "react";
 import { Line } from "react-chartjs-2";
 import { chartData, chartOptions, color } from "./data";
-import { useGetHistoricalPricesQuery } from "../../../generated/graphql";
+import {
+  Currencies,
+  useGetHistoricalPricesQuery,
+} from "../../../generated/graphql";
 import { CURRENCY_PAIRS, CURRENCY_SYMBOLS } from "./const";
 import { TickerContext } from "../../layouts/BaseLayout";
 let render = 0;
@@ -12,7 +15,7 @@ export const Chart = () => {
   const options = chartOptions(ticker as CURRENCY_PAIRS);
   const { data, error, loading } = useGetHistoricalPricesQuery({
     variables: {
-      currency: ticker,
+      currency: (ticker as unknown) as Currencies,
     },
   });
   useEffect(() => {
