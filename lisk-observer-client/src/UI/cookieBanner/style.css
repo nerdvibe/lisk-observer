@@ -1,3 +1,22 @@
+.cookie-banner-container {
+  position: fixed;
+  z-index: 1033;
+  bottom: 50px;
+  right: 2em;
+  display: flex;
+  opacity: 0;
+  animation: fadeInAnimation ease 0.3s 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.fade-out {
+  animation: fadeOutAnimation ease 0.3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  opacity: 1;
+}
+
 .thought {
   display: flex;
   background-color: #fff;
@@ -10,8 +29,12 @@
   position: relative;
   align-items: center;
   justify-content: center;
-  text-align: center;
+  right: 12px;
+  bottom: 25px;
+  -webkit-box-shadow: 0px 0px 14px -4px #fff;
+  box-shadow: 0px 0px 14px -4px #fff;
 }
+
 .thought:before,
 .thought:after {
   content: "";
@@ -28,4 +51,48 @@
   width: 30px;
   height: 30px;
   box-shadow: 40px -24px 0 0 #fff, 65px -5px 0 -5px #fff, 85px 10px 0 -10px #fff;
+}
+
+.purple-text {
+  cursor: pointer;
+  color: #e14eca;
+  transition: 0.3s;
+}
+
+.purple-text:hover {
+  color: #ba54f5;
+}
+
+.text-black {
+  color: black !important;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.cookie-robot {
+  align-self: flex-end;
+  bottom: -67px;
+  position: relative;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOutAnimation {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
