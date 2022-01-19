@@ -36,6 +36,9 @@ export const schema = buildSchema(`
 }
   
   type Query {
+    """
+    This query returns the network info available on Lisk Observer
+    """
     networkInfo: NetworkInfo
   }
 `);

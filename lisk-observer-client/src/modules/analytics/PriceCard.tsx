@@ -1,6 +1,9 @@
 import moment from "moment";
 import React, { useContext } from "react";
-import { useGetHistoricalPricesQuery } from "../../generated/graphql";
+import {
+  Currencies,
+  useGetHistoricalPricesQuery,
+} from "../../generated/graphql";
 import { CURRENCY_SYMBOLS } from "../../UI/components/chartBanner/const";
 import { TickerContext, TickerValueContext } from "../../UI/layouts/BaseLayout";
 import { IsErrorOrLoading } from "../utils/IsErrorOrLoading";
@@ -12,7 +15,7 @@ const PriceCard = () => {
   const nowDate = moment(new Date()).format("DD-MMM-YYYY");
   const { data, error, loading } = useGetHistoricalPricesQuery({
     variables: {
-      currency: ticker,
+      currency: (ticker as unknown) as Currencies,
     },
   });
   const {

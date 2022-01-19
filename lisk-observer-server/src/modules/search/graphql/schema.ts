@@ -23,6 +23,9 @@ export const schema = buildSchema(`
   }
 
   type Query {
+    """
+    This query searches through Accounts, Blocks and Transactions given a term. The search works for the legacy and > 3.0 chain.
+    """
     search(term: String!): Search
   }
 `);

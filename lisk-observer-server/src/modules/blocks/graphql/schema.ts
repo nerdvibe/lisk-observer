@@ -68,9 +68,21 @@ export const schema = buildSchema(`
   union BlockTransactionsOrLegacy = BlockWithTransactions | BlockLegacy
 
   type Query {
+    """
+    This query returns the block given a block id. It returns either a > 3.0 block or a legacy chain block.
+    """
     block(id: String): BlockTransactionsOrLegacy
+    """
+    This query returns the last block available in the chain.
+    """
     lastBlock: Block
+    """
+    This query returns the last 10 blocks, in a paginated form. It supports blocks up to the genesis of 3.0.
+    """
     lastBlocks(page: Int): PaginatedBlock
+    """
+    Similar to lastBlocks, this query returns the last 10 blocks by address, in a paginated form. It supports blocks up to the genesis of 3.0.
+    """
     blocksByAddress(address: String!, page: Int): PaginatedBlock
   }
 `);
