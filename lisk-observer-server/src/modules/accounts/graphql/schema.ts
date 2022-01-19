@@ -103,8 +103,17 @@ export const schema = buildSchema(`
   }
 
   type Query {
+    """
+    This query returns the Lisk account (> 3.0) based on the address passed in the parameter
+    """
     account(address: String!): Account
+    """
+    This query returns the Lisk legacy account based on the address passed in the parameter
+    """
     accountLegacy(address: String!): LegacyAccount
+    """
+    This query returns a list of Lisk accounts
+    """
     richList(page: Int): RichList
   }
 `);

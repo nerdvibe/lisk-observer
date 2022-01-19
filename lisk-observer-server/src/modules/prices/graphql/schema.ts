@@ -29,7 +29,13 @@ export const schema = buildSchema(`
   }
  
   type Query {
-    getHistoricalPrices(currency: String): CurrencyData
+    """
+    This query returns the historical prices of LSK token based on the currency passed in the parameter
+    """
+    getHistoricalPrices(currency: Currencies): CurrencyData
+    """
+    This query returns the last price of LSK token for the selected currency
+    """
     lastTicks: LastTicks
   }
 `);
