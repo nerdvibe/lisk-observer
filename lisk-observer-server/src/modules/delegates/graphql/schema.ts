@@ -50,7 +50,7 @@ export const schema = buildSchema(`
 
   type Query {
     """
-    This query returns the first 500 delegates, sorted by vote weight.
+    This query returns the first N delegates, sorted by vote weight.
     """
     delegates(limit: Int): DelegatesWithStats
     """
