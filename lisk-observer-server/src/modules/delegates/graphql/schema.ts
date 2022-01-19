@@ -52,7 +52,7 @@ export const schema = buildSchema(`
     """
     This query returns the first 500 delegates, sorted by vote weight.
     """
-    delegates: DelegatesWithStats
+    delegates(limit: Int): DelegatesWithStats
     """
     deprecated
     """
