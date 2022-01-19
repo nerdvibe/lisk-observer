@@ -15,6 +15,7 @@ import { TransactionDetailContainer } from "../../modules/transaction/Transactio
 import { FavoritePlugin } from "../favouritePlugin/FavouritePlugin";
 import { useLastTicksQuery } from "../../generated/graphql";
 import "./style.css";
+import { CookieBanner } from "../cookieBanner/CookieBanner";
 
 const BlockchainOverview = React.lazy(() =>
   import("../../modules/blockchainOverview/BlockchainOverview")
@@ -87,6 +88,8 @@ export const BaseLayout: React.FC<any> = ({ location }) => {
     <BlockHeightContext.Provider value={blockHeight}>
       <TickerContext.Provider value={ticker}>
         <TickerValueContext.Provider value={tickerValue}>
+          <CookieBanner />
+
           <div className="wrapper">
             <Sidebar
               routes={routes}
