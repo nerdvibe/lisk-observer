@@ -49,7 +49,7 @@ export const schema = buildSchema(`
 
 
   type Query {
-    delegates: DelegatesWithStats
+    delegates: DelegatesWithStats 
     liskVoteStats: DelegatesWithStats
   }
 `);
