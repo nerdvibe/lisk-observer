@@ -148,11 +148,29 @@ export const schema = buildSchema(`
   union PaginatedTransactionOrLegacy = PaginatedTransaction | PaginatedTransactionLegacy
 
   type Query {
+    """
+    This query returns the last transactions by address in a paginated form. Works with either legacy chain or >3.0 chain addresses/transactions.
+    """
     transactionsByAddress(address: String!, page: Int!): PaginatedTransactionOrLegacy
+    """
+    This query returns the transaction given an id. Works with either the legacy chain and >3.0 chain transactions.
+    """
     transaction(id: String!): TransactionWithBlockOrLegacy
+    """
+    This query returns the last 25 transactions in a paginated form. Works only with >3.0 chain transactions
+    """
     transactions(page: Int, TXType: String): PaginatedTransaction
+    """
+    This query returns the last messages of in the transactions. Works only with >3.0 chain transactions.
+    """
     eternityWall(page: Int): PaginatedEthernityWallMessage
+    """
+    This query returns the stats about the transactions. Works only with >3.0 chain transactions.
+    """
     txStats: TXStats
+    """
+    This query returns the "big" transactions sorted by desc in a paginated form. Works only with >3.0 chain transactions.
+    """
     whaleTransactions(page: Int!): PaginatedTransaction
   }
 `);

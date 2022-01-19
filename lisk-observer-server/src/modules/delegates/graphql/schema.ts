@@ -49,7 +49,13 @@ export const schema = buildSchema(`
 
 
   type Query {
-    delegates: DelegatesWithStats 
+    """
+    This query returns the first 500 delegates, sorted by vote weight.
+    """
+    delegates: DelegatesWithStats
+    """
+    deprecated
+    """
     liskVoteStats: DelegatesWithStats
   }
 `);

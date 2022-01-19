@@ -28,6 +28,9 @@ export const schema = buildSchema(`
   
 
   type Query {
+    """
+    This query returns the vote transactions sorted by creation time desc, in a paginated form. Works only with >3.0 chain transactions.
+    """
     votes(page: Int!): PaginatedVotes
   }
 `);
