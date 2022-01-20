@@ -1,0 +1,26 @@
+.sidebar-links {
+  position: absolute;
+  bottom: 0;
+}
+
+.sidebar-link {
+  opacity: 0.7;
+  transition: 0.3s;
+  font-weight: 300;
+}
+
+.sidebar-link:hover {
+  opacity: 1;
+  transition: 0.3s;
+  font-weight: 600;
+}
+
+.sidebar-links > * {
+  color: white !important ;
+}
+
+@media screen and (max-height: 825px) {
+  .sidebar-links {
+    display: none;
+  }
+}
