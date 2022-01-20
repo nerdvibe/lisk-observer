@@ -1,0 +1,17 @@
+.tc-container > h1,
+.tc-container > h2,
+.tc-container > h3,
+.tc-container > h4 {
+  margin-top: 20px !important;
+  margin-bottom: 10px !important;
+  color: white;
+}
+
+.tc-container > h1,
+.tc-container > h2 {
+  font-weight: 600;
+}
+
+.tc-container > * {
+  color: white;
+}

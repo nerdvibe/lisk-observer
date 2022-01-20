@@ -3,6 +3,7 @@ import { NavLink, Link } from "react-router-dom";
 import { Nav } from "reactstrap";
 import { Routes } from "../routes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "./style.css";
 
 export interface SidebarProps {
   location: Location;
@@ -60,29 +61,44 @@ export const Sidebar: React.FC<SidebarProps> = ({
           {routes.map((prop: any, key: any) => {
             if (prop.redirect) return null;
             return (
-              <li
-                className={
-                  isActiveRoute(prop.link || prop.path) +
-                  (prop.pro ? " active-pro" : "")
-                }
-                key={key}
-              >
-                <NavLink
-                  to={prop.link || prop.path}
-                  className="nav-link"
-                  activeClassName="active"
-                  onClick={toggleSidebar}
+              !prop.hidden && (
+                <li
+                  className={
+                    isActiveRoute(prop.link || prop.path) +
+                    (prop.pro ? " active-pro" : "")
+                  }
+                  key={key}
                 >
-                  <FontAwesomeIcon
-                    icon={prop.icon}
-                    className="mr-1 font-initial"
-                  />
-                  {prop.name}
-                </NavLink>
-              </li>
+                  <NavLink
+                    to={prop.link || prop.path}
+                    className="nav-link"
+                    activeClassName="active"
+                    onClick={toggleSidebar}
+                  >
+                    <FontAwesomeIcon
+                      icon={prop.icon}
+                      className="mr-1 font-initial"
+                    />
+                    {prop.name}
+                  </NavLink>
+                </li>
+              )
             );
           })}
         </Nav>
+        <div className="sidebar-links w-100 pl-3 pb-2">
+          <a
+            className="sidebar-link"
+            href="https://docs.lisk.observer/"
+            target="_blank"
+          >
+            API
+          </a>
+          <br />
+          <a className="sidebar-link" href="/terms">
+            Terms & Conditions
+          </a>
+        </div>
       </div>
     </div>
   );

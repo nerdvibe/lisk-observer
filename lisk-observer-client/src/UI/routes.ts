@@ -22,6 +22,9 @@ const NetworkOverview = React.lazy(() =>
   import("../modules/network-overview/NetworkOverview")
 );
 const WhalesList = React.lazy(() => import("../modules/whalesList/WhalesList"));
+const TermsAndConditions = React.lazy(() =>
+  import("../modules/terms-and-conditions/TermsAndConditions")
+);
 
 export interface Routes {
   path: string;
@@ -32,6 +35,7 @@ export interface Routes {
   home?: boolean;
   exact?: boolean;
   link?: string;
+  hidden?: boolean;
 }
 
 export const routes: Routes[] = [
@@ -117,5 +121,14 @@ export const routes: Routes[] = [
     icon: "money-bill-wave",
     component: WhalesList,
     layout: "",
+  },
+  {
+    link: "/terms",
+    path: "/terms",
+    name: "Terms and conditions",
+    icon: "",
+    component: TermsAndConditions,
+    layout: "",
+    hidden: true,
   },
 ];
