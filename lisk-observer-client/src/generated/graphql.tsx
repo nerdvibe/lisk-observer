@@ -329,28 +329,51 @@ export type Promises = {
 
 export type Query = {
   __typename?: "Query";
+  /** This query returns the block given a block id. It returns either a > 3.0 block or a legacy chain block. */
   block?: Maybe<BlockTransactionsOrLegacy>;
+  /** This query returns the last block available in the chain. */
   lastBlock?: Maybe<Block>;
+  /** This query returns the last 10 blocks, in a paginated form. It supports blocks up to the genesis of 3.0. */
   lastBlocks?: Maybe<PaginatedBlock>;
+  /** Similar to lastBlocks, this query returns the last 10 blocks by address, in a paginated form. It supports blocks up to the genesis of 3.0. */
   blocksByAddress?: Maybe<PaginatedBlock>;
+  /** This query returns the Lisk account (> 3.0) based on the address passed in the parameter */
   account?: Maybe<Account>;
+  /** This query returns the Lisk legacy account based on the address passed in the parameter */
   accountLegacy?: Maybe<LegacyAccount>;
+  /** This query returns a list of Lisk accounts */
   richList?: Maybe<RichList>;
+  /** This query returns the last transactions by address in a paginated form. Works with either legacy chain or >3.0 chain addresses/transactions. */
   transactionsByAddress?: Maybe<PaginatedTransactionOrLegacy>;
+  /** This query returns the transaction given an id. Works with either the legacy chain and >3.0 chain transactions. */
   transaction?: Maybe<TransactionWithBlockOrLegacy>;
+  /** This query returns the last 25 transactions in a paginated form. Works only with >3.0 chain transactions */
   transactions?: Maybe<PaginatedTransaction>;
+  /** This query returns the last messages of in the transactions. Works only with >3.0 chain transactions. */
   eternityWall?: Maybe<PaginatedEthernityWallMessage>;
+  /** This query returns the stats about the transactions. Works only with >3.0 chain transactions. */
   txStats?: Maybe<TxStats>;
+  /** This query returns the "big" transactions sorted by desc in a paginated form. Works only with >3.0 chain transactions. */
   whaleTransactions?: Maybe<PaginatedTransaction>;
+  /** This query returns the first N delegates, sorted by vote weight. */
   delegates?: Maybe<DelegatesWithStats>;
+  /** deprecated */
   liskVoteStats?: Maybe<DelegatesWithStats>;
+  /** This query returns the info from the Lisk Observer node. */
   nodeInfo?: Maybe<NodeInfo>;
+  /** This query searches through Accounts, Blocks and Transactions given a term. The search works for the legacy and > 3.0 chain. */
   search?: Maybe<Search>;
+  /** This query returns the historical prices of LSK token based on the currency passed in the parameter */
   getHistoricalPrices?: Maybe<CurrencyData>;
+  /** This query returns the last price of LSK token for the selected currency */
   lastTicks?: Maybe<LastTicks>;
+  /** This query returns the vote transactions sorted by creation time desc, in a paginated form. Works only with >3.0 chain transactions. */
   votes?: Maybe<PaginatedVotes>;
+  /** This query returns the list of known addresses from Lisk Observer. */
   knownAddresses?: Maybe<Array<Maybe<KnownAddresses>>>;
+  /** Stats about the Lisk blockchain */
   stats?: Maybe<Stats>;
+  /** This query returns the network info available on Lisk Observer */
   networkInfo?: Maybe<NetworkInfo>;
 };
 
@@ -401,12 +424,16 @@ export type QueryWhaleTransactionsArgs = {
   page: Scalars["Int"];
 };
 
+export type QueryDelegatesArgs = {
+  limit?: Maybe<Scalars["Int"]>;
+};
+
 export type QuerySearchArgs = {
   term: Scalars["String"];
 };
 
 export type QueryGetHistoricalPricesArgs = {
-  currency?: Maybe<Scalars["String"]>;
+  currency?: Maybe<Currencies>;
 };
 
 export type QueryVotesArgs = {
@@ -945,7 +972,9 @@ export type BlocksByAddressQuery = { __typename?: "Query" } & {
   >;
 };
 
-export type DelegatesListQueryVariables = Exact<{ [key: string]: never }>;
+export type DelegatesListQueryVariables = Exact<{
+  limit: Scalars["Int"];
+}>;
 
 export type DelegatesListQuery = { __typename?: "Query" } & {
   delegates?: Maybe<
@@ -1032,7 +1061,7 @@ export type EternityWallQuery = { __typename?: "Query" } & {
 };
 
 export type GetHistoricalPricesQueryVariables = Exact<{
-  currency: Scalars["String"];
+  currency: Currencies;
 }>;
 
 export type GetHistoricalPricesQuery = { __typename?: "Query" } & {
@@ -1367,10 +1396,7 @@ export type WhaleTransactionsQuery = { __typename?: "Query" } & {
         >
       >;
       pagination?: Maybe<
-        { __typename?: "Pagination" } & Pick<
-          Pagination,
-          "total" | "lastPage" | "currentPage" | "perPage" | "from" | "to"
-        >
+        { __typename?: "Pagination" } & Pick<Pagination, "total" | "lastPage">
       >;
     }
   >;
@@ -2010,8 +2036,8 @@ export type BlocksByAddressQueryResult = Apollo.QueryResult<
   BlocksByAddressQueryVariables
 >;
 export const DelegatesListDocument = gql`
-  query delegatesList {
-    delegates {
+  query delegatesList($limit: Int!) {
+    delegates(limit: $limit) {
       promises {
         username
         address
@@ -2060,11 +2086,12 @@ export const DelegatesListDocument = gql`
  * @example
  * const { data, loading, error } = useDelegatesListQuery({
  *   variables: {
+ *      limit: // value for 'limit'
  *   },
  * });
  */
 export function useDelegatesListQuery(
-  baseOptions?: Apollo.QueryHookOptions<
+  baseOptions: Apollo.QueryHookOptions<
     DelegatesListQuery,
     DelegatesListQueryVariables
   >
@@ -2164,7 +2191,7 @@ export type EternityWallQueryResult = Apollo.QueryResult<
   EternityWallQueryVariables
 >;
 export const GetHistoricalPricesDocument = gql`
-  query getHistoricalPrices($currency: String!) {
+  query getHistoricalPrices($currency: Currencies!) {
     getHistoricalPrices(currency: $currency) {
       currency
       value
@@ -2956,10 +2983,6 @@ export const WhaleTransactionsDocument = gql`
       pagination {
         total
         lastPage
-        currentPage
-        perPage
-        from
-        to
       }
     }
   }
@@ -4050,7 +4073,8 @@ export type QueryResolvers<
   delegates?: Resolver<
     Maybe<ResolversTypes["DelegatesWithStats"]>,
     ParentType,
-    ContextType
+    ContextType,
+    RequireFields<QueryDelegatesArgs, never>
   >;
   liskVoteStats?: Resolver<
     Maybe<ResolversTypes["DelegatesWithStats"]>,

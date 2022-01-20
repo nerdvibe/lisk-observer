@@ -1,4 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   Card,
   CardHeader,
@@ -25,16 +31,16 @@ import {
   useBlockHeightQuery,
   useDelegatesListQuery,
 } from "../../generated/graphql";
-import { useScrollToTop } from "../utils/hooks";
+import { useIntersection, useScrollToTop } from "../utils/hooks";
+import TelescopeAnimation from "../../UI/assets/telescope.svg";
 
-export interface Delegates {
-  username: string;
-}
+const DEFAULT_DELEGATES_LIMIT = 130;
 
 const DelegatesList: React.FC = () => {
   const [dataFetched, setDataFetched] = useState(false);
   const [sortingType, setSortingType] = useState(SortingTypes.ASC);
   const [sortedColumn, setSortedColumn] = useState(TableColumns.RANK);
+  const [delegatesLimit, setDelegatesLimit] = useState(DEFAULT_DELEGATES_LIMIT);
   const [delegatesData, setDelegatesData] = useState<any>({
     supply: 0,
     locked: 0,
@@ -67,7 +73,26 @@ const DelegatesList: React.FC = () => {
         setDelegatesData(dataToMerge as any);
       }
     },
+    variables: {
+      limit: delegatesLimit,
+    },
   });
+  const ref = useRef();
+  const inViewport = useIntersection(ref, "0px"); // Trigger as soon as the element becomes visible
+
+  const increaseLimit = useCallback(() => {
+    if (inViewport && data) {
+      if (!loading && !error) {
+        setDelegatesLimit(delegatesLimit + 50);
+      }
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (inViewport) {
+      increaseLimit();
+    }
+  }, [inViewport]);
 
   const getStakePercentage = (
     totalStake: string | number | null = 0,
@@ -170,17 +195,6 @@ const DelegatesList: React.FC = () => {
     setSortingType(sort);
   };
 
-  if (
-    delegatesData.delegates.delegates.length === 0 ||
-    (!dataFetched && (error || loading))
-  ) {
-    return (
-      <div className="content">
-        <IsErrorOrLoading error={!!error} title={"delegates"} />
-      </div>
-    );
-  }
-
   const delegates: any[] = data?.delegates?.delegates?.delegates || [];
   const delegatesSorted = [...delegates]
     .sort(
@@ -213,202 +227,231 @@ const DelegatesList: React.FC = () => {
     return 0;
   };
 
+  const loadingOrError =
+    delegatesData.delegates.delegates.length === 0 ||
+    (!dataFetched && (error || loading));
+
   return (
     <>
-      <div className="content">
-        <div className="react-notification-alert-container"></div>
-        <Row>
-          <Col md="3">
-            <NumberCard
-              data={`${totalSupply} LSK`}
-              title={"Total Supply"}
-              icon={""}
-            />
-          </Col>
-          <Col md="3">
-            <NumberCard
-              data={`${stakedLisk} LSK`}
-              title={"Staked Lisk"}
-              icon={""}
-            />
-          </Col>
-          <Col md="3">
-            <NumberCard
-              data={totalDelegates}
-              title={"Total Delegates"}
-              icon={""}
-            />
-          </Col>
-          <Col md="3">
-            <NumberCard
-              data={`${stakePercentage}%`}
-              title={"% of LSK staked"}
-              icon={""}
-            />
-          </Col>
-          <Col md="6">
-            <NextForgers delegates={delegatesSorted as any} />
-          </Col>
-          <Col md="6">
-            <DelegateStats
-              totalDelegates={delegatesData?.delegates?.total}
-              greenDelegates={greenDelegates}
-            />
-          </Col>
-          <Col md="12">
-            <Card>
-              <CardHeader>
-                <CardTitle tag="h4">
-                  Delegates
-                  <p className="category">
-                    Top delegates by Rank - % Share provided by Lisk.Vote and
-                    Lemii
-                  </p>
-                </CardTitle>
-              </CardHeader>
-              <CardBody>
-                <Table responsive>
-                  <thead>
-                    <tr>
-                      <SortableTh
-                        className="mw-60"
-                        activeHeader={sortedColumn}
-                        column={TableColumns.RANK}
-                        setSorting={setSortingParameters}
-                        sortingType={sortingType}
-                      >
-                        Rank
-                      </SortableTh>
-                      <th></th>
-                      <SortableTh
-                        activeHeader={sortedColumn}
-                        column={TableColumns.DELEGATE_NAME}
-                        setSorting={setSortingParameters}
-                        sortingType={sortingType}
-                      >
-                        Delegate
-                      </SortableTh>
-                      <th></th>
-                      <SortableTh
-                        activeHeader={sortedColumn}
-                        column={TableColumns.STATUS}
-                        setSorting={setSortingParameters}
-                        sortingType={sortingType}
-                        width={"15%"}
-                      >
-                        Status
-                      </SortableTh>
-                      <SortableTh
-                        activeHeader={sortedColumn}
-                        column={TableColumns.SHARE}
-                        setSorting={setSortingParameters}
-                        sortingType={sortingType}
-                      >
-                        Share
-                      </SortableTh>
-                      <SortableTh
-                        activeHeader={sortedColumn}
-                        column={TableColumns.SELF_VOTES}
-                        setSorting={setSortingParameters}
-                        sortingType={sortingType}
-                      >
-                        Actual weight
-                      </SortableTh>
-                      <SortableTh
-                        activeHeader={sortedColumn}
-                        column={TableColumns.SELF_VOTES}
-                        setSorting={setSortingParameters}
-                        sortingType={sortingType}
-                      >
-                        Total weight
-                      </SortableTh>
-                      <SortableTh
-                        activeHeader={sortedColumn}
-                        column={TableColumns.PRODUCED_BLOCKS}
-                        setSorting={setSortingParameters}
-                        sortingType={sortingType}
-                      >
-                        Produced Blocks
-                      </SortableTh>
-                      <SortableTh
-                        activeHeader={sortedColumn}
-                        column={TableColumns.POM}
-                        setSorting={setSortingParameters}
-                        sortingType={sortingType}
-                      >
-                        Misbehaviours
-                      </SortableTh>
-                      {/* <th>Term</th> */}
-                      <SortableTh
-                        activeHeader={sortedColumn}
-                        column={TableColumns.VOTE_CAPACITY}
-                        setSorting={setSortingParameters}
-                        sortingType={sortingType}
-                        className={"text-right"}
-                      >
-                        Vote Capacity
-                      </SortableTh>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <ReactTooltip />
-                    {sortedList.map((delegate: any) => {
-                      const forgingTime =
-                        delegate?.dpos?.delegate?.nextForgingTime;
-                      timestampsLocal[delegate.username] = {
-                        when: forgingTime,
-                        text: moment(forgingTime * 1000).fromNow(),
-                      };
-                      const percentOfSupply = consensusPercentage(
-                        delegate.dpos?.delegate.totalVotesReceived || 0,
-                        delegatesData.locked
-                      );
+      {loadingOrError ? (
+        <div className="content">
+          <IsErrorOrLoading error={!!error} title={"delegates"} />
+        </div>
+      ) : (
+        <div className="content">
+          <div className="react-notification-alert-container"></div>
+          <Row>
+            <Col md="3">
+              <NumberCard
+                data={`${totalSupply} LSK`}
+                title={"Total Supply"}
+                icon={""}
+              />
+            </Col>
+            <Col md="3">
+              <NumberCard
+                data={`${stakedLisk} LSK`}
+                title={"Staked Lisk"}
+                icon={""}
+              />
+            </Col>
+            <Col md="3">
+              <NumberCard
+                data={totalDelegates}
+                title={"Total Delegates"}
+                icon={""}
+              />
+            </Col>
+            <Col md="3">
+              <NumberCard
+                data={`${stakePercentage}%`}
+                title={"% of LSK staked"}
+                icon={""}
+              />
+            </Col>
+            <Col md="6">
+              <NextForgers delegates={delegatesSorted as any} />
+            </Col>
+            <Col md="6">
+              <DelegateStats
+                totalDelegates={delegatesData?.delegates?.total}
+                greenDelegates={greenDelegates}
+              />
+            </Col>
+            <Col md="12">
+              <Card>
+                <CardHeader>
+                  <CardTitle tag="h4">
+                    Delegates
+                    <p className="category">
+                      Top delegates by Rank - % Share provided by Lisk.Vote and
+                      Lemii
+                    </p>
+                  </CardTitle>
+                </CardHeader>
+                <CardBody>
+                  <Table responsive>
+                    <thead>
+                      <tr>
+                        <SortableTh
+                          className="mw-60"
+                          activeHeader={sortedColumn}
+                          column={TableColumns.RANK}
+                          setSorting={setSortingParameters}
+                          sortingType={sortingType}
+                        >
+                          Rank
+                        </SortableTh>
+                        <th></th>
+                        <SortableTh
+                          activeHeader={sortedColumn}
+                          column={TableColumns.DELEGATE_NAME}
+                          setSorting={setSortingParameters}
+                          sortingType={sortingType}
+                        >
+                          Delegate
+                        </SortableTh>
+                        <th></th>
+                        <SortableTh
+                          activeHeader={sortedColumn}
+                          column={TableColumns.STATUS}
+                          setSorting={setSortingParameters}
+                          sortingType={sortingType}
+                          width={"15%"}
+                        >
+                          Status
+                        </SortableTh>
+                        <SortableTh
+                          activeHeader={sortedColumn}
+                          column={TableColumns.SHARE}
+                          setSorting={setSortingParameters}
+                          sortingType={sortingType}
+                        >
+                          Share
+                        </SortableTh>
+                        <SortableTh
+                          activeHeader={sortedColumn}
+                          column={TableColumns.SELF_VOTES}
+                          setSorting={setSortingParameters}
+                          sortingType={sortingType}
+                        >
+                          Actual weight
+                        </SortableTh>
+                        <SortableTh
+                          activeHeader={sortedColumn}
+                          column={TableColumns.SELF_VOTES}
+                          setSorting={setSortingParameters}
+                          sortingType={sortingType}
+                        >
+                          Total weight
+                        </SortableTh>
+                        <SortableTh
+                          activeHeader={sortedColumn}
+                          column={TableColumns.PRODUCED_BLOCKS}
+                          setSorting={setSortingParameters}
+                          sortingType={sortingType}
+                        >
+                          Produced Blocks
+                        </SortableTh>
+                        <SortableTh
+                          activeHeader={sortedColumn}
+                          column={TableColumns.POM}
+                          setSorting={setSortingParameters}
+                          sortingType={sortingType}
+                        >
+                          Misbehaviours
+                        </SortableTh>
+                        {/* <th>Term</th> */}
+                        <SortableTh
+                          activeHeader={sortedColumn}
+                          column={TableColumns.VOTE_CAPACITY}
+                          setSorting={setSortingParameters}
+                          sortingType={sortingType}
+                          className={"text-right"}
+                        >
+                          Vote Capacity
+                        </SortableTh>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ReactTooltip />
+                      {sortedList.map((delegate: any) => {
+                        const forgingTime =
+                          delegate?.dpos?.delegate?.nextForgingTime;
+                        timestampsLocal[delegate.username] = {
+                          when: forgingTime,
+                          text: moment(forgingTime * 1000).fromNow(),
+                        };
+                        const percentOfSupply = consensusPercentage(
+                          delegate.dpos?.delegate.totalVotesReceived || 0,
+                          delegatesData.locked
+                        );
 
-                      return (
-                        <DelegatesRow
-                          rank={delegate.dpos?.delegate.rank}
-                          rankAdjusted={delegate.dpos?.delegate.rankAdjusted}
-                          address={delegate.address}
-                          missedBlocks={
-                            delegate.dpos?.delegate.consecutiveMissedBlocks
-                          }
-                          producedBlocks={
-                            delegate.dpos?.delegate.producedBlocks
-                          }
-                          rewards={0 || "delegate.rewards"}
-                          consensusWeight={
-                            delegate.dpos.delegate.consensusWeight || "0"
-                          }
-                          PoM={delegate.dpos.delegate.pomHeights || []}
-                          vote={delegate.dpos.delegate.totalVotesReceived}
-                          username={delegate.username}
-                          affiliation={""}
-                          isBanned={delegate.dpos?.delegate.isBanned}
-                          nextForgingTime={
-                            timestamps[delegate.username]
-                              ? timestamps[delegate.username].text
-                              : timestampsLocal[delegate.username].text
-                          }
-                          selfVote={
-                            delegate.dpos?.delegate?.selfVotesAmount || 0
-                          }
-                          willForge={forgingTime > 0}
-                          height={+(blockData?.lastBlock?.height || 0)}
-                          key={delegate.address}
-                          term={delegate.frequency}
-                          percentOfSupply={percentOfSupply}
-                          realShare={delegate.realShare}
-                          promisedShare={delegate.promisedShare}
+                        return (
+                          <DelegatesRow
+                            rank={delegate.dpos?.delegate.rank}
+                            rankAdjusted={delegate.dpos?.delegate.rankAdjusted}
+                            address={delegate.address}
+                            missedBlocks={
+                              delegate.dpos?.delegate.consecutiveMissedBlocks
+                            }
+                            producedBlocks={
+                              delegate.dpos?.delegate.producedBlocks
+                            }
+                            rewards={0 || "delegate.rewards"}
+                            consensusWeight={
+                              delegate.dpos.delegate.consensusWeight || "0"
+                            }
+                            PoM={delegate.dpos.delegate.pomHeights || []}
+                            vote={delegate.dpos.delegate.totalVotesReceived}
+                            username={delegate.username}
+                            affiliation={""}
+                            isBanned={delegate.dpos?.delegate.isBanned}
+                            nextForgingTime={
+                              timestamps[delegate.username]
+                                ? timestamps[delegate.username].text
+                                : timestampsLocal[delegate.username].text
+                            }
+                            selfVote={
+                              delegate.dpos?.delegate?.selfVotesAmount || 0
+                            }
+                            willForge={forgingTime > 0}
+                            height={+(blockData?.lastBlock?.height || 0)}
+                            key={delegate.address}
+                            term={delegate.frequency}
+                            percentOfSupply={percentOfSupply}
+                            realShare={delegate.realShare}
+                            promisedShare={delegate.promisedShare}
+                          />
+                        );
+                      })}
+                    </tbody>
+                  </Table>
+                  {delegatesLimit < totalDelegates && (
+                    <div className="fetch-more-container w-100">
+                      <div className=" w-50px mx-auto">
+                        <object
+                          className="telescope-icon loader-logo w-50px mx-auto"
+                          data={TelescopeAnimation}
+                          type="image/svg+xml"
+                          aria-label="lisk.observer logo"
                         />
-                      );
-                    })}
-                  </tbody>
-                </Table>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-      </div>
+                      </div>
+                      <div>
+                        <p className="text-center">Fetching more results</p>
+                      </div>
+                    </div>
+                  )}
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        </div>
+      )}
+      {
+        // @ts-ignore
+        <div className="fetch-more" ref={ref}></div>
+      }
     </>
   );
 };

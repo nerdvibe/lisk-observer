@@ -55,3 +55,20 @@
   font-weight: bold;
   text-decoration: underline;
 }
+
+.fetch-more {
+  position: relative;
+  top: -500px;
+  height: 250px;
+}
+
+.w-50px {
+  width: 50px;
+}
+
+.fetch-more-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+}

@@ -41,3 +41,22 @@ export interface FavoriteAccount {
   address: string;
   username?: string;
 }
+
+export const useIntersection = (element: any, rootMargin: string) => {
+  const [isVisible, setState] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setState(entry.isIntersecting);
+      },
+      { rootMargin }
+    );
+
+    element.current && observer.observe(element.current);
+
+    return () => observer.unobserve(element);
+  }, []);
+
+  return isVisible;
+};
