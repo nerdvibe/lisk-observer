@@ -27,6 +27,7 @@ import "./style.css";
 import ObserverLogo from "./lisk-observer.svg";
 import TelescopeAnimation from "../assets/telescope.svg";
 import { Link } from "react-router-dom";
+import { ReactComponent as DiscordIcon } from "../assets/discord-icon.svg";
 
 export const Navbar: React.FC<any> = ({ toggleSidebar, sidebarOpened }) => {
   const [collapseOpen, setCollapseOpen] = useState(false);
@@ -164,6 +165,7 @@ export const Navbar: React.FC<any> = ({ toggleSidebar, sidebarOpened }) => {
                   </Badge>
                 </div>
               </InputGroupReactStrap>
+
               <InputGroupReactStrap className="search-bar">
                 <div className="mt-3">
                   <Badge
@@ -176,6 +178,24 @@ export const Navbar: React.FC<any> = ({ toggleSidebar, sidebarOpened }) => {
                     />
                     {process.env.REACT_APP_NETWORK} Block-height:{" "}
                     {!!blockHeight ? (+blockHeight).toLocaleString() : "..."}
+                  </Badge>
+                </div>
+              </InputGroupReactStrap>
+              <InputGroupReactStrap className="search-bar">
+                <div className="mt-3">
+                  <Badge className={"badge-dark font-s navbar-lisk-price"}>
+                    <>
+                      <DiscordIcon width={12} height={12} />
+                      <a
+                        href="https://lisk.observer/discord"
+                        className="text-white"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {" "}
+                        Chat with us
+                      </a>
+                    </>
                   </Badge>
                 </div>
               </InputGroupReactStrap>
