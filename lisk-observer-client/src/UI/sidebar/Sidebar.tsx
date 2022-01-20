@@ -95,7 +95,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             API
           </a>
           <br />
-          <a className="sidebar-link" href="/terms-and-conditions">
+          <a className="sidebar-link" href="/terms">
             Terms & Conditions
           </a>
         </div>

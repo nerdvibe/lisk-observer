@@ -123,8 +123,8 @@ export const routes: Routes[] = [
     layout: "",
   },
   {
-    path: "/terms-and-conditions",
-    link: "/terms-and-conditions",
+    link: "/terms",
+    path: "/terms",
     name: "Terms and conditions",
     icon: "",
     component: TermsAndConditions,
