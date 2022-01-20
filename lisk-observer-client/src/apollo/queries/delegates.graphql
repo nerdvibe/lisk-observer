@@ -1,5 +1,5 @@
-query delegatesList {
-  delegates {
+query delegatesList($limit: Int!) {
+  delegates(limit: $limit) {
     promises {
       username
       address

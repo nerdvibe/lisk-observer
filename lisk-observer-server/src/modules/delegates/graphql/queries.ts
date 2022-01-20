@@ -11,8 +11,11 @@ import { calculateTotalSupply } from "@modules/utils/supply";
 const log = logger("ACCOUNT_QUERIES");
 
 export const queries = {
-  delegates: async () => {
+  delegates: async ({ limit = 130 }) => {
     try {
+      if (typeof +limit !== "number") {
+        throw new Error("Invalid limit");
+      }
       const locked = statByKeyCacheGet("lockedAmount");
       const supply = calculateTotalSupply();
       const delegates = allDelegatesCache();
@@ -23,7 +26,7 @@ export const queries = {
         supply,
         delegates: {
           total: delegates.length,
-          delegates: delegates.splice(0, 500),
+          delegates: delegates.splice(0, limit),
         },
         promises,
       };
