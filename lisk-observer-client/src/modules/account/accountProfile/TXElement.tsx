@@ -142,7 +142,9 @@ export const TXElement: React.FC<Props> = ({
       </td>
       <td>
         <Badge className={`badge-${txDirectionsDict[txDirection]} fs-medium`}>
-          {displayBigNumber(amount || 0)} Ⱡ
+          {`${txDirection === "out" ? "-" : ""}${displayBigNumber(
+            amount || 0
+          )} Ⱡ`}
         </Badge>
       </td>
       <td>{displayBigNumber(fee || 0)} Ⱡ</td>
