@@ -11,7 +11,7 @@ import {
   OFFSET_KIND,
 } from "../utils/lisk/blockOffsets/calculateDate";
 import { beddowsToDecimal } from "../utils/lisk/utils/lisk/beddowsToDecimal";
-import { isNotInList } from "../utils/strings/strings";
+import { isNotInDelegatesList } from "../utils/strings/strings";
 import { DelegatesRow } from "./DelegatesRow";
 import { SortableTh } from "./SortableTh";
 import { sortTableColumn, TableColumns } from "./utils/sorting";
@@ -121,7 +121,7 @@ const DelegatesTable = ({
   const bannedDelegates = useMemo(() => {
     return data?.delegates?.delegates?.delegates?.filter(
       (delegate: any) =>
-        isNotInList(activeDelegates || [], delegate?.address || "") &&
+        isNotInDelegatesList(activeDelegates || [], delegate?.address || "") &&
         delegate?.dpos?.delegate?.isBanned
     );
   }, [data]);
@@ -132,8 +132,10 @@ const DelegatesTable = ({
       (delegate: any) => {
         const pom = delegate?.dpos?.delegate?.pomHeights || [];
         return (
-          isNotInList(activeDelegates || [], delegate?.address || "") &&
-          checkIsActivePoMs(pom, height)
+          isNotInDelegatesList(
+            activeDelegates || [],
+            delegate?.address || ""
+          ) && checkIsActivePoMs(pom, height)
         );
       }
     );
@@ -143,10 +145,13 @@ const DelegatesTable = ({
   const standbyDelegates = useMemo(() => {
     return data?.delegates?.delegates?.delegates?.filter(
       (delegate: any) =>
-        isNotInList(bannedDelegates || [], delegate?.address || "") &&
-        isNotInList(activeDelegates || [], delegate?.address || "") &&
-        isNotInList(bannedDelegates || [], delegate?.address || "") &&
-        isNotInList(punishedDelegates || [], delegate?.address || "") &&
+        isNotInDelegatesList(bannedDelegates || [], delegate?.address || "") &&
+        isNotInDelegatesList(activeDelegates || [], delegate?.address || "") &&
+        isNotInDelegatesList(bannedDelegates || [], delegate?.address || "") &&
+        isNotInDelegatesList(
+          punishedDelegates || [],
+          delegate?.address || ""
+        ) &&
         +beddowsToDecimal(delegate?.dpos?.delegate?.consensusWeight || 0) >=
           MIN_WEIGHT_STANDBY
     );
@@ -155,10 +160,10 @@ const DelegatesTable = ({
   const notEnoughVotesDelegates = useMemo(() => {
     return data?.delegates?.delegates?.delegates?.filter(
       (delegate: any) =>
-        isNotInList(activeDelegates || [], delegate?.address || "") &&
-        isNotInList(bannedDelegates || [], delegate?.address || "") &&
-        isNotInList(standbyDelegates || [], delegate?.address || "") &&
-        isNotInList(punishedDelegates || [], delegate?.address || "")
+        isNotInDelegatesList(activeDelegates || [], delegate?.address || "") &&
+        isNotInDelegatesList(bannedDelegates || [], delegate?.address || "") &&
+        isNotInDelegatesList(standbyDelegates || [], delegate?.address || "") &&
+        isNotInDelegatesList(punishedDelegates || [], delegate?.address || "")
     );
   }, [data]);
 

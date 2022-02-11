@@ -20,5 +20,5 @@ export const hexToString = (hex: string = "") => {
   return string;
 };
 
-export const isNotInList = (list: any[], word: string) =>
+export const isNotInDelegatesList = (list: any[], word: string) =>
   !list.map((delegate) => delegate.address).includes(word);
