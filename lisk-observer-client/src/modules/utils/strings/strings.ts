@@ -19,3 +19,6 @@ export const hexToString = (hex: string = "") => {
   }
   return string;
 };
+
+export const isNotInList = (list: any[], word: string) =>
+  !list.map((delegate) => delegate.address).includes(word);
