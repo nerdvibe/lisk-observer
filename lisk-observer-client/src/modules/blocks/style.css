@@ -1,27 +1,34 @@
 .block-card {
-  background: #2c2d35;
-  box-shadow: 0px 0px 15px rgba(211, 90, 191, 0.3);
   border-radius: 25px;
-  width: 70%;
+  width: 95%;
   height: 70%;
   margin: 20px;
   min-width: 180px;
   min-height: 180px;
   margin: 20px auto;
   transition: 0.1s;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  top: 0px;
+  position: relative;
+  transition: 0.3s;
+  opacity: 0.8;
+  background: radial-gradient(
+    113.91% 113.91% at -11% -34.1%,
+    rgb(39, 41, 61) 0%,
+    #65538d86 100%
+  );
+  max-width: 300px;
 }
 
 .block-card:hover {
-  box-shadow: 0px 0px 30px rgba(211, 90, 191, 0.7);
+  box-shadow: 0 43px 50px rgb(0, 0, 0, 0.4);
   transition: 0.1s;
-}
-
-.block-card-background {
-  width: 100%;
-  height: 100%;
-  background-image: url("./icons/blocks.svg");
-  background-position: center;
-  background-repeat: no-repeat;
+  top: -10px;
+  position: relative;
+  transition: 0.3s;
+  opacity: 1;
 }
 
 .block-card-data {
@@ -35,7 +42,6 @@
 .block-card-container {
   position: relative;
   display: block;
-  top: -100%;
   height: 100%;
   width: 100%;
   z-index: 2;
@@ -43,13 +49,41 @@
 
 .block-card-header-text,
 .block-card-value-text {
-  text-align: center;
-  width: 100%;
+  text-align: left;
   font-size: initial;
   color: white !important;
+  height: 30px;
+  vertical-align: middle;
+  padding-top: 5px;
 }
 
 .block-card-value-text {
   font-weight: bold;
   font-size: large;
+}
+
+.block-icon-container {
+  z-index: 5;
+  position: absolute;
+  top: -30%;
+  margin: 0 auto;
+  width: 65%;
+  min-width: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.block-delegate-icon {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  /* position: absolute; */
+  /* top: 0px; */
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.inline-block {
+  display: inline-block;
 }
