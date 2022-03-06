@@ -215,6 +215,18 @@ const DelegatesTable = ({
       search: query.toString(),
     });
   };
+
+  useEffect(() => {
+    const queryFilter = query.get("filter");
+    if (
+      queryFilter &&
+      Object.values(Filters).includes(queryFilter as Filters)
+    ) {
+      changeFilter(queryFilter as Filters);
+      query.delete("filter");
+    }
+  }, []);
+
   return (
     <Card>
       <CardHeader>
