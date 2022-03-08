@@ -124,7 +124,7 @@ export const CurrentAccountDetails: React.FC<Props> = ({
             <Col md={6}>
               <strong>Usable Balance:</strong>
             </Col>
-            <Col md={6} className="align-right row-value">
+            <Col md={6} className="align-right row-value white-text">
               <Badge className={"badge-dark  text-success fs-medium"}>
                 {(+beddowsToDecimal(+balance, 2)).toLocaleString()} Ⱡ
               </Badge>
@@ -134,7 +134,7 @@ export const CurrentAccountDetails: React.FC<Props> = ({
             <Col md={6}>
               <strong>Public Key:</strong>
             </Col>
-            <Col md={6} className="align-right row-value">
+            <Col md={6} className="align-right row-value white-text">
               {publicKey ? (
                 <span>
                   {truncateMidString(publicKey, 10)} <Copy text={publicKey} />
@@ -148,7 +148,7 @@ export const CurrentAccountDetails: React.FC<Props> = ({
             <Col md={6}>
               <strong>Multisig:</strong>
             </Col>
-            <Col md={6} className="align-right row-value">
+            <Col md={6} className="align-right row-value white-text">
               {+multisig > 0 ? `${multisig} keys` : "No"}
             </Col>
           </Row>
@@ -158,7 +158,7 @@ export const CurrentAccountDetails: React.FC<Props> = ({
                 <Col md={6}>
                   <strong>Vote capacity avail:</strong>
                 </Col>
-                <Col md={6} className="align-right row-value">
+                <Col md={6} className="align-right row-value white-text">
                   {isNaN(+usedCapacity) ? "0" : usedCapacity}%
                 </Col>
               </Row>
@@ -166,7 +166,7 @@ export const CurrentAccountDetails: React.FC<Props> = ({
                 <Col md={6}>
                   <strong>Vote capacity left:</strong>
                 </Col>
-                <Col md={6} className="align-right row-value">
+                <Col md={6} className="align-right row-value white-text">
                   {
                     +beddowsToDecimal(
                       !!available ? available : 0
@@ -179,7 +179,7 @@ export const CurrentAccountDetails: React.FC<Props> = ({
                 <Col md={6}>
                   <strong>Self vote:</strong>
                 </Col>
-                <Col md={6} className="align-right row-value">
+                <Col md={6} className="align-right row-value white-text">
                   {
                     +beddowsToDecimal(
                       !!selfVote ? selfVote : 0

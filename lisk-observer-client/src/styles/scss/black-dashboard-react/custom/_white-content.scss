@@ -395,6 +395,14 @@
     color: black;
   }
 
+  .force-white-text{
+    color: white !important;
+  }
+
+  img.loader-logo-text, .telescope-icon{
+    filter: invert(100);
+  }
+
   .stickyTh{
     background: #f5f6fa;
   }

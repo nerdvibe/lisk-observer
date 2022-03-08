@@ -64,7 +64,7 @@ export const AccountVotesLarge: React.FC<Props> = ({
                           size={AvatarSize.SMALL}
                         />
                       </Link>
-                      <h4 className="m-0 inline-element vote-badge-text">
+                      <h4 className="m-0 inline-element vote-badge-text force-white-text">
                         <Link
                           to={`/account/${v.delegateAddress || v.sender}`}
                           onClick={() =>

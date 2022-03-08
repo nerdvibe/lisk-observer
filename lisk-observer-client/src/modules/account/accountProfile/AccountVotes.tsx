@@ -75,8 +75,11 @@ export const AccountVotes: React.FC<Props> = ({
                           v.senderUsername ||
                           truncateMidString(v.sender, 10)}
                       </Link>{" "}
-                      ({(+beddowsToDecimal(v.amount || 0, 2)).toLocaleString()}{" "}
-                      Ⱡ)
+                      <span className="force-white-text">
+                        (
+                        {(+beddowsToDecimal(v.amount || 0, 2)).toLocaleString()}{" "}
+                        Ⱡ)
+                      </span>
                     </h4>
                   </Badge>
                 </Col>
