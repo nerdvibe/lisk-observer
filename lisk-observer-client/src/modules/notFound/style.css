@@ -1,0 +1,23 @@
+.not-found-title {
+  font-size: 144px;
+  color: white;
+  font-weight: 900;
+}
+
+.waves-bg {
+  background-image: url("./assets/404bg.svg");
+  width: 100%;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.not-found-text {
+  font-size: 20px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.not-found-container {
+  height: 80vh;
+}
