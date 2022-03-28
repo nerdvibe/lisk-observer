@@ -1,0 +1,20 @@
+.spaced-values {
+  display: flex;
+  width: 100%;
+  -ms-flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.spaced-values > * {
+  font-size: larger;
+}
+
+.pie-chart {
+  max-width: 400px;
+  max-height: 400px;
+}
+
+.sent-received-data {
+  max-height: 150px;
+}

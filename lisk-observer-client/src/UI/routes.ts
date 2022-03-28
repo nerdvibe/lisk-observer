@@ -25,6 +25,9 @@ const WhalesList = React.lazy(() => import("../modules/whalesList/WhalesList"));
 const TermsAndConditions = React.lazy(() =>
   import("../modules/terms-and-conditions/TermsAndConditions")
 );
+const ChainAnalysis = React.lazy(() =>
+  import("../modules/chainAnalysis/ChainAnalysis")
+);
 
 export interface Routes {
   path: string;
@@ -130,5 +133,13 @@ export const routes: Routes[] = [
     component: TermsAndConditions,
     layout: "",
     hidden: true,
+  },
+  {
+    link: "/chain-analysis",
+    path: "/chain-analysis",
+    name: "Chain analysis",
+    icon: "link",
+    component: ChainAnalysis,
+    layout: "",
   },
 ];
