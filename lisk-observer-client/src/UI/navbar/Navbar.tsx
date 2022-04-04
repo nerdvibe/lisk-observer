@@ -28,10 +28,12 @@ import ObserverLogo from "./lisk-observer.svg";
 import TelescopeAnimation from "../assets/telescope.svg";
 import { Link } from "react-router-dom";
 import { ReactComponent as DiscordIcon } from "../assets/discord-icon.svg";
+import CustomNodeModal from "./CustomNodeModal";
 
 export const Navbar: React.FC<any> = ({ toggleSidebar, sidebarOpened }) => {
   const [collapseOpen, setCollapseOpen] = useState(false);
   const [modalSearch, setModalSearch] = useState(false);
+  const [customNodeModal, setCustomNodeModal] = useState(false);
   const [color, setColor] = useState("");
   const {
     data: pricesData,
@@ -225,7 +227,7 @@ export const Navbar: React.FC<any> = ({ toggleSidebar, sidebarOpened }) => {
                   <b className="caret d-none d-lg-block d-xl-block" />
                 </DropdownToggleReactStrap>
                 <DropdownMenuReactStrap
-                  className="dropdown-navbar"
+                  className="dropdown-navbar dark-dropdown"
                   right
                   tag="ul"
                 >
@@ -233,7 +235,7 @@ export const Navbar: React.FC<any> = ({ toggleSidebar, sidebarOpened }) => {
                     <DropdownItemReactStrap className="nav-item" tag="li">
                       <a
                         href="https://lisk.observer"
-                        className="network-select-link"
+                        className="network-select-link force-white-text pointer"
                       >
                         Mainnet
                       </a>
@@ -241,7 +243,7 @@ export const Navbar: React.FC<any> = ({ toggleSidebar, sidebarOpened }) => {
                     <DropdownItemReactStrap className="nav-item" tag="li">
                       <a
                         href="https://testnet.lisk.observer"
-                        className="network-select-link"
+                        className="network-select-link force-white-text pointer"
                       >
                         Testnet
                       </a>
@@ -249,10 +251,17 @@ export const Navbar: React.FC<any> = ({ toggleSidebar, sidebarOpened }) => {
                     <DropdownItemReactStrap className="nav-item" tag="li">
                       <a
                         href="https://legacy-mainnet.lisk.observer"
-                        className="network-select-link"
+                        className="network-select-link force-white-text pointer"
                       >
                         Legacy Mainnet
                       </a>
+                    </DropdownItemReactStrap>
+                    <DropdownItemReactStrap
+                      className="nav-item"
+                      tag="li"
+                      onClick={() => setCustomNodeModal(true)}
+                    >
+                      <p className="force-white-text pointer">Custom node</p>
                     </DropdownItemReactStrap>
                   </NavLinkReactStrap>
                 </DropdownMenuReactStrap>
@@ -262,6 +271,10 @@ export const Navbar: React.FC<any> = ({ toggleSidebar, sidebarOpened }) => {
           </CollapseReactStrap>
         </ContainerReactStrap>
       </NavbarReactStrap>
+      <CustomNodeModal
+        show={customNodeModal}
+        closeModal={() => setCustomNodeModal(false)}
+      />
       <SearchModal
         modalSearch={modalSearch}
         toggleModalSearch={toggleModalSearch}
