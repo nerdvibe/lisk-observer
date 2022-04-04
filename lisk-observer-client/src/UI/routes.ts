@@ -25,6 +25,7 @@ const WhalesList = React.lazy(() => import("../modules/whalesList/WhalesList"));
 const TermsAndConditions = React.lazy(() =>
   import("../modules/terms-and-conditions/TermsAndConditions")
 );
+const NotFoundPage = React.lazy(() => import("../modules/notFound/NotFound"));
 
 export interface Routes {
   path: string;
@@ -128,6 +129,15 @@ export const routes: Routes[] = [
     name: "Terms and conditions",
     icon: "",
     component: TermsAndConditions,
+    layout: "",
+    hidden: true,
+  },
+  {
+    link: "/",
+    path: "/",
+    name: "404",
+    icon: "",
+    component: NotFoundPage,
     layout: "",
     hidden: true,
   },
