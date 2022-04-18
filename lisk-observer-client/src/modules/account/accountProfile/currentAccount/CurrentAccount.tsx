@@ -84,7 +84,7 @@ const ACCOUNT_TX = gql`
   }
 `;
 
-function useQueryParams() {
+export function useQueryParams() {
   const { search } = useLocation();
 
   return React.useMemo(() => new URLSearchParams(search), [search]);
