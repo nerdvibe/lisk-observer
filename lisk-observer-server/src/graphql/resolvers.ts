@@ -12,6 +12,7 @@ import { queries as votesQueries } from "../modules/votes/graphql/queries";
 import { queries as knwonAddressesQueries } from "../modules/knownAddresses/graphql/queries";
 import { queries as statsQueries } from "../modules/stats/graphql/queries";
 import { queries as networkQueries } from "../modules/network/graphql/queries";
+import { queries as exchangesQueries } from "../modules/exchanges/graphql/queries";
 
 // Mutations
 // import {mutations as transactionsMutations} from "@modules/transactions/graphql/mutations";
@@ -29,6 +30,7 @@ const resolvers = [
   knwonAddressesQueries,
   statsQueries,
   networkQueries,
+  exchangesQueries,
 ];
 
 // Merged resolvers
