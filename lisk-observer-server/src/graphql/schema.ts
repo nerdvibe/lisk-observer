@@ -13,6 +13,7 @@ import { schema as knownAddressesSchema } from "../modules/knownAddresses/graphq
 import { schema as statsSchema } from "../modules/stats/graphql/schema";
 import { schema as networkSchema } from "../modules/network/graphql/schema";
 import { schema as exchangesSchema } from "../modules/exchanges/graphql/schema";
+import { schema as chainAnalysisSchema } from "../modules/chainAnalysis/graphql/schema";
 
 // Resolvers
 import { resolvers as blocksResolvers } from "../modules/blocks/graphql/resolvers";
@@ -31,6 +32,7 @@ export const knownAddressesSubschema = { schema: knownAddressesSchema };
 export const statsSchemaSubSchema = { schema: statsSchema };
 export const networkSchemaSubSchema = { schema: networkSchema };
 export const exchangesSubSchema = { schema: exchangesSchema };
+export const chainAnalysisSubSchema = { schema: chainAnalysisSchema };
 
 // Merged schemas
 export const graphqlSchema = mergeSchemas({
@@ -47,6 +49,7 @@ export const graphqlSchema = mergeSchemas({
     statsSchema,
     networkSchema,
     exchangesSchema,
+    chainAnalysisSchema,
   ],
   resolvers: {
     ...blocksResolvers,
