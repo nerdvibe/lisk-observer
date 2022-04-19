@@ -1,8 +1,9 @@
 import { ApolloClient, InMemoryCache, Reference } from "@apollo/client";
+const customApolloClient = localStorage.getItem("CUSTOM-ENDPOINT");
 
 export const apolloClient = new ApolloClient({
   // link,
-  uri: process.env.REACT_APP_SERVER_URL,
+  uri: customApolloClient || process.env.REACT_APP_SERVER_URL,
   cache: new InMemoryCache({
     typePolicies: {
       Query: {

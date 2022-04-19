@@ -198,6 +198,26 @@ div.loader-logo-text {
   border-color: rgb(191, 115, 0);
 }
 
+.dark-dropdown {
+  background: linear-gradient(#222a42, #1d253b) !important;
+}
+
+.force-white-text {
+  color: white;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.custom-node-modal-backdrop {
+  opacity: 1 !important;
+}
+
+.custom-node-modal {
+  background-color: #1b1d2b !important;
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);

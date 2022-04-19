@@ -1225,7 +1225,12 @@ export type PaginatedBlocksQuery = { __typename?: "Query" } & {
           Maybe<
             { __typename?: "Block" } & Pick<
               Block,
-              "id" | "height" | "username" | "generatorPublicKey"
+              | "id"
+              | "height"
+              | "username"
+              | "generatorPublicKey"
+              | "timestamp"
+              | "address"
             >
           >
         >
@@ -2605,6 +2610,8 @@ export const PaginatedBlocksDocument = gql`
         height
         username
         generatorPublicKey
+        timestamp
+        address
       }
       pagination {
         total
