@@ -127,7 +127,7 @@ export const routes: Routes[] = [
     path: "/market",
     link: "/market",
     name: "Markets",
-    icon: "bullhorn",
+    icon: "gavel",
     component: Market,
     layout: "",
   },

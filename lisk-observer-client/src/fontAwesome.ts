@@ -76,5 +76,6 @@ library.add(
   faHeart,
   farHeart,
   faMoneyBillWave,
-  faBullhorn
+  faBullhorn,
+  faGavel
 );
