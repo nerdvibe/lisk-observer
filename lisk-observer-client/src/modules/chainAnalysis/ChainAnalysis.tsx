@@ -12,9 +12,10 @@ import {
   DropdownToggle,
   Row,
 } from "reactstrap";
+import { useChainAnalysisQuery } from "../../generated/graphql";
+import { IsErrorOrLoading } from "../utils/IsErrorOrLoading";
 import { beddowsToDecimal } from "../utils/lisk/utils/lisk/beddowsToDecimal";
 import BarChart from "./BarChart";
-import mock from "./mock.json";
 import PieChart from "./PieChart";
 import "./style.css";
 
@@ -59,13 +60,18 @@ const ChainAnalysis: React.FC = () => {
   const [option, setOption] = useState<{ label: string; value: number }>(
     dropdownOptions ? dropdownOptions[0] : { label: "overall", value: 1 }
   );
+  const { data: queryData, loading, error } = useChainAnalysisQuery();
 
   useEffect(() => {
-    if (mock && option.value > 0 && option.value < dropdownOptions.length) {
+    if (
+      queryData?.chainAnalysis &&
+      option.value > 0 &&
+      option.value < dropdownOptions.length
+    ) {
       // @ts-ignore
-      setData(mock[option.label.toLowerCase()]);
+      setData(queryData?.chainAnalysis[option.label.toLowerCase()]);
     }
-  }, [option]);
+  }, [option, queryData]);
 
   const dropdown = useCallback(() => {
     const handleOptionUpdate = (value: number, label: string) => {
@@ -114,6 +120,17 @@ const ChainAnalysis: React.FC = () => {
     }
     return dataset;
   };
+
+  if (error || loading || (!loading && !queryData?.chainAnalysis)) {
+    return (
+      <div className="content">
+        <IsErrorOrLoading
+          error={!!error || (!loading && !queryData?.chainAnalysis)}
+          title={"Chain analysis"}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="content">
