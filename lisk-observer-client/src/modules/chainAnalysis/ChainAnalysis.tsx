@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback, useEffect, useState } from "react";
+import { useMemo } from "react";
 import {
   Card,
   CardBody,
@@ -121,189 +122,201 @@ const ChainAnalysis: React.FC = () => {
     return dataset;
   };
 
-  if (error || loading || (!loading && !queryData?.chainAnalysis)) {
+  return useMemo(() => {
+    if (error || loading || (!loading && !queryData?.chainAnalysis)) {
+      return (
+        <div className="content">
+          <IsErrorOrLoading
+            error={!!error || (!loading && !queryData?.chainAnalysis)}
+            title={"Chain analysis"}
+          />
+        </div>
+      );
+    }
+
     return (
       <div className="content">
-        <IsErrorOrLoading
-          error={!!error || (!loading && !queryData?.chainAnalysis)}
-          title={"Chain analysis"}
-        />
-      </div>
-    );
-  }
-
-  return (
-    <div className="content">
-      <div className="w-100 spaced-values mb-4">
-        <div>
-          <h4 className="mb-0">Chain analysis</h4>
+        <div className="w-100 spaced-values mb-4">
+          <div>
+            <h4 className="mb-0">Chain analysis</h4>
+          </div>
+          <div>{dropdown()}</div>
         </div>
-        <div>{dropdown()}</div>
-      </div>
-      <Card className="card-chart">
-        <CardHeader>
-          <CardTitle tag="h2">
-            <strong> Number of Transactions</strong>
-          </CardTitle>
-          <CardBody className="">
-            <Row>
-              <Col md={6} xs={12}>
-                <Row className="h-100 ">
-                  <Col xs={12}>
-                    <div className="spaced-values">
-                      <strong>All</strong>
-                      <div>{data?.all! || 0}</div>
-                    </div>
-                  </Col>
-                  {createDataset(transactionsChartLabels).map((val, index) => {
-                    const dataLabel = Object.values(transactionsChartLabels)[
-                      index
-                    ];
-                    return (
-                      <Col xs={12}>
-                        <div className="spaced-values">
-                          <strong className="">
-                            {typeof dataLabel === "object"
-                              ? dataLabel.join(" ")
-                              : dataLabel}
-                          </strong>
-                          <div>{(+val).toLocaleString()}</div>
-                        </div>
-                      </Col>
-                    );
-                  })}
-                </Row>
-              </Col>
-              <Col md={6} xs={12}>
-                <BarChart
-                  dataset={createDataset(transactionsChartLabels)}
-                  labels={Object.values(transactionsChartLabels)}
-                />
-              </Col>
-            </Row>
-          </CardBody>
-        </CardHeader>
-      </Card>
-      <Card className="card-chart">
-        <CardHeader>
-          <CardTitle tag="h2">
-            {" "}
-            <strong> Amount of Lisk sent/received</strong>
-          </CardTitle>
-          <CardBody className="">
-            <Row>
-              <Col md={6} xs={12} className="pt-4">
-                <Row className="h-100 sent-received-data">
-                  <Col xs={12}>
-                    <div className="spaced-values">
-                      <strong>All</strong>
-                      <div>
-                        {(+beddowsToDecimal(
-                          +data?.amounttransferredall || 0
-                        ).toFixed(0)).toLocaleString()}
+        <Card className="card-chart">
+          <CardHeader>
+            <CardTitle tag="h2">
+              <strong> Number of Transactions</strong>
+            </CardTitle>
+            <CardBody className="">
+              <Row>
+                <Col md={6} xs={12}>
+                  <Row className="h-100 ">
+                    <Col xs={12}>
+                      <div className="spaced-values">
+                        <strong>All</strong>
+                        <div>{data?.all! || 0}</div>
                       </div>
-                    </div>
-                  </Col>
-                  {createDataset(sentReceivedChartLabels).map((val, index) => {
-                    return (
-                      <Col xs={12}>
-                        <div className="spaced-values">
-                          <strong className="">
-                            {Object.values(sentReceivedChartLabels)[index]}
-                          </strong>
-                          <div>
-                            {" "}
-                            {(+beddowsToDecimal(+val || 0).toFixed(
-                              0
-                            )).toLocaleString()}
-                          </div>
+                    </Col>
+                    {createDataset(transactionsChartLabels).map(
+                      (val, index) => {
+                        const dataLabel = Object.values(
+                          transactionsChartLabels
+                        )[index];
+                        return (
+                          <Col xs={12}>
+                            <div className="spaced-values">
+                              <strong className="">
+                                {typeof dataLabel === "object"
+                                  ? dataLabel.join(" ")
+                                  : dataLabel}
+                              </strong>
+                              <div>{(+val).toLocaleString()}</div>
+                            </div>
+                          </Col>
+                        );
+                      }
+                    )}
+                  </Row>
+                </Col>
+                <Col md={6} xs={12}>
+                  <BarChart
+                    dataset={createDataset(transactionsChartLabels)}
+                    labels={Object.values(transactionsChartLabels)}
+                  />
+                </Col>
+              </Row>
+            </CardBody>
+          </CardHeader>
+        </Card>
+        <Card className="card-chart">
+          <CardHeader>
+            <CardTitle tag="h2">
+              {" "}
+              <strong> Amount of Lisk sent/received</strong>
+            </CardTitle>
+            <CardBody className="">
+              <Row>
+                <Col md={6} xs={12} className="pt-4">
+                  <Row className="h-100 sent-received-data">
+                    <Col xs={12}>
+                      <div className="spaced-values">
+                        <strong>All</strong>
+                        <div>
+                          {(+beddowsToDecimal(
+                            +data?.amounttransferredall || 0
+                          ).toFixed(0)).toLocaleString()}
                         </div>
-                      </Col>
-                    );
-                  })}
-                </Row>
-              </Col>
-              <Col md={6} xs={12}>
-                <BarChart
-                  dataset={createDataset(sentReceivedChartLabels).map((val) => {
-                    return +beddowsToDecimal(val).toFixed(0);
-                  })}
-                  labels={Object.values(sentReceivedChartLabels)}
-                  height={100}
-                />
-              </Col>
-            </Row>
-          </CardBody>
-        </CardHeader>
-      </Card>
-      <Row>
-        <Col xs={12} md={6}>
-          <Card className="card-chart">
-            <CardHeader>
-              <CardTitle tag="h2">
-                {" "}
-                <strong> Active/Inactive Wallets</strong>
-              </CardTitle>
-              <CardBody className="">
-                <Row>
-                  {createDataset(activeInactiveChartLabels).map(
-                    (val, index) => {
+                      </div>
+                    </Col>
+                    {createDataset(sentReceivedChartLabels).map(
+                      (val, index) => {
+                        return (
+                          <Col xs={12}>
+                            <div className="spaced-values">
+                              <strong className="">
+                                {Object.values(sentReceivedChartLabels)[index]}
+                              </strong>
+                              <div>
+                                {" "}
+                                {(+beddowsToDecimal(+val || 0).toFixed(
+                                  0
+                                )).toLocaleString()}
+                              </div>
+                            </div>
+                          </Col>
+                        );
+                      }
+                    )}
+                  </Row>
+                </Col>
+                <Col md={6} xs={12}>
+                  <BarChart
+                    dataset={createDataset(sentReceivedChartLabels).map(
+                      (val) => {
+                        return +beddowsToDecimal(val).toFixed(0);
+                      }
+                    )}
+                    labels={Object.values(sentReceivedChartLabels)}
+                    height={100}
+                  />
+                </Col>
+              </Row>
+            </CardBody>
+          </CardHeader>
+        </Card>
+        <Row>
+          <Col xs={12} md={6}>
+            <Card className="card-chart">
+              <CardHeader>
+                <CardTitle tag="h2">
+                  {" "}
+                  <strong> Active/Inactive Wallets</strong>
+                </CardTitle>
+                <CardBody className="">
+                  <Row>
+                    {createDataset(activeInactiveChartLabels).map(
+                      (val, index) => {
+                        return (
+                          <Col xs={12}>
+                            <div className="spaced-values">
+                              <strong className="">
+                                {
+                                  Object.values(activeInactiveChartLabels)[
+                                    index
+                                  ]
+                                }
+                              </strong>
+                              <div> {(+val).toLocaleString()}</div>
+                            </div>
+                          </Col>
+                        );
+                      }
+                    )}
+                  </Row>
+                  <PieChart
+                    dataset={createDataset(activeInactiveChartLabels)}
+                    labels={Object.values(activeInactiveChartLabels)}
+                  />
+                </CardBody>
+              </CardHeader>
+            </Card>
+          </Col>
+
+          <Col xs={12} md={6}>
+            <Card className="card-chart">
+              <CardHeader>
+                <CardTitle tag="h2">
+                  {" "}
+                  <strong> Forged & Fees</strong>
+                </CardTitle>
+                <CardBody className="">
+                  <Row>
+                    {createDataset(feesChartLabels).map((val, index) => {
                       return (
                         <Col xs={12}>
                           <div className="spaced-values">
                             <strong className="">
-                              {Object.values(activeInactiveChartLabels)[index]}
+                              {Object.values(feesChartLabels)[index]}
                             </strong>
-                            <div> {(+val).toLocaleString()}</div>
+                            <div>
+                              {" "}
+                              {(+beddowsToDecimal(+val || 0).toFixed(
+                                0
+                              )).toLocaleString()}
+                            </div>
                           </div>
                         </Col>
                       );
-                    }
-                  )}
-                </Row>
-                <PieChart
-                  dataset={createDataset(activeInactiveChartLabels)}
-                  labels={Object.values(activeInactiveChartLabels)}
-                />
-              </CardBody>
-            </CardHeader>
-          </Card>
-        </Col>
-
-        <Col xs={12} md={6}>
-          <Card className="card-chart">
-            <CardHeader>
-              <CardTitle tag="h2">
-                {" "}
-                <strong> Forged & Fees</strong>
-              </CardTitle>
-              <CardBody className="">
-                <Row>
-                  {createDataset(feesChartLabels).map((val, index) => {
-                    return (
-                      <Col xs={12}>
-                        <div className="spaced-values">
-                          <strong className="">
-                            {Object.values(feesChartLabels)[index]}
-                          </strong>
-                          <div>
-                            {" "}
-                            {(+beddowsToDecimal(+val || 0).toFixed(
-                              0
-                            )).toLocaleString()}
-                          </div>
-                        </div>
-                      </Col>
-                    );
-                  })}
-                </Row>
-              </CardBody>
-            </CardHeader>
-          </Card>
-        </Col>
-      </Row>
-    </div>
-  );
+                    })}
+                  </Row>
+                </CardBody>
+              </CardHeader>
+            </Card>
+          </Col>
+        </Row>
+      </div>
+    );
+  }, [data, queryData, dropdown, dropdownOptions]);
 };
 
 export default ChainAnalysis;
