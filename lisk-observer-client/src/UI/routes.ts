@@ -28,6 +28,8 @@ const TermsAndConditions = React.lazy(() =>
 const ChainAnalysis = React.lazy(() =>
   import("../modules/chainAnalysis/ChainAnalysis")
 );
+const Market = React.lazy(() => import("../modules/market/Market"));
+const NotFoundPage = React.lazy(() => import("../modules/notFound/NotFound"));
 
 export interface Routes {
   path: string;
@@ -126,6 +128,14 @@ export const routes: Routes[] = [
     layout: "",
   },
   {
+    path: "/market",
+    link: "/market",
+    name: "Markets",
+    icon: "gavel",
+    component: Market,
+    layout: "",
+  },
+  {
     link: "/terms",
     path: "/terms",
     name: "Terms and conditions",
@@ -141,5 +151,14 @@ export const routes: Routes[] = [
     icon: "link",
     component: ChainAnalysis,
     layout: "",
+  },
+  {
+    link: "/",
+    path: "/",
+    name: "404",
+    icon: "",
+    component: NotFoundPage,
+    layout: "",
+    hidden: true,
   },
 ];

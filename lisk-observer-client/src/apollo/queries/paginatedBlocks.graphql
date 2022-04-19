@@ -5,6 +5,8 @@ query paginatedBlocks($page: Int) {
       height
       username
       generatorPublicKey
+      timestamp
+      address
     }
     pagination {
       total

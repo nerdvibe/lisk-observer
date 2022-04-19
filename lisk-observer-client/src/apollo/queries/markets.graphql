@@ -1,0 +1,11 @@
+query markets {
+  marketData {
+    exchangeName
+    image
+    markets {
+      target
+      last
+      trade_url
+    }
+  }
+}
