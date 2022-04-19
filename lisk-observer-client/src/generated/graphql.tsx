@@ -219,6 +219,22 @@ export type LegacyAccount = {
   publicKey?: Maybe<Scalars["String"]>;
 };
 
+export type Market = {
+  __typename?: "Market";
+  base?: Maybe<Scalars["String"]>;
+  target?: Maybe<Scalars["String"]>;
+  last?: Maybe<Scalars["Float"]>;
+  trade_url?: Maybe<Scalars["String"]>;
+};
+
+export type MarketData = {
+  __typename?: "MarketData";
+  exchangeName?: Maybe<Scalars["String"]>;
+  volume?: Maybe<Scalars["String"]>;
+  image?: Maybe<Scalars["String"]>;
+  markets?: Maybe<Array<Maybe<Market>>>;
+};
+
 export type MultisigRegistration = {
   __typename?: "MultisigRegistration";
   numberOfSignatures?: Maybe<Scalars["Int"]>;
@@ -375,6 +391,8 @@ export type Query = {
   stats?: Maybe<Stats>;
   /** This query returns the network info available on Lisk Observer */
   networkInfo?: Maybe<NetworkInfo>;
+  /** This query returns the prices of the LSK token across exchanges */
+  marketData?: Maybe<Array<Maybe<MarketData>>>;
 };
 
 export type QueryBlockArgs = {
@@ -1108,6 +1126,32 @@ export type LastTicksQuery = { __typename?: "Query" } & {
       | "LSKJPY"
       | "LSKCNY"
       | "LSKAED"
+    >
+  >;
+};
+
+export type MarketsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type MarketsQuery = { __typename?: "Query" } & {
+  marketData?: Maybe<
+    Array<
+      Maybe<
+        { __typename?: "MarketData" } & Pick<
+          MarketData,
+          "exchangeName" | "image"
+        > & {
+            markets?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: "Market" } & Pick<
+                    Market,
+                    "target" | "last" | "trade_url"
+                  >
+                >
+              >
+            >;
+          }
+      >
     >
   >;
 };
@@ -2372,6 +2416,59 @@ export type LastTicksQueryResult = Apollo.QueryResult<
   LastTicksQuery,
   LastTicksQueryVariables
 >;
+export const MarketsDocument = gql`
+  query markets {
+    marketData {
+      exchangeName
+      image
+      markets {
+        target
+        last
+        trade_url
+      }
+    }
+  }
+`;
+
+/**
+ * __useMarketsQuery__
+ *
+ * To run a query within a React component, call `useMarketsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMarketsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMarketsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMarketsQuery(
+  baseOptions?: Apollo.QueryHookOptions<MarketsQuery, MarketsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<MarketsQuery, MarketsQueryVariables>(
+    MarketsDocument,
+    options
+  );
+}
+export function useMarketsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<MarketsQuery, MarketsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<MarketsQuery, MarketsQueryVariables>(
+    MarketsDocument,
+    options
+  );
+}
+export type MarketsQueryHookResult = ReturnType<typeof useMarketsQuery>;
+export type MarketsLazyQueryHookResult = ReturnType<typeof useMarketsLazyQuery>;
+export type MarketsQueryResult = Apollo.QueryResult<
+  MarketsQuery,
+  MarketsQueryVariables
+>;
 export const NetworkInfoDocument = gql`
   query networkInfo {
     networkInfo {
@@ -3173,6 +3270,8 @@ export type ResolversTypes = {
   KnownAddresses: ResolverTypeWrapper<KnownAddresses>;
   LastTicks: ResolverTypeWrapper<LastTicks>;
   LegacyAccount: ResolverTypeWrapper<LegacyAccount>;
+  Market: ResolverTypeWrapper<Market>;
+  MarketData: ResolverTypeWrapper<MarketData>;
   MultisigRegistration: ResolverTypeWrapper<MultisigRegistration>;
   NetworkInfo: ResolverTypeWrapper<NetworkInfo>;
   NetworkPeersStat: ResolverTypeWrapper<NetworkPeersStat>;
@@ -3247,6 +3346,8 @@ export type ResolversParentTypes = {
   KnownAddresses: KnownAddresses;
   LastTicks: LastTicks;
   LegacyAccount: LegacyAccount;
+  Market: Market;
+  MarketData: MarketData;
   MultisigRegistration: MultisigRegistration;
   NetworkInfo: NetworkInfo;
   NetworkPeersStat: NetworkPeersStat;
@@ -3730,6 +3831,40 @@ export type LegacyAccountResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type MarketResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["Market"] = ResolversParentTypes["Market"]
+> = {
+  base?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  target?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  last?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
+  trade_url?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type MarketDataResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["MarketData"] = ResolversParentTypes["MarketData"]
+> = {
+  exchangeName?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  volume?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  image?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  markets?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes["Market"]>>>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MultisigRegistrationResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes["MultisigRegistration"] = ResolversParentTypes["MultisigRegistration"]
@@ -4117,6 +4252,11 @@ export type QueryResolvers<
   stats?: Resolver<Maybe<ResolversTypes["Stats"]>, ParentType, ContextType>;
   networkInfo?: Resolver<
     Maybe<ResolversTypes["NetworkInfo"]>,
+    ParentType,
+    ContextType
+  >;
+  marketData?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes["MarketData"]>>>,
     ParentType,
     ContextType
   >;
@@ -4614,6 +4754,8 @@ export type Resolvers<ContextType = any> = {
   KnownAddresses?: KnownAddressesResolvers<ContextType>;
   LastTicks?: LastTicksResolvers<ContextType>;
   LegacyAccount?: LegacyAccountResolvers<ContextType>;
+  Market?: MarketResolvers<ContextType>;
+  MarketData?: MarketDataResolvers<ContextType>;
   MultisigRegistration?: MultisigRegistrationResolvers<ContextType>;
   NetworkInfo?: NetworkInfoResolvers<ContextType>;
   NetworkPeersStat?: NetworkPeersStatResolvers<ContextType>;

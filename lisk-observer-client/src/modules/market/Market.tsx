@@ -1,24 +1,23 @@
 import "./style.css";
 import React from "react";
 import MarketCard from "./MarketCard";
-import MarketMock from "./MarketMock.json";
 import { useScrollToTop } from "../utils/hooks";
 import { Card, CardBody, CardHeader, CardTitle, Col, Row } from "reactstrap";
+import { useMarketsQuery } from "../../generated/graphql";
+import { IsErrorOrLoading } from "../utils/IsErrorOrLoading";
 
 const Market = () => {
   useScrollToTop();
 
-  // if (loading || error) {
-  //   return (
-  //     <div className="content">
-  //       <IsErrorOrLoading
-  //         error={!!error || !!pricesError}
-  //         title={"Markets"}
-  //       />
-  //       ;
-  //     </div>
-  //   );
-  // }
+  const { data, error, loading } = useMarketsQuery();
+
+  if (loading || error) {
+    return (
+      <div className="content">
+        <IsErrorOrLoading error={!!error} title={"Markets"} />;
+      </div>
+    );
+  }
 
   return (
     <div className="content">
@@ -31,9 +30,16 @@ const Market = () => {
             </CardHeader>
             <CardBody className="market-cards-body">
               <div className="market-cards-container">
-                {MarketMock.map(({ img, name, link, pairs }) => (
-                  <MarketCard img={img} name={name} link={link} pairs={pairs} />
-                ))}
+                {data!.marketData!.map((market: any) => {
+                  const { image, exchangeName, markets } = market;
+                  return (
+                    <MarketCard
+                      image={image}
+                      name={exchangeName}
+                      pairs={markets}
+                    />
+                  );
+                })}
               </div>
             </CardBody>
           </Card>
