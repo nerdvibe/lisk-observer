@@ -415,7 +415,7 @@
     color: black;
   }
 
-  .white-input{
+  .white-input {
     border-color: white;
     color: white;
   }
@@ -446,12 +446,12 @@
       }
     }
 
-
-    .loader,.loader::before{
+    .loader,
+    .loader::before {
       filter: invert(100%);
     }
 
-    .loader::after{
+    .loader::after {
       filter: invert(100%);
     }
   }
@@ -471,12 +471,13 @@
       width: fit-content;
     }
 
-  .not-found-container{  
-    background-color: #d3d3d3;
-    border-radius: 10px;
-  }
+    .not-found-container {
+      background-color: #d3d3d3;
+      border-radius: 10px;
+    }
 
-  .not-found-text{
-    color: white;
+    .not-found-text {
+      color: white;
+    }
   }
 }

@@ -25,6 +25,7 @@ const WhalesList = React.lazy(() => import("../modules/whalesList/WhalesList"));
 const TermsAndConditions = React.lazy(() =>
   import("../modules/terms-and-conditions/TermsAndConditions")
 );
+const Market = React.lazy(() => import("../modules/market/Market"));
 const NotFoundPage = React.lazy(() => import("../modules/notFound/NotFound"));
 
 export interface Routes {
@@ -121,6 +122,14 @@ export const routes: Routes[] = [
     name: "Whale transactions",
     icon: "money-bill-wave",
     component: WhalesList,
+    layout: "",
+  },
+  {
+    path: "/market",
+    link: "/market",
+    name: "Markets",
+    icon: "gavel",
+    component: Market,
     layout: "",
   },
   {

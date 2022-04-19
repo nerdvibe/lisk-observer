@@ -12,6 +12,7 @@ import { schema as votesSchema } from "../modules/votes/graphql/schema";
 import { schema as knownAddressesSchema } from "../modules/knownAddresses/graphql/schema";
 import { schema as statsSchema } from "../modules/stats/graphql/schema";
 import { schema as networkSchema } from "../modules/network/graphql/schema";
+import { schema as exchangesSchema } from "../modules/exchanges/graphql/schema";
 
 // Resolvers
 import { resolvers as blocksResolvers } from "../modules/blocks/graphql/resolvers";
@@ -29,6 +30,7 @@ export const votesSubschema = { schema: votesSchema };
 export const knownAddressesSubschema = { schema: knownAddressesSchema };
 export const statsSchemaSubSchema = { schema: statsSchema };
 export const networkSchemaSubSchema = { schema: networkSchema };
+export const exchangesSubSchema = { schema: exchangesSchema };
 
 // Merged schemas
 export const graphqlSchema = mergeSchemas({
@@ -44,6 +46,7 @@ export const graphqlSchema = mergeSchemas({
     knownAddressesSchema,
     statsSchema,
     networkSchema,
+    exchangesSchema,
   ],
   resolvers: {
     ...blocksResolvers,

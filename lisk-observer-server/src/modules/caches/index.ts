@@ -27,6 +27,10 @@ import {
   buildNetworkCache,
   initEmptyNetworkCache,
 } from "@modules/network/cache/buildCache";
+import {
+  buildExchangePricesCache,
+  initEmptyExchangePricesCache,
+} from "@modules/exchanges/cache/buildCache";
 
 const log = logger("CACHE_INIT");
 
@@ -40,6 +44,7 @@ const buildPlaceholderCaches = () => {
   initEmptyFiatPricesCache();
   initEmptyPricesCache();
   initEmptyLastPricesCache();
+  initEmptyExchangePricesCache();
 };
 export const buildCaches = async () => {
   buildPlaceholderCaches();
@@ -119,6 +124,19 @@ export const buildCaches = async () => {
       } catch (e) {
         console.log(e);
         log.error("buildFiatPricesCache failed");
+      }
+    })(),
+    (async () => {
+      try {
+        const start = timeStart();
+
+        await buildExchangePricesCache();
+
+        const delta = calculateTimeEnd(start);
+        log.info(`buildExchangePricesCache completed in ${delta}s`);
+      } catch (e) {
+        console.log(e);
+        log.error("buildExchangePricesCache failed");
       }
     })(),
     (async () => {
