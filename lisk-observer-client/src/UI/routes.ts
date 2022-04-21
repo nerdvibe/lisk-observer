@@ -152,13 +152,4 @@ export const routes: Routes[] = [
     component: ChainAnalysis,
     layout: "",
   },
-  {
-    link: "/",
-    path: "/",
-    name: "404",
-    icon: "",
-    component: NotFoundPage,
-    layout: "",
-    hidden: true,
-  },
 ];

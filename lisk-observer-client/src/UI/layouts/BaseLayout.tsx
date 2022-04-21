@@ -16,6 +16,7 @@ import { FavoritePlugin } from "../favouritePlugin/FavouritePlugin";
 import { useLastTicksQuery } from "../../generated/graphql";
 import "./style.css";
 import { CookieBanner } from "../cookieBanner/CookieBanner";
+import NotFoundPage from "../../modules/notFound/NotFound";
 
 const BlockchainOverview = React.lazy(() =>
   import("../../modules/blockchainOverview/BlockchainOverview")
@@ -144,6 +145,7 @@ export const BaseLayout: React.FC<any> = ({ location }) => {
                       key={"known-addresses"}
                     />
                     <Route path="/votes" component={LastVotes} key={"votes"} />
+                    <Route component={NotFoundPage} key={"404NotFound"} />
                   </Switch>
                 </div>
               </Suspense>
