@@ -25,6 +25,9 @@ const WhalesList = React.lazy(() => import("../modules/whalesList/WhalesList"));
 const TermsAndConditions = React.lazy(() =>
   import("../modules/terms-and-conditions/TermsAndConditions")
 );
+const ChainAnalysis = React.lazy(() =>
+  import("../modules/chainAnalysis/ChainAnalysis")
+);
 const Market = React.lazy(() => import("../modules/market/Market"));
 const NotFoundPage = React.lazy(() => import("../modules/notFound/NotFound"));
 
@@ -140,6 +143,14 @@ export const routes: Routes[] = [
     component: TermsAndConditions,
     layout: "",
     hidden: true,
+  },
+  {
+    link: "/chain-analysis",
+    path: "/chain-analysis",
+    name: "Chain analysis",
+    icon: "link",
+    component: ChainAnalysis,
+    layout: "",
   },
   {
     link: "/",

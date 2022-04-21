@@ -31,6 +31,7 @@ import {
   buildExchangePricesCache,
   initEmptyExchangePricesCache,
 } from "@modules/exchanges/cache/buildCache";
+import { buildChainAnalysisCache } from "@modules/chainAnalysis/cache/buildCache";
 
 const log = logger("CACHE_INIT");
 
@@ -137,6 +138,19 @@ export const buildCaches = async () => {
       } catch (e) {
         console.log(e);
         log.error("buildExchangePricesCache failed");
+      }
+    })(),
+    (async () => {
+      try {
+        const start = timeStart();
+
+        await buildChainAnalysisCache();
+
+        const delta = calculateTimeEnd(start);
+        log.info(`buildChainAnalysisCache completed in ${delta}s`);
+      } catch (e) {
+        console.log(e);
+        log.error("buildChainAnalysisCache failed");
       }
     })(),
     (async () => {

@@ -34,6 +34,7 @@ import {
   faBookmark,
   faHeart,
   faMoneyBillWave,
+  faLink,
   faBullhorn,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
@@ -76,6 +77,7 @@ library.add(
   faHeart,
   farHeart,
   faMoneyBillWave,
+  faLink,
   faBullhorn,
   faGavel
 );

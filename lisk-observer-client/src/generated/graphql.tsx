@@ -106,6 +106,15 @@ export type BlockWithTransactions = {
   transactions?: Maybe<Array<Maybe<Transaction>>>;
 };
 
+export type ChainAnalysisData = {
+  __typename?: "ChainAnalysisData";
+  overall?: Maybe<Day>;
+  hour?: Maybe<Day>;
+  day?: Maybe<Day>;
+  week?: Maybe<Day>;
+  month?: Maybe<Day>;
+};
+
 export type Countries = {
   __typename?: "Countries";
   country?: Maybe<Scalars["String"]>;
@@ -128,6 +137,31 @@ export type CurrencyData = {
   currency?: Maybe<Currencies>;
   date?: Maybe<Array<Maybe<Scalars["String"]>>>;
   value?: Maybe<Array<Maybe<Scalars["Float"]>>>;
+};
+
+export type Day = {
+  __typename?: "Day";
+  all?: Maybe<Scalars["Float"]>;
+  transfer?: Maybe<Scalars["Float"]>;
+  multisigregister?: Maybe<Scalars["Float"]>;
+  delegateregister?: Maybe<Scalars["Float"]>;
+  vote?: Maybe<Scalars["Float"]>;
+  tokenunlock?: Maybe<Scalars["Float"]>;
+  delegatemisbehavior?: Maybe<Scalars["Float"]>;
+  reclaimlsk?: Maybe<Scalars["Float"]>;
+  amounttransferredall?: Maybe<Scalars["Float"]>;
+  amounttransferredfromexchanges?: Maybe<Scalars["Float"]>;
+  amounttransferredtoexchanges?: Maybe<Scalars["Float"]>;
+  amounttransferrednonexchanges?: Maybe<Scalars["Float"]>;
+  activeaddresses?: Maybe<Scalars["Float"]>;
+  inactiveaddresses?: Maybe<Scalars["Float"]>;
+  totalrewards?: Maybe<Scalars["Float"]>;
+  totalfees?: Maybe<Scalars["Float"]>;
+  totalburned?: Maybe<Scalars["Float"]>;
+  topamountintransall?: Maybe<Array<Maybe<Topamountintrans>>>;
+  topamountintranstoexchange?: Maybe<Array<Maybe<Topamountintrans>>>;
+  topamountintransfromexchange?: Maybe<Array<Maybe<Topamountintrans>>>;
+  topamountintransnonexchange?: Maybe<Array<Maybe<Topamountintrans>>>;
 };
 
 export type Delegate = {
@@ -393,6 +427,8 @@ export type Query = {
   networkInfo?: Maybe<NetworkInfo>;
   /** This query returns the prices of the LSK token across exchanges */
   marketData?: Maybe<Array<Maybe<MarketData>>>;
+  /** This query returns the prices of the LSK token across exchanges */
+  chainAnalysis?: Maybe<ChainAnalysisData>;
 };
 
 export type QueryBlockArgs = {
@@ -543,6 +579,18 @@ export type TokenUnlock = {
   amount?: Maybe<Scalars["String"]>;
   unvoteHeight?: Maybe<Scalars["String"]>;
   username?: Maybe<Scalars["String"]>;
+};
+
+export type Topamountintrans = {
+  __typename?: "Topamountintrans";
+  height?: Maybe<Scalars["Float"]>;
+  id?: Maybe<Scalars["String"]>;
+  transactionid?: Maybe<Scalars["String"]>;
+  senderaddress?: Maybe<Scalars["String"]>;
+  recipientaddress?: Maybe<Scalars["String"]>;
+  timestamp?: Maybe<Scalars["Float"]>;
+  amount?: Maybe<Scalars["Float"]>;
+  exchange?: Maybe<Scalars["String"]>;
 };
 
 export type Transaction = {
@@ -985,6 +1033,470 @@ export type BlocksByAddressQuery = { __typename?: "Query" } & {
           Pagination,
           "total" | "currentPage" | "from" | "to"
         >
+      >;
+    }
+  >;
+};
+
+export type ChainAnalysisQueryVariables = Exact<{ [key: string]: never }>;
+
+export type ChainAnalysisQuery = { __typename?: "Query" } & {
+  chainAnalysis?: Maybe<
+    { __typename?: "ChainAnalysisData" } & {
+      overall?: Maybe<
+        { __typename?: "Day" } & Pick<
+          Day,
+          | "all"
+          | "transfer"
+          | "multisigregister"
+          | "delegateregister"
+          | "vote"
+          | "tokenunlock"
+          | "delegatemisbehavior"
+          | "reclaimlsk"
+          | "amounttransferredall"
+          | "amounttransferredfromexchanges"
+          | "amounttransferredtoexchanges"
+          | "amounttransferrednonexchanges"
+          | "activeaddresses"
+          | "inactiveaddresses"
+          | "totalrewards"
+          | "totalfees"
+          | "totalburned"
+        > & {
+            topamountintransall?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: "Topamountintrans" } & Pick<
+                    Topamountintrans,
+                    | "height"
+                    | "id"
+                    | "transactionid"
+                    | "senderaddress"
+                    | "recipientaddress"
+                    | "timestamp"
+                    | "amount"
+                    | "exchange"
+                  >
+                >
+              >
+            >;
+            topamountintranstoexchange?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: "Topamountintrans" } & Pick<
+                    Topamountintrans,
+                    | "height"
+                    | "id"
+                    | "transactionid"
+                    | "senderaddress"
+                    | "recipientaddress"
+                    | "timestamp"
+                    | "amount"
+                    | "exchange"
+                  >
+                >
+              >
+            >;
+            topamountintransfromexchange?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: "Topamountintrans" } & Pick<
+                    Topamountintrans,
+                    | "height"
+                    | "id"
+                    | "transactionid"
+                    | "senderaddress"
+                    | "recipientaddress"
+                    | "timestamp"
+                    | "amount"
+                    | "exchange"
+                  >
+                >
+              >
+            >;
+            topamountintransnonexchange?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: "Topamountintrans" } & Pick<
+                    Topamountintrans,
+                    | "height"
+                    | "id"
+                    | "transactionid"
+                    | "senderaddress"
+                    | "recipientaddress"
+                    | "timestamp"
+                    | "amount"
+                    | "exchange"
+                  >
+                >
+              >
+            >;
+          }
+      >;
+      hour?: Maybe<
+        { __typename?: "Day" } & Pick<
+          Day,
+          | "all"
+          | "transfer"
+          | "multisigregister"
+          | "delegateregister"
+          | "vote"
+          | "tokenunlock"
+          | "delegatemisbehavior"
+          | "reclaimlsk"
+          | "amounttransferredall"
+          | "amounttransferredfromexchanges"
+          | "amounttransferredtoexchanges"
+          | "amounttransferrednonexchanges"
+          | "activeaddresses"
+          | "inactiveaddresses"
+          | "totalrewards"
+          | "totalfees"
+          | "totalburned"
+        > & {
+            topamountintransall?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: "Topamountintrans" } & Pick<
+                    Topamountintrans,
+                    | "height"
+                    | "id"
+                    | "transactionid"
+                    | "senderaddress"
+                    | "recipientaddress"
+                    | "timestamp"
+                    | "amount"
+                    | "exchange"
+                  >
+                >
+              >
+            >;
+            topamountintranstoexchange?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: "Topamountintrans" } & Pick<
+                    Topamountintrans,
+                    | "height"
+                    | "id"
+                    | "transactionid"
+                    | "senderaddress"
+                    | "recipientaddress"
+                    | "timestamp"
+                    | "amount"
+                    | "exchange"
+                  >
+                >
+              >
+            >;
+            topamountintransfromexchange?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: "Topamountintrans" } & Pick<
+                    Topamountintrans,
+                    | "height"
+                    | "id"
+                    | "transactionid"
+                    | "senderaddress"
+                    | "recipientaddress"
+                    | "timestamp"
+                    | "amount"
+                    | "exchange"
+                  >
+                >
+              >
+            >;
+            topamountintransnonexchange?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: "Topamountintrans" } & Pick<
+                    Topamountintrans,
+                    | "height"
+                    | "id"
+                    | "transactionid"
+                    | "senderaddress"
+                    | "recipientaddress"
+                    | "timestamp"
+                    | "amount"
+                    | "exchange"
+                  >
+                >
+              >
+            >;
+          }
+      >;
+      day?: Maybe<
+        { __typename?: "Day" } & Pick<
+          Day,
+          | "all"
+          | "transfer"
+          | "multisigregister"
+          | "delegateregister"
+          | "vote"
+          | "tokenunlock"
+          | "delegatemisbehavior"
+          | "reclaimlsk"
+          | "amounttransferredall"
+          | "amounttransferredfromexchanges"
+          | "amounttransferredtoexchanges"
+          | "amounttransferrednonexchanges"
+          | "activeaddresses"
+          | "inactiveaddresses"
+          | "totalrewards"
+          | "totalfees"
+          | "totalburned"
+        > & {
+            topamountintransall?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: "Topamountintrans" } & Pick<
+                    Topamountintrans,
+                    | "height"
+                    | "id"
+                    | "transactionid"
+                    | "senderaddress"
+                    | "recipientaddress"
+                    | "timestamp"
+                    | "amount"
+                    | "exchange"
+                  >
+                >
+              >
+            >;
+            topamountintranstoexchange?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: "Topamountintrans" } & Pick<
+                    Topamountintrans,
+                    | "height"
+                    | "id"
+                    | "transactionid"
+                    | "senderaddress"
+                    | "recipientaddress"
+                    | "timestamp"
+                    | "amount"
+                    | "exchange"
+                  >
+                >
+              >
+            >;
+            topamountintransfromexchange?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: "Topamountintrans" } & Pick<
+                    Topamountintrans,
+                    | "height"
+                    | "id"
+                    | "transactionid"
+                    | "senderaddress"
+                    | "recipientaddress"
+                    | "timestamp"
+                    | "amount"
+                    | "exchange"
+                  >
+                >
+              >
+            >;
+            topamountintransnonexchange?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: "Topamountintrans" } & Pick<
+                    Topamountintrans,
+                    | "height"
+                    | "id"
+                    | "transactionid"
+                    | "senderaddress"
+                    | "recipientaddress"
+                    | "timestamp"
+                    | "amount"
+                    | "exchange"
+                  >
+                >
+              >
+            >;
+          }
+      >;
+      week?: Maybe<
+        { __typename?: "Day" } & Pick<
+          Day,
+          | "all"
+          | "transfer"
+          | "multisigregister"
+          | "delegateregister"
+          | "vote"
+          | "tokenunlock"
+          | "delegatemisbehavior"
+          | "reclaimlsk"
+          | "amounttransferredall"
+          | "amounttransferredfromexchanges"
+          | "amounttransferredtoexchanges"
+          | "amounttransferrednonexchanges"
+          | "activeaddresses"
+          | "inactiveaddresses"
+          | "totalrewards"
+          | "totalfees"
+          | "totalburned"
+        > & {
+            topamountintransall?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: "Topamountintrans" } & Pick<
+                    Topamountintrans,
+                    | "height"
+                    | "id"
+                    | "transactionid"
+                    | "senderaddress"
+                    | "recipientaddress"
+                    | "timestamp"
+                    | "amount"
+                    | "exchange"
+                  >
+                >
+              >
+            >;
+            topamountintranstoexchange?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: "Topamountintrans" } & Pick<
+                    Topamountintrans,
+                    | "height"
+                    | "id"
+                    | "transactionid"
+                    | "senderaddress"
+                    | "recipientaddress"
+                    | "timestamp"
+                    | "amount"
+                    | "exchange"
+                  >
+                >
+              >
+            >;
+            topamountintransfromexchange?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: "Topamountintrans" } & Pick<
+                    Topamountintrans,
+                    | "height"
+                    | "id"
+                    | "transactionid"
+                    | "senderaddress"
+                    | "recipientaddress"
+                    | "timestamp"
+                    | "amount"
+                    | "exchange"
+                  >
+                >
+              >
+            >;
+            topamountintransnonexchange?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: "Topamountintrans" } & Pick<
+                    Topamountintrans,
+                    | "height"
+                    | "id"
+                    | "transactionid"
+                    | "senderaddress"
+                    | "recipientaddress"
+                    | "timestamp"
+                    | "amount"
+                    | "exchange"
+                  >
+                >
+              >
+            >;
+          }
+      >;
+      month?: Maybe<
+        { __typename?: "Day" } & Pick<
+          Day,
+          | "all"
+          | "transfer"
+          | "multisigregister"
+          | "delegateregister"
+          | "vote"
+          | "tokenunlock"
+          | "delegatemisbehavior"
+          | "reclaimlsk"
+          | "amounttransferredall"
+          | "amounttransferredfromexchanges"
+          | "amounttransferredtoexchanges"
+          | "amounttransferrednonexchanges"
+          | "activeaddresses"
+          | "inactiveaddresses"
+          | "totalrewards"
+          | "totalfees"
+          | "totalburned"
+        > & {
+            topamountintransall?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: "Topamountintrans" } & Pick<
+                    Topamountintrans,
+                    | "height"
+                    | "id"
+                    | "transactionid"
+                    | "senderaddress"
+                    | "recipientaddress"
+                    | "timestamp"
+                    | "amount"
+                    | "exchange"
+                  >
+                >
+              >
+            >;
+            topamountintranstoexchange?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: "Topamountintrans" } & Pick<
+                    Topamountintrans,
+                    | "height"
+                    | "id"
+                    | "transactionid"
+                    | "senderaddress"
+                    | "recipientaddress"
+                    | "timestamp"
+                    | "amount"
+                    | "exchange"
+                  >
+                >
+              >
+            >;
+            topamountintransfromexchange?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: "Topamountintrans" } & Pick<
+                    Topamountintrans,
+                    | "height"
+                    | "id"
+                    | "transactionid"
+                    | "senderaddress"
+                    | "recipientaddress"
+                    | "timestamp"
+                    | "amount"
+                    | "exchange"
+                  >
+                >
+              >
+            >;
+            topamountintransnonexchange?: Maybe<
+              Array<
+                Maybe<
+                  { __typename?: "Topamountintrans" } & Pick<
+                    Topamountintrans,
+                    | "height"
+                    | "id"
+                    | "transactionid"
+                    | "senderaddress"
+                    | "recipientaddress"
+                    | "timestamp"
+                    | "amount"
+                    | "exchange"
+                  >
+                >
+              >
+            >;
+          }
       >;
     }
   >;
@@ -2083,6 +2595,357 @@ export type BlocksByAddressLazyQueryHookResult = ReturnType<
 export type BlocksByAddressQueryResult = Apollo.QueryResult<
   BlocksByAddressQuery,
   BlocksByAddressQueryVariables
+>;
+export const ChainAnalysisDocument = gql`
+  query chainAnalysis {
+    chainAnalysis {
+      overall {
+        all
+        transfer
+        multisigregister
+        delegateregister
+        vote
+        tokenunlock
+        delegatemisbehavior
+        reclaimlsk
+        amounttransferredall
+        amounttransferredfromexchanges
+        amounttransferredtoexchanges
+        amounttransferrednonexchanges
+        activeaddresses
+        inactiveaddresses
+        totalrewards
+        totalfees
+        totalburned
+        topamountintransall {
+          height
+          id
+          transactionid
+          senderaddress
+          recipientaddress
+          timestamp
+          amount
+          exchange
+        }
+        topamountintranstoexchange {
+          height
+          id
+          transactionid
+          senderaddress
+          recipientaddress
+          timestamp
+          amount
+          exchange
+        }
+        topamountintransfromexchange {
+          height
+          id
+          transactionid
+          senderaddress
+          recipientaddress
+          timestamp
+          amount
+          exchange
+        }
+        topamountintransnonexchange {
+          height
+          id
+          transactionid
+          senderaddress
+          recipientaddress
+          timestamp
+          amount
+          exchange
+        }
+      }
+      hour {
+        all
+        transfer
+        multisigregister
+        delegateregister
+        vote
+        tokenunlock
+        delegatemisbehavior
+        reclaimlsk
+        amounttransferredall
+        amounttransferredfromexchanges
+        amounttransferredtoexchanges
+        amounttransferrednonexchanges
+        activeaddresses
+        inactiveaddresses
+        totalrewards
+        totalfees
+        totalburned
+        topamountintransall {
+          height
+          id
+          transactionid
+          senderaddress
+          recipientaddress
+          timestamp
+          amount
+          exchange
+        }
+        topamountintranstoexchange {
+          height
+          id
+          transactionid
+          senderaddress
+          recipientaddress
+          timestamp
+          amount
+          exchange
+        }
+        topamountintransfromexchange {
+          height
+          id
+          transactionid
+          senderaddress
+          recipientaddress
+          timestamp
+          amount
+          exchange
+        }
+        topamountintransnonexchange {
+          height
+          id
+          transactionid
+          senderaddress
+          recipientaddress
+          timestamp
+          amount
+          exchange
+        }
+      }
+      day {
+        all
+        transfer
+        multisigregister
+        delegateregister
+        vote
+        tokenunlock
+        delegatemisbehavior
+        reclaimlsk
+        amounttransferredall
+        amounttransferredfromexchanges
+        amounttransferredtoexchanges
+        amounttransferrednonexchanges
+        activeaddresses
+        inactiveaddresses
+        totalrewards
+        totalfees
+        totalburned
+        topamountintransall {
+          height
+          id
+          transactionid
+          senderaddress
+          recipientaddress
+          timestamp
+          amount
+          exchange
+        }
+        topamountintranstoexchange {
+          height
+          id
+          transactionid
+          senderaddress
+          recipientaddress
+          timestamp
+          amount
+          exchange
+        }
+        topamountintransfromexchange {
+          height
+          id
+          transactionid
+          senderaddress
+          recipientaddress
+          timestamp
+          amount
+          exchange
+        }
+        topamountintransnonexchange {
+          height
+          id
+          transactionid
+          senderaddress
+          recipientaddress
+          timestamp
+          amount
+          exchange
+        }
+      }
+      week {
+        all
+        transfer
+        multisigregister
+        delegateregister
+        vote
+        tokenunlock
+        delegatemisbehavior
+        reclaimlsk
+        amounttransferredall
+        amounttransferredfromexchanges
+        amounttransferredtoexchanges
+        amounttransferrednonexchanges
+        activeaddresses
+        inactiveaddresses
+        totalrewards
+        totalfees
+        totalburned
+        topamountintransall {
+          height
+          id
+          transactionid
+          senderaddress
+          recipientaddress
+          timestamp
+          amount
+          exchange
+        }
+        topamountintranstoexchange {
+          height
+          id
+          transactionid
+          senderaddress
+          recipientaddress
+          timestamp
+          amount
+          exchange
+        }
+        topamountintransfromexchange {
+          height
+          id
+          transactionid
+          senderaddress
+          recipientaddress
+          timestamp
+          amount
+          exchange
+        }
+        topamountintransnonexchange {
+          height
+          id
+          transactionid
+          senderaddress
+          recipientaddress
+          timestamp
+          amount
+          exchange
+        }
+      }
+      month {
+        all
+        transfer
+        multisigregister
+        delegateregister
+        vote
+        tokenunlock
+        delegatemisbehavior
+        reclaimlsk
+        amounttransferredall
+        amounttransferredfromexchanges
+        amounttransferredtoexchanges
+        amounttransferrednonexchanges
+        activeaddresses
+        inactiveaddresses
+        totalrewards
+        totalfees
+        totalburned
+        topamountintransall {
+          height
+          id
+          transactionid
+          senderaddress
+          recipientaddress
+          timestamp
+          amount
+          exchange
+        }
+        topamountintranstoexchange {
+          height
+          id
+          transactionid
+          senderaddress
+          recipientaddress
+          timestamp
+          amount
+          exchange
+        }
+        topamountintransfromexchange {
+          height
+          id
+          transactionid
+          senderaddress
+          recipientaddress
+          timestamp
+          amount
+          exchange
+        }
+        topamountintransnonexchange {
+          height
+          id
+          transactionid
+          senderaddress
+          recipientaddress
+          timestamp
+          amount
+          exchange
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useChainAnalysisQuery__
+ *
+ * To run a query within a React component, call `useChainAnalysisQuery` and pass it any options that fit your needs.
+ * When your component renders, `useChainAnalysisQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useChainAnalysisQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useChainAnalysisQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    ChainAnalysisQuery,
+    ChainAnalysisQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<ChainAnalysisQuery, ChainAnalysisQueryVariables>(
+    ChainAnalysisDocument,
+    options
+  );
+}
+export function useChainAnalysisLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ChainAnalysisQuery,
+    ChainAnalysisQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<ChainAnalysisQuery, ChainAnalysisQueryVariables>(
+    ChainAnalysisDocument,
+    options
+  );
+}
+export type ChainAnalysisQueryHookResult = ReturnType<
+  typeof useChainAnalysisQuery
+>;
+export type ChainAnalysisLazyQueryHookResult = ReturnType<
+  typeof useChainAnalysisLazyQuery
+>;
+export type ChainAnalysisQueryResult = Apollo.QueryResult<
+  ChainAnalysisQuery,
+  ChainAnalysisQueryVariables
 >;
 export const DelegatesListDocument = gql`
   query delegatesList($limit: Int!) {
@@ -3264,10 +4127,12 @@ export type ResolversTypes = {
     | ResolversTypes["BlockWithTransactions"]
     | ResolversTypes["BlockLegacy"];
   BlockWithTransactions: ResolverTypeWrapper<BlockWithTransactions>;
+  ChainAnalysisData: ResolverTypeWrapper<ChainAnalysisData>;
   Countries: ResolverTypeWrapper<Countries>;
   Currencies: Currencies;
   CurrencyData: ResolverTypeWrapper<CurrencyData>;
   Float: ResolverTypeWrapper<Scalars["Float"]>;
+  Day: ResolverTypeWrapper<Day>;
   Delegate: ResolverTypeWrapper<Delegate>;
   DelegatesList: ResolverTypeWrapper<DelegatesList>;
   DelegatesWithStats: ResolverTypeWrapper<DelegatesWithStats>;
@@ -3312,6 +4177,7 @@ export type ResolversTypes = {
   TXStats: ResolverTypeWrapper<TxStats>;
   Token: ResolverTypeWrapper<Token>;
   TokenUnlock: ResolverTypeWrapper<TokenUnlock>;
+  Topamountintrans: ResolverTypeWrapper<Topamountintrans>;
   Transaction: ResolverTypeWrapper<Transaction>;
   TransactionLegacy: ResolverTypeWrapper<TransactionLegacy>;
   TransactionSearch: ResolverTypeWrapper<TransactionSearch>;
@@ -3341,9 +4207,11 @@ export type ResolversParentTypes = {
     | ResolversParentTypes["BlockWithTransactions"]
     | ResolversParentTypes["BlockLegacy"];
   BlockWithTransactions: BlockWithTransactions;
+  ChainAnalysisData: ChainAnalysisData;
   Countries: Countries;
   CurrencyData: CurrencyData;
   Float: Scalars["Float"];
+  Day: Day;
   Delegate: Delegate;
   DelegatesList: DelegatesList;
   DelegatesWithStats: DelegatesWithStats;
@@ -3386,6 +4254,7 @@ export type ResolversParentTypes = {
   TXStats: TxStats;
   Token: Token;
   TokenUnlock: TokenUnlock;
+  Topamountintrans: Topamountintrans;
   Transaction: Transaction;
   TransactionLegacy: TransactionLegacy;
   TransactionSearch: TransactionSearch;
@@ -3583,6 +4452,18 @@ export type BlockWithTransactionsResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type ChainAnalysisDataResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["ChainAnalysisData"] = ResolversParentTypes["ChainAnalysisData"]
+> = {
+  overall?: Resolver<Maybe<ResolversTypes["Day"]>, ParentType, ContextType>;
+  hour?: Resolver<Maybe<ResolversTypes["Day"]>, ParentType, ContextType>;
+  day?: Resolver<Maybe<ResolversTypes["Day"]>, ParentType, ContextType>;
+  week?: Resolver<Maybe<ResolversTypes["Day"]>, ParentType, ContextType>;
+  month?: Resolver<Maybe<ResolversTypes["Day"]>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type CountriesResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes["Countries"] = ResolversParentTypes["Countries"]
@@ -3608,6 +4489,102 @@ export type CurrencyDataResolvers<
   >;
   value?: Resolver<
     Maybe<Array<Maybe<ResolversTypes["Float"]>>>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type DayResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["Day"] = ResolversParentTypes["Day"]
+> = {
+  all?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
+  transfer?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
+  multisigregister?: Resolver<
+    Maybe<ResolversTypes["Float"]>,
+    ParentType,
+    ContextType
+  >;
+  delegateregister?: Resolver<
+    Maybe<ResolversTypes["Float"]>,
+    ParentType,
+    ContextType
+  >;
+  vote?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
+  tokenunlock?: Resolver<
+    Maybe<ResolversTypes["Float"]>,
+    ParentType,
+    ContextType
+  >;
+  delegatemisbehavior?: Resolver<
+    Maybe<ResolversTypes["Float"]>,
+    ParentType,
+    ContextType
+  >;
+  reclaimlsk?: Resolver<
+    Maybe<ResolversTypes["Float"]>,
+    ParentType,
+    ContextType
+  >;
+  amounttransferredall?: Resolver<
+    Maybe<ResolversTypes["Float"]>,
+    ParentType,
+    ContextType
+  >;
+  amounttransferredfromexchanges?: Resolver<
+    Maybe<ResolversTypes["Float"]>,
+    ParentType,
+    ContextType
+  >;
+  amounttransferredtoexchanges?: Resolver<
+    Maybe<ResolversTypes["Float"]>,
+    ParentType,
+    ContextType
+  >;
+  amounttransferrednonexchanges?: Resolver<
+    Maybe<ResolversTypes["Float"]>,
+    ParentType,
+    ContextType
+  >;
+  activeaddresses?: Resolver<
+    Maybe<ResolversTypes["Float"]>,
+    ParentType,
+    ContextType
+  >;
+  inactiveaddresses?: Resolver<
+    Maybe<ResolversTypes["Float"]>,
+    ParentType,
+    ContextType
+  >;
+  totalrewards?: Resolver<
+    Maybe<ResolversTypes["Float"]>,
+    ParentType,
+    ContextType
+  >;
+  totalfees?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
+  totalburned?: Resolver<
+    Maybe<ResolversTypes["Float"]>,
+    ParentType,
+    ContextType
+  >;
+  topamountintransall?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes["Topamountintrans"]>>>,
+    ParentType,
+    ContextType
+  >;
+  topamountintranstoexchange?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes["Topamountintrans"]>>>,
+    ParentType,
+    ContextType
+  >;
+  topamountintransfromexchange?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes["Topamountintrans"]>>>,
+    ParentType,
+    ContextType
+  >;
+  topamountintransnonexchange?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes["Topamountintrans"]>>>,
     ParentType,
     ContextType
   >;
@@ -4267,6 +5244,11 @@ export type QueryResolvers<
     ParentType,
     ContextType
   >;
+  chainAnalysis?: Resolver<
+    Maybe<ResolversTypes["ChainAnalysisData"]>,
+    ParentType,
+    ContextType
+  >;
 };
 
 export type ReceivedVotesResolvers<
@@ -4453,6 +5435,33 @@ export type TokenUnlockResolvers<
     ContextType
   >;
   username?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TopamountintransResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes["Topamountintrans"] = ResolversParentTypes["Topamountintrans"]
+> = {
+  height?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  transactionid?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  senderaddress?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  recipientaddress?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  timestamp?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
+  amount?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
+  exchange?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -4750,8 +5759,10 @@ export type Resolvers<ContextType = any> = {
   BlockSearch?: BlockSearchResolvers<ContextType>;
   BlockTransactionsOrLegacy?: BlockTransactionsOrLegacyResolvers<ContextType>;
   BlockWithTransactions?: BlockWithTransactionsResolvers<ContextType>;
+  ChainAnalysisData?: ChainAnalysisDataResolvers<ContextType>;
   Countries?: CountriesResolvers<ContextType>;
   CurrencyData?: CurrencyDataResolvers<ContextType>;
+  Day?: DayResolvers<ContextType>;
   Delegate?: DelegateResolvers<ContextType>;
   DelegatesList?: DelegatesListResolvers<ContextType>;
   DelegatesWithStats?: DelegatesWithStatsResolvers<ContextType>;
@@ -4796,6 +5807,7 @@ export type Resolvers<ContextType = any> = {
   TXStats?: TxStatsResolvers<ContextType>;
   Token?: TokenResolvers<ContextType>;
   TokenUnlock?: TokenUnlockResolvers<ContextType>;
+  Topamountintrans?: TopamountintransResolvers<ContextType>;
   Transaction?: TransactionResolvers<ContextType>;
   TransactionLegacy?: TransactionLegacyResolvers<ContextType>;
   TransactionSearch?: TransactionSearchResolvers<ContextType>;

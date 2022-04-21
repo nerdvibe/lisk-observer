@@ -16,6 +16,7 @@ import { rebuildKnownAddressesCron } from "@modules/cron/knownAddresses";
 import { rebuildHeightsCacheCron } from "@modules/cron/heights";
 import { rebuildStatsCacheCron } from "@modules/cron/stats";
 import { rebuildNetworkCron } from "@modules/cron/netowrk";
+import { rebuildChainAnalysisCron } from "@modules/cron/chainAnalysis";
 
 export const initCron = () => {
   rebuildAccountsCron.start();
@@ -30,4 +31,5 @@ export const initCron = () => {
   rebuildHeightsCacheCron.start();
   rebuildDelegatesPromisesCron.start();
   rebuildNetworkCron.start();
+  rebuildChainAnalysisCron.start();
 };
