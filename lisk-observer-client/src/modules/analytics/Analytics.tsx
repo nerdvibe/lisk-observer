@@ -132,6 +132,19 @@ const Analytics = React.memo(
             />
           </Col>
         </Row>
+        <Row>
+          <Col xs={12} md={12} xl={4}>
+            <TXKindsCard
+              label={"Burned LSK"}
+              stats={{
+                latestValue: 0,
+                month: 0,
+                year: 0,
+              }} // ADD DATA HERE
+              icon={"burn"}
+            />
+          </Col>
+        </Row>
       </div>
     ) : (
       <></>
