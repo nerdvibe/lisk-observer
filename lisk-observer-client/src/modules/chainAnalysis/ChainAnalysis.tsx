@@ -139,6 +139,7 @@ const ChainAnalysis: React.FC = () => {
         <div className="w-100 spaced-values mb-4">
           <div>
             <h4 className="mb-0">Chain analysis</h4>
+            <h5 className="mb-0">Data provided by lisk.support</h5>
           </div>
           <div>{dropdown()}</div>
         </div>
