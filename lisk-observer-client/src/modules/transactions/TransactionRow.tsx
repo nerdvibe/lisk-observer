@@ -86,8 +86,8 @@ export const TransactionsRow: React.FC<Props> = ({ transactions }) => {
             <td>
               <Link to={`/account/${tx.senderId}`}>
                 <DelegateLogo
-                  delegateName={tx.recipientUsername || tx.recipientId}
-                  address={tx.recipientId}
+                  delegateName={tx.senderUsername}
+                  address={tx.senderPublicKey || tx.senderId}
                   size={AvatarSize.SMALL}
                   className="mr-2"
                 />
