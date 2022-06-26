@@ -23,11 +23,12 @@ const NetworkOverview = () => {
   const getEmojiFlag = (countryISO: any) => {
     if (!CC_REGEX.test(countryISO)) {
       const type = typeof countryISO;
-      throw new TypeError(
-        `countryISO argument must be an ISO 3166-1 alpha-2 string, but got '${
-          type === "string" ? countryISO : type
-        }' instead.`
-      );
+      // throw new TypeError(
+      //   `countryISO argument must be an ISO 3166-1 alpha-2 string, but got '${
+      //     type === "string" ? countryISO : type
+      //   }' instead.`
+      // );
+      return "🏳";
     }
     const codePoints = [...countryISO.toUpperCase()].map(
       (c) => c.codePointAt() + OFFSET
